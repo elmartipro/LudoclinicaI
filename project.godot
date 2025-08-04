@@ -14,6 +14,10 @@ config/name="Ludoclinica_HipertermiaMaligna"
 run/main_scene="uid://7xvnykktgq8y"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
+[autoload]
+
+MusicaDeFondo="*res://Assets/musica_de_fondo.tscn"
+
 [display]
 
 window/size/viewport_width=1920
