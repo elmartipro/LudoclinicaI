@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq0kl3xg7kong"]
+
+[ext_resource type="Script" uid="uid://c1vctitsj6loy" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="PackedScene" uid="uid://c8g3ywh6lvn6m" path="res://Player/Pawn.glb" id="1_l8h54"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l8h54"]
+size = Vector3(2.53223, 4.69348, 2.58984)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4ntmi")
+
+[node name="Pawn" parent="." instance=ExtResource("1_l8h54")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37506, 0)
+shape = SubResource("BoxShape3D_l8h54")

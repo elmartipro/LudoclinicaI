@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bky2qlnu210xn"]
+
+[ext_resource type="Script" uid="uid://c0gukvfg2yll8" path="res://Assets/Dice/dice.gd" id="1_0gri7"]
+[ext_resource type="ArrayMesh" uid="uid://n7f6x74pg8un" path="res://Assets/Dice/Dice.obj" id="1_y4aql"]
+[ext_resource type="PackedScene" uid="uid://c4pyewax2yche" path="res://Assets/Dice/dice_raycast.tscn" id="3_q0816"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gri7"]
+albedo_color = Color(0.69813, 0.644001, 0.486557, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4aql"]
+size = Vector3(4.81445, 4.78613, 4.71973)
+
+[node name="Dice" type="RigidBody3D"]
+gravity_scale = 2.0
+freeze = true
+linear_damp = 0.2
+angular_damp = 0.2
+script = ExtResource("1_0gri7")
+
+[node name="Dice" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_y4aql")
+surface_material_override/0 = SubResource("StandardMaterial3D_0gri7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_y4aql")
+
+[node name="Raycasts" type="Node3D" parent="."]
+
+[node name="DiceRayCast1" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 2.33905, 0)
+opposite_side = 6
+
+[node name="DiceRayCast2" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, 0.00877953, 2.38479)
+opposite_side = 4
+
+[node name="DiceRayCast3" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(-1.78814e-07, -1, -4.37114e-08, 3.82137e-15, 4.37114e-08, -1, 1, -1.78814e-07, -3.55271e-15, 2.38007, 0.00877953, -0.0483041)
+opposite_side = 5
+
+[node name="DiceRayCast4" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(0.502704, 0.00103349, 0.864458, 0.862811, 0.0611169, -0.501819, -0.0533517, 0.99813, 0.0298321, 0.0605874, 0.00877905, -2.38053)
+opposite_side = 2
+
+[node name="DiceRayCast5" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(2.66237e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 2.66237e-07, 7.37409e-15, -2.38048, 0.00877953, -0.0483041)
+opposite_side = 3
+
+[node name="DiceRayCast6" parent="Raycasts" instance=ExtResource("3_q0816")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38556, 0)
+opposite_side = 1
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4pyewax2yche"]
+
+[ext_resource type="Script" uid="uid://1igywr51rijv" path="res://Assets/Dice/dice_raycast.gd" id="1_wvmvf"]
+
+[node name="DiceRayCast" type="RayCast3D"]
+transform = Transform3D(3.065, 0, 0, 0, 3.065, 0, 0, 0, 3.065, 0, 0, 0)
+target_position = Vector3(0, -0.1, 0)
+hit_from_inside = true
+script = ExtResource("1_wvmvf")
