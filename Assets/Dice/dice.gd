@@ -10,10 +10,9 @@ var is_rolling = false
 var can_emit : bool = false
 var rolled_value : int
 
-signal roll_finished(value)
-
 func _ready() -> void:
 	start_pos = global_position
+	randomize()
 
 func _input(event):
 	if event.is_action_released("RightClick") && !is_rolling:
