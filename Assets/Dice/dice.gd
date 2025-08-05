@@ -1,12 +1,14 @@
 extends RigidBody3D
 
 @onready var raycasts = $Raycasts.get_children()
+@onready var main := $".."
+@onready var delay := $Timer
 
 var start_pos
 var roll_strength = 20
 
 var is_rolling = false
-var rolled_value : int
+var rolled_value : int = 0
 
 var can_emit = false
 signal roll_finished(rolled_value)
@@ -16,11 +18,17 @@ func _ready() -> void:
 	randomize()
 
 func _input(event):
-	if event.is_action_released("RightClick") && !is_rolling:
+	if event.is_action_released("RightClick") \
+	&& global_position.distance_to(start_pos) < 4\
+	&& !is_rolling \
+	&& delay.is_stopped()\
+	&& main.pawn_landed == true:
+		rolled_value = 0
 		_roll()
 
 func _roll():
 	#Reset state
+	is_rolling = true
 	set_sleeping(false)
 	freeze = false
 	can_emit = true
@@ -37,8 +45,6 @@ func _roll():
 	var throw_vector = Vector3(randf_range(-1,1), randf(), randf_range(-1,1)).normalized()
 	angular_velocity = throw_vector * roll_strength / 1.5
 	apply_central_impulse(throw_vector * roll_strength)
-	
-	is_rolling = true
 
 #Dice stopped (before tween)
 func _on_sleeping_state_changed() -> void:
@@ -56,7 +62,7 @@ func _on_sleeping_state_changed() -> void:
 
 		#tween back, then up and down once landed
 		var tween = create_tween()
-		tween.tween_property($".","position", start_pos,.5)
+		tween.tween_property(self,"position", start_pos,.5)
 		tween.finished.connect(_on_tween_finished)
 
 func _on_tween_finished():
@@ -64,3 +70,5 @@ func _on_tween_finished():
 	if position == start_pos and can_emit == true:
 		emit_signal("roll_finished", rolled_value)
 		can_emit = false
+		delay.start(2)
+		print("roll finished")

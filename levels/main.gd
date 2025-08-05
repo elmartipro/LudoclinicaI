@@ -4,6 +4,8 @@ extends Node
 @onready var dice := $Dice
 @export var game_spaces : Array[Marker3D] #Gamespaces as the collection of spots.
 
+var pawn_landed : bool = true
+
 var place : int = 0 #Initial place
 var place_number : int #init place number
 var remaining_steps : int = 0
@@ -29,19 +31,20 @@ func _on_dice_roll_finished(rolled_value : int) -> void:
 		return 
 	
 	remaining_steps = rolled_value
+	pawn_landed = false
 	_start_next_jump()
 
 func _start_next_jump():
-	if place >= place_number:
-		place = 0
 	jump_start = pawn.global_position
 	jump_end = game_spaces[place].global_position
 	jump_t = 0.0
 	is_jumping = true
 
 func _process(delta):
-	#print(1 / delta) #FPS Counter
+	#FPS Counter
+	#print(1 / delta) 
 	
+	#JUMPING(Step by step)
 	if is_jumping:
 		jump_t += delta / jump_duration
 		if jump_t >= 1.0:
@@ -54,13 +57,15 @@ func _process(delta):
 			remaining_steps -= 1
 			if remaining_steps > 0:
 				_start_next_jump()
-
+			else:
+				pawn_landed = true
 		var t = jump_t
 		var pos = jump_start.lerp(jump_end, t)
-
+		
 		# Parabolic arc
 		var height = 10.0
 		var arc = 4 * height * t * (1 - t)
 		pos.y += arc
-
+		
+		#Assign position
 		pawn.global_position = pos
