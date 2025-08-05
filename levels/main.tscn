@@ -188,43 +188,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1612, 1.12694, 13.1544)
 gizmo_extents = 5.55
 
 [node name="Spot3" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5828, 1.12694, 17.9548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4099, 1.12694, 17.9116)
 gizmo_extents = 5.55
 
 [node name="Spot4" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.56314, 1.12694, 20.7728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30378, 1.12694, 20.7728)
 gizmo_extents = 5.55
 
 [node name="Spot5" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00305343, 1.12694, 21.9442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169852, 1.12694, 21.9442)
 gizmo_extents = 5.55
 
 [node name="Spot6" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.70631, 1.12694, 21.1184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83599, 1.12694, 20.7726)
 gizmo_extents = 5.55
 
 [node name="Spot7" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5899, 1.12694, 18.0218)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9356, 1.12694, 17.6286)
 gizmo_extents = 5.55
 
 [node name="Spot8" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7509, 1.12694, 13.1704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6252, 1.12694, 13.1704)
 gizmo_extents = 5.55
 
 [node name="Spot9" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0218, 1.12694, 7.08041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1947, 1.12694, 6.7346)
 gizmo_extents = 5.55
 
 [node name="Spot10" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4669, 1.12694, 0.16462)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.294, 1.12694, -0.00828545)
 gizmo_extents = 5.55
 
 [node name="Spot11" type="Marker3D" parent="Spots"]
-transform = Transform3D(-0.00398636, 0.0020551, -0.99999, 0.00231222, 0.999995, 0.00204588, 0.999989, -0.00230406, -0.0039911, 20.547, 1.12207, -6.64875)
+transform = Transform3D(-0.00398636, 0.0020551, -0.99999, 0.00231222, 0.999995, 0.00204588, 0.999989, -0.00230406, -0.0039911, 20.4173, 1.12292, -6.38939)
 gizmo_extents = 5.55
 
 [node name="Spot12" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1316, 1.12694, -12.4283)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2181, 1.12694, -12.3851)
 gizmo_extents = 5.55
 
 [node name="Spot13" type="Marker3D" parent="Spots"]
@@ -232,31 +232,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4867, 1.12694, -16.8668)
 gizmo_extents = 5.55
 
 [node name="Spot14" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01598, 1.12694, -20.0666)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.62694, 1.12694, -20.1098)
 gizmo_extents = 5.55
 
 [node name="Spot15" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.203407, 1.12694, -21.2021)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0459292, 1.12694, -20.8032)
 gizmo_extents = 5.55
 
 [node name="Spot16" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50594, 1.12694, -19.757)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63562, 1.12694, -19.6705)
 gizmo_extents = 5.55
 
 [node name="Spot17" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4927, 1.12694, -16.3507)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5792, 1.12694, -16.6101)
 gizmo_extents = 5.55
 
 [node name="Spot18" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9312, 1.12694, -11.809)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1906, 1.12694, -11.7225)
 gizmo_extents = 5.55
 
 [node name="Spot19" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4407, 1.12694, -6.23506)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4407, 1.12694, -6.06215)
 gizmo_extents = 5.55
 
 [node name="Spot20" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3697, 1.12694, 0.267846)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3697, 1.12694, 0.517183)
 gizmo_extents = 5.55
 
 [node name="Podiums" type="Node3D" parent="."]

@@ -22,7 +22,8 @@ MusicaDeFondo="*res://Assets/musica_de_fondo.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/mode="canvas_items"
+window/size/mode=3
+window/stretch/mode="viewport"
 window/canvas_textures/default_texture_filter=0
 
 [file_customization]
