@@ -1,8 +1,7 @@
 extends RigidBody3D
 
 @onready var raycasts = $Raycasts.get_children()
-@onready var main := $".."
-@onready var delay := $Timer
+@onready var pawn := $"../Player"
 
 var start_pos
 var roll_strength = 20
@@ -21,8 +20,7 @@ func _input(event):
 	if event.is_action_released("RightClick") \
 	&& global_position.distance_to(start_pos) < 4\
 	&& !is_rolling \
-	&& delay.is_stopped()\
-	&& main.pawn_landed == true:
+	&& pawn.pawn_landed == true:
 		rolled_value = 0
 		_roll()
 
@@ -70,5 +68,4 @@ func _on_tween_finished():
 	if position == start_pos and can_emit == true:
 		emit_signal("roll_finished", rolled_value)
 		can_emit = false
-		delay.start(2)
 		print("roll finished")
