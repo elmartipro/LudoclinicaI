@@ -13,7 +13,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bbkn8k1v5jo4v" path="res://Assets/Podium/podiumG.obj" id="11_21ko3"]
 [ext_resource type="Material" uid="uid://dgoskvw825aug" path="res://Materials/neon.tres" id="12_c7dyn"]
 [ext_resource type="ArrayMesh" uid="uid://crepwd8p8e6n8" path="res://Assets/Podium/PodiumH.obj" id="13_1fput"]
-[ext_resource type="Script" uid="uid://djwkdv5sp3vh7" path="res://levels/control.gd" id="14_6yxbg"]
+[ext_resource type="Script" path="res://levels/control.gd" id="14_6yxbg"]
 [ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://Artifex.otf" id="15_4fc0e"]
 [ext_resource type="Texture2D" uid="uid://c7y3qen7kjo8x" path="res://UI/Layer 2 1.png" id="15_21ko3"]
 

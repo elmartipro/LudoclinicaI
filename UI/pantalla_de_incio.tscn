@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://u5hvgkamgfui"]
+[gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
 
-[ext_resource type="Script" path="res://UI/pantalla_de_incio.gd" id="1_5je2x"]
+[ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_toc2r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toc2r"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5je2x"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrvp3"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="PantallaDeIncio" type="Control"]
 layout_mode = 3
@@ -57,79 +66,48 @@ Hipertermia Maligna
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Play" type="Button" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -156.0
-offset_right = 120.0
-offset_bottom = -79.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 50
-text = "Jugar
-"
-
-[node name="Play3" type="Button" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -130.0
-offset_top = 128.0
-offset_right = 110.0
-offset_bottom = 205.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 50
-text = "Salir
-"
-
-[node name="Play2" type="Button" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -176.0
-offset_top = -27.0
-offset_right = 169.0
-offset_bottom = 58.0
+offset_left = -172.5
+offset_top = -150.5
+offset_right = 172.5
+offset_bottom = 150.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_toc2r")
+text = "Jugar
+"
+
+[node name="Salir" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_5je2x")
+text = "Salir
+"
+
+[node name="Configuracion" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0.581734, 0.815526, 0.703044, 1)
 theme_override_colors/icon_hover_pressed_color = Color(0.152038, 0.65217, 0.743349, 1)
 theme_override_colors/icon_pressed_color = Color(0.446443, 0.813414, 0.890645, 1)
 theme_override_colors/font_outline_color = Color(0.379358, 0.716963, 0.780833, 1)
 theme_override_colors/font_pressed_color = Color(0.851568, 0.857552, 0.226858, 1)
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_qrvp3")
 text = "Configuracion
 "
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1456.0
-offset_top = 744.0
-offset_right = 1544.0
-offset_bottom = 824.0
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1456.0
-offset_top = 624.0
-offset_right = 1544.0
-offset_bottom = 704.0
-
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Play3" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="VBoxContainer/Configuracion" to="." method="_on_configuracion_pressed"]
