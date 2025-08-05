@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bifj44up0nwnm"]
+[gd_scene load_steps=0 format=3 uid="uid://bifj44up0nwnm"]
 
 [node name="MusicaDeFondo" type="AudioStreamPlayer2D"]
 bus = &"MusicaDeFondo"
