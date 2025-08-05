@@ -137,7 +137,7 @@ script = ExtResource("1_wdj6m")
 game_spaces = [NodePath("Spots/Spot1"), NodePath("Spots/Spot2"), NodePath("Spots/Spot3"), NodePath("Spots/Spot4"), NodePath("Spots/Spot5"), NodePath("Spots/Spot6"), NodePath("Spots/Spot7"), NodePath("Spots/Spot8"), NodePath("Spots/Spot9"), NodePath("Spots/Spot10"), NodePath("Spots/Spot11"), NodePath("Spots/Spot12"), NodePath("Spots/Spot13"), NodePath("Spots/Spot14"), NodePath("Spots/Spot15"), NodePath("Spots/Spot16"), NodePath("Spots/Spot17"), NodePath("Spots/Spot18"), NodePath("Spots/Spot19"), NodePath("Spots/Spot20")]
 
 [node name="Dice" parent="." instance=ExtResource("4_m1504")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.25646, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.785, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01951, -0.724548)

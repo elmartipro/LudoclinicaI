@@ -50,4 +50,6 @@ opposite_side = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38556, 0)
 opposite_side = 1
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
