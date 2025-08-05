@@ -6,9 +6,10 @@ var start_pos
 var roll_strength = 20
 
 var is_rolling = false
-
-var can_emit : bool = false
 var rolled_value : int
+
+var can_emit = false
+signal roll_finished(rolled_value)
 
 func _ready() -> void:
 	start_pos = global_position
@@ -22,6 +23,7 @@ func _roll():
 	#Reset state
 	set_sleeping(false)
 	freeze = false
+	can_emit = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 	
@@ -37,7 +39,6 @@ func _roll():
 	apply_central_impulse(throw_vector * roll_strength)
 	
 	is_rolling = true
-	can_emit = true
 
 #Dice stopped (before tween)
 func _on_sleeping_state_changed() -> void:
@@ -47,17 +48,19 @@ func _on_sleeping_state_changed() -> void:
 			if raycast.is_colliding():
 				rolled_value = raycast.opposite_side
 				landed_on_side = true
+
 		#is stopped but not landed
 		if !landed_on_side:
 			_roll()
 			return
-		#tween once landed
+
+		#tween back, then up and down once landed
 		var tween = create_tween()
 		tween.tween_property($".","position", start_pos,.5)
 		tween.finished.connect(_on_tween_finished)
 
 func _on_tween_finished():
 	is_rolling = false
-	if position == start_pos && can_emit:
-		print(rolled_value)
+	if position == start_pos and can_emit == true:
+		emit_signal("roll_finished", rolled_value)
 		can_emit = false
