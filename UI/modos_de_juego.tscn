@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://7kvam30126dw"]
+[gd_scene load_steps=4 format=3 uid="uid://cp8yr68r0oslm"]
 
 [ext_resource type="Script" uid="uid://c2mo0x867t3ny" path="res://UI/modos_de_juego.gd" id="1_45pl6"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_dd8w2"]
@@ -21,7 +21,12 @@ offset_right = 2224.0
 offset_bottom = 1256.0
 texture = ExtResource("1_dd8w2")
 
-[node name="ModoDeJuego1" type="Button" parent="."]
+[node name="Juego3" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Juego1" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -34,7 +39,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 46
 text = "Modo De Juego 1"
 
-[node name="ModoDeJuego2" type="Button" parent="."]
+[node name="Juego2" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -61,4 +66,5 @@ position = Vector2(112, 1000)
 scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_qbo6h")
 
+[connection signal="pressed" from="Juego1" to="." method="_on_juego_1_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

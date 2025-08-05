@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=3 format=3 uid="uid://u5hvgkamgfui"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_toc2r"]
@@ -40,8 +40,8 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -352.0
 offset_top = -540.0
-offset_right = 353.0
-offset_bottom = -141.0
+offset_right = 381.0
+offset_bottom = -155.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
@@ -75,6 +75,24 @@ theme_override_font_sizes/font_size = 50
 text = "Jugar
 "
 
+[node name="Play3" type="Button" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = 128.0
+offset_right = 110.0
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Salir
+"
+
 [node name="Play2" type="Button" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 1)
@@ -84,12 +102,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = 52.0
-offset_right = 177.0
-offset_bottom = 137.0
+offset_left = -176.0
+offset_top = -27.0
+offset_right = 169.0
+offset_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(0.581734, 0.815526, 0.703044, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.152038, 0.65217, 0.743349, 1)
+theme_override_colors/icon_pressed_color = Color(0.446443, 0.813414, 0.890645, 1)
+theme_override_colors/font_outline_color = Color(0.379358, 0.716963, 0.780833, 1)
+theme_override_colors/font_pressed_color = Color(0.851568, 0.857552, 0.226858, 1)
 theme_override_font_sizes/font_size = 50
 text = "Configuracion
 "
@@ -109,3 +132,4 @@ offset_right = 1544.0
 offset_bottom = 704.0
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Play3" to="." method="_on_play_pressed"]

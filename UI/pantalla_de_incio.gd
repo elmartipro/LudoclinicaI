@@ -9,3 +9,4 @@ func _ready():
 # Jugar redirecciona a la escena de escoger modos 
 func _on_play_pressed(): 
 	get_tree().change_scene_to_file("res://UI/modos_de_juego.tscn")
+	
