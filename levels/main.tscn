@@ -496,3 +496,5 @@ surface_material_override/1 = ExtResource("12_c7dyn")
 transform = Transform3D(-0.528912, 0, -0.848677, 0, 1, 0, 0.848677, 0, -0.528912, 0.0243396, 0.59727, 0.0428353)
 light_color = Color(0.928587, 0.463101, 0.218143, 1)
 light_indirect_energy = 0.0
+
+[connection signal="roll_finished" from="Dice" to="." method="_on_dice_roll_finished"]
