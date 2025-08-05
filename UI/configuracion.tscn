@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwlcv4lakuc7f"]
+
+[ext_resource type="Script" uid="uid://x3ine3l4blbm" path="res://UI/configuracion.gd" id="1_jtylf"]
+[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_uk8ga"]
+[ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="2_vw167"]
+[ext_resource type="Script" uid="uid://cccl5se7was1s" path="res://UI/volver_1.gd" id="3_vycbt"]
+[ext_resource type="Script" uid="uid://og8qqkjn132" path="res://UI/music_control.gd" id="5_vycbt"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ekisy"]
+color = Color(1, 1, 1, 1)
+thickness = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_w0fq1"]
+color = Color(0.0196078, 0.784314, 0.67451, 1)
+thickness = 8
+
+[node name="Configuracion" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jtylf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -240.0
+offset_top = -144.0
+offset_right = 2208.0
+offset_bottom = 1352.0
+texture = ExtResource("1_uk8ga")
+
+[node name="Label" type="Label" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -344.0
+offset_right = 344.0
+offset_bottom = 256.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 70
+text = "Configuracion"
+horizontal_alignment = 1
+
+[node name="Volver2" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.007
+offset_left = 80.0
+offset_top = 952.0
+offset_right = 240.0
+offset_bottom = 1016.44
+script = ExtResource("3_vycbt")
+
+[node name="E531a6d28931f7c224Be0c595c5f5Cf1-flecha-izquierda-de-graffiti" type="Sprite2D" parent="."]
+position = Vector2(160, 992)
+scale = Vector2(0.265625, 0.210937)
+texture = ExtResource("2_vw167")
+
+[node name="MusicControl" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 264.0
+offset_right = 1184.0
+offset_bottom = 496.0
+theme_override_styles/slider = SubResource("StyleBoxLine_ekisy")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_w0fq1")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_w0fq1")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("5_vycbt")
+audio_bus_name = "MusicaDeFondo"
+
+[node name="Label2" type="Label" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 304.0
+offset_top = 320.0
+offset_right = 728.0
+offset_bottom = 440.0
+theme_override_font_sizes/font_size = 40
+text = "Volumen de la musica"
+vertical_alignment = 1
+
+[connection signal="pressed" from="Volver2" to="." method="_on_volver_2_pressed"]
+[connection signal="value_changed" from="MusicControl" to="." method="_on_music_control_value_changed"]
+[connection signal="value_changed" from="MusicControl" to="MusicControl" method="_on_value_changed"]

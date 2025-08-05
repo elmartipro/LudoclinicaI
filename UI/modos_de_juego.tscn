@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp8yr68r0oslm"]
+[gd_scene load_steps=4 format=3 uid="uid://7kvam30126dw"]
 
 [ext_resource type="Script" uid="uid://c2mo0x867t3ny" path="res://UI/modos_de_juego.gd" id="1_45pl6"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_dd8w2"]
@@ -52,19 +52,20 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 46
 text = "Modo De Juego 2"
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="Volver1" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 0.007
-offset_left = 32.0
+offset_left = 56.0
 offset_top = 960.0
-offset_right = 176.0
+offset_right = 200.0
 offset_bottom = 1032.44
 
 [node name="E531a6d28931f7c224Be0c595c5f5Cf1-flecha-izquierda-de-graffiti" type="Sprite2D" parent="."]
-position = Vector2(112, 1000)
+position = Vector2(128, 1000)
 scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_qbo6h")
 
 [connection signal="pressed" from="Juego1" to="." method="_on_juego_1_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Volver1" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]
