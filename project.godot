@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ludoclinica_HipertermiaMaligna"
-run/main_scene="uid://bkq3dsr1qllge"
+run/main_scene="uid://co4t6w1l33sl5"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [autoload]

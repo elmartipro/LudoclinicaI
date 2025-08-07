@@ -1,7 +1,7 @@
 extends Control
 
 # Musica De el juego 
-var sonido_fondo = preload("res://UI/no-copyright-music-corporate-medical-338514 (2).mp3") 
+var sonido_fondo = load("res://UI/no-copyright-music-corporate-medical-338514 (2).mp3") 
 
 func _ready():
 	MusicaDeFondo.stream = sonido_fondo

@@ -4,6 +4,7 @@ extends Node
 @onready var dice := $Dice
 @export var game_spaces : Array[Marker3D] #Gamespaces as the collection of spots.
 
+
 var pawn_landed : bool = true
 
 var place : int = 0 #Initial place
