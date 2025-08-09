@@ -1,9 +1,0 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://ds0h315o3hvp7"]
-
-[resource]
-bus/1/name = &"MusicaDeFondo"
-bus/1/solo = false
-bus/1/mute = false
-bus/1/bypass_fx = false
-bus/1/volume_db = 0.464998
-bus/1/send = &"Master"
