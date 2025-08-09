@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=38 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -13,7 +13,8 @@
 [ext_resource type="ArrayMesh" uid="uid://bbkn8k1v5jo4v" path="res://Assets/Podium/podiumG.obj" id="11_21ko3"]
 [ext_resource type="Material" uid="uid://dgoskvw825aug" path="res://Materials/neon.tres" id="12_c7dyn"]
 [ext_resource type="ArrayMesh" uid="uid://crepwd8p8e6n8" path="res://Assets/Podium/PodiumH.obj" id="13_1fput"]
-[ext_resource type="Script" uid="uid://djwkdv5sp3vh7" path="res://levels/control.gd" id="14_6yxbg"]
+[ext_resource type="Script" path="res://levels/control.gd" id="14_6yxbg"]
+[ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://UI/Artifex.otf" id="15_4fc0e"]
 [ext_resource type="Texture2D" uid="uid://c7y3qen7kjo8x" path="res://UI/Layer 2 1.png" id="15_21ko3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wdj6m"]
@@ -129,9 +130,10 @@ emission_enabled = true
 emission = Color(0.160214, 0.532824, 0.62444, 1)
 emission_energy_multiplier = 2.04
 
-[node name="Main" type="Node" node_paths=PackedStringArray("game_spaces")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21ko3"]
+
+[node name="Main" type="Node"]
 script = ExtResource("1_wdj6m")
-game_spaces = [NodePath("Spots/Spot1"), NodePath("Spots/Spot2"), NodePath("Spots/Spot3"), NodePath("Spots/Spot4"), NodePath("Spots/Spot5"), NodePath("Spots/Spot6"), NodePath("Spots/Spot7"), NodePath("Spots/Spot8"), NodePath("Spots/Spot9"), NodePath("Spots/Spot10"), NodePath("Spots/Spot11"), NodePath("Spots/Spot12"), NodePath("Spots/Spot13"), NodePath("Spots/Spot14"), NodePath("Spots/Spot15"), NodePath("Spots/Spot16"), NodePath("Spots/Spot17"), NodePath("Spots/Spot18"), NodePath("Spots/Spot19"), NodePath("Spots/Spot20")]
 
 [node name="Dice" parent="." instance=ExtResource("4_m1504")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.785, 0)
@@ -149,8 +151,9 @@ mesh = SubResource("CylinderMesh_c7dyn")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_woytj")
 
-[node name="Player" parent="." instance=ExtResource("1_2262g")]
+[node name="Player" parent="." node_paths=PackedStringArray("game_spaces") instance=ExtResource("1_2262g")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -21.4756, 1.44175, 0.408452)
+game_spaces = [NodePath("../Spots/Spot1"), NodePath("../Spots/Spot2"), NodePath("../Spots/Spot3"), NodePath("../Spots/Spot4"), NodePath("../Spots/Spot5"), NodePath("../Spots/Spot6"), NodePath("../Spots/Spot7"), NodePath("../Spots/Spot8"), NodePath("../Spots/Spot9"), NodePath("../Spots/Spot10"), NodePath("../Spots/Spot11"), NodePath("../Spots/Spot12"), NodePath("../Spots/Spot13"), NodePath("../Spots/Spot14"), NodePath("../Spots/Spot15"), NodePath("../Spots/Spot16"), NodePath("../Spots/Spot17"), NodePath("../Spots/Spot18"), NodePath("../Spots/Spot19"), NodePath("../Spots/Spot20")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-2.54822e-08, -0.919945, 0.392048, -8.02619e-09, 0.392048, 0.919945, -1, 2.02956e-08, -1.73739e-08, 28.3041, 67.7078, -0.925628)
@@ -185,43 +188,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1612, 1.12694, 13.1544)
 gizmo_extents = 5.55
 
 [node name="Spot3" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5828, 1.12694, 17.9548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4099, 1.12694, 17.9116)
 gizmo_extents = 5.55
 
 [node name="Spot4" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.56314, 1.12694, 20.7728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30378, 1.12694, 20.7728)
 gizmo_extents = 5.55
 
 [node name="Spot5" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00305343, 1.12694, 21.9442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169852, 1.12694, 21.9442)
 gizmo_extents = 5.55
 
 [node name="Spot6" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.70631, 1.12694, 21.1184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83599, 1.12694, 20.7726)
 gizmo_extents = 5.55
 
 [node name="Spot7" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5899, 1.12694, 18.0218)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9356, 1.12694, 17.6286)
 gizmo_extents = 5.55
 
 [node name="Spot8" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7509, 1.12694, 13.1704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6252, 1.12694, 13.1704)
 gizmo_extents = 5.55
 
 [node name="Spot9" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0218, 1.12694, 7.08041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1947, 1.12694, 6.7346)
 gizmo_extents = 5.55
 
 [node name="Spot10" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4669, 1.12694, 0.16462)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.294, 1.12694, -0.00828545)
 gizmo_extents = 5.55
 
 [node name="Spot11" type="Marker3D" parent="Spots"]
-transform = Transform3D(-0.00398636, 0.0020551, -0.99999, 0.00231222, 0.999995, 0.00204588, 0.999989, -0.00230406, -0.0039911, 20.547, 1.12207, -6.64875)
+transform = Transform3D(-0.00398636, 0.0020551, -0.99999, 0.00231222, 0.999995, 0.00204588, 0.999989, -0.00230406, -0.0039911, 20.4173, 1.12292, -6.38939)
 gizmo_extents = 5.55
 
 [node name="Spot12" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1316, 1.12694, -12.4283)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2181, 1.12694, -12.3851)
 gizmo_extents = 5.55
 
 [node name="Spot13" type="Marker3D" parent="Spots"]
@@ -229,31 +232,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4867, 1.12694, -16.8668)
 gizmo_extents = 5.55
 
 [node name="Spot14" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01598, 1.12694, -20.0666)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.62694, 1.12694, -20.1098)
 gizmo_extents = 5.55
 
 [node name="Spot15" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.203407, 1.12694, -21.2021)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0459292, 1.12694, -20.8032)
 gizmo_extents = 5.55
 
 [node name="Spot16" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50594, 1.12694, -19.757)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63562, 1.12694, -19.6705)
 gizmo_extents = 5.55
 
 [node name="Spot17" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4927, 1.12694, -16.3507)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5792, 1.12694, -16.6101)
 gizmo_extents = 5.55
 
 [node name="Spot18" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9312, 1.12694, -11.809)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1906, 1.12694, -11.7225)
 gizmo_extents = 5.55
 
 [node name="Spot19" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4407, 1.12694, -6.23506)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4407, 1.12694, -6.06215)
 gizmo_extents = 5.55
 
 [node name="Spot20" type="Marker3D" parent="Spots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3697, 1.12694, 0.267846)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3697, 1.12694, 0.517183)
 gizmo_extents = 5.55
 
 [node name="Podiums" type="Node3D" parent="."]
@@ -540,32 +543,30 @@ texture = ExtResource("15_21ko3")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MostrarVentana" type="Button" parent="Control/CanvasLayer"]
-offset_left = 36.0
-offset_top = 352.0
-offset_right = 99.0
-offset_bottom = 396.0
-text = "le"
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 18.0
+offset_right = 1538.0
+offset_bottom = 108.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_21ko3")
 
-[node name="VentanaEmergente" type="Window" parent="Control/CanvasLayer"]
-position = Vector2i(900, 500)
+[node name="Timer" type="Timer" parent="Control/PanelContainer"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="Control/PanelContainer"]
 visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/line_spacing = 5
+theme_override_constants/paragraph_spacing = 10
+theme_override_fonts/font = ExtResource("15_4fc0e")
+theme_override_font_sizes/font_size = 20
+text = "    !Bienvenido a Ludo Trivia,  En este Juego vas a refrescar tus Conocimientos¡
 
-[node name="TextoVentana" type="Label" parent="Control/CanvasLayer/VentanaEmergente"]
-anchors_preset = -1
-anchor_top = -0.05
-anchor_bottom = -0.05
-offset_left = 4.0
-offset_top = 21.0
-offset_right = 97.0
-offset_bottom = 84.0
-text = "     lorem"
+"
 
-[node name="CerrarVentana" type="Button" parent="Control/CanvasLayer/VentanaEmergente"]
-offset_left = 77.0
-offset_top = -31.0
-offset_right = 104.0
-offset_bottom = -7.0
-
-[connection signal="pressed" from="Control/CanvasLayer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Control/CanvasLayer/Button" to="Control" method="_on_button_pressed"]
+[connection signal="timeout" from="Control/PanelContainer/Timer" to="." method="_on_timer_timeout"]

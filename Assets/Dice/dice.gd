@@ -1,13 +1,14 @@
 extends RigidBody3D
 
 @onready var raycasts = $Raycasts.get_children()
-@onready var main := $".."
-@onready var delay := $Timer
+@onready var pawn := $"../Player"
 
 var start_pos
 var roll_strength = 20
 
 var is_rolling = false
+var centering = false
+
 var rolled_value : int = 0
 
 var can_emit = false
@@ -21,8 +22,7 @@ func _input(event):
 	if event.is_action_released("RightClick") \
 	&& global_position.distance_to(start_pos) < 4\
 	&& !is_rolling \
-	&& delay.is_stopped()\
-	&& main.pawn_landed == true:
+	&& pawn.pawn_landed == true:
 		rolled_value = 0
 		_roll()
 
@@ -32,6 +32,7 @@ func _roll():
 	set_sleeping(false)
 	freeze = false
 	can_emit = true
+	centering = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 	
@@ -48,7 +49,7 @@ func _roll():
 
 #Dice stopped (before tween)
 func _on_sleeping_state_changed() -> void:
-	if sleeping:
+	if sleeping && centering:
 		var landed_on_side = false
 		for raycast in raycasts:
 			if raycast.is_colliding():
@@ -66,9 +67,9 @@ func _on_sleeping_state_changed() -> void:
 		tween.finished.connect(_on_tween_finished)
 
 func _on_tween_finished():
+	centering = false
 	is_rolling = false
 	if position == start_pos and can_emit == true:
 		emit_signal("roll_finished", rolled_value)
 		can_emit = false
-		delay.start(2)
 		print("roll finished")
