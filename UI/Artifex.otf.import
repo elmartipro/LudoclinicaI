@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://4ttfqhjaviyd"
-path="res://.godot/imported/Artifex.otf-f5b8ed985b919b209e74da991c0b61ba.fontdata"
+path="res://.godot/imported/Artifex.otf-7d5b0917638a8e984be98c457fe068c5.fontdata"
 
 [deps]
 
-source_file="res://Artifex.otf"
-dest_files=["res://.godot/imported/Artifex.otf-f5b8ed985b919b209e74da991c0b61ba.fontdata"]
+source_file="res://UI/Artifex.otf"
+dest_files=["res://.godot/imported/Artifex.otf-7d5b0917638a8e984be98c457fe068c5.fontdata"]
 
 [params]
 
