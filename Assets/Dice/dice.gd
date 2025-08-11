@@ -2,22 +2,31 @@ extends RigidBody3D
 
 @onready var raycasts = $Raycasts.get_children()
 @onready var pawn := $"../Player"
+@onready var collision_sound: AudioStreamPlayer = $AudioStreamPlayer
 
 var start_pos
 var roll_strength = 20
-
 var is_rolling = false
 var centering = false
-
 var rolled_value : int = 0
-
 var can_emit = false
+var min_collision_force =  0.000001  #Minimum force needed to play sound
+
 signal roll_finished(rolled_value)
 
 func _ready() -> void:
 	start_pos = global_position
 	randomize()
-
+	contact_monitor = true
+	max_contacts_reported = 10
+	
+	# Debug: Check if audio is properly configured
+	if collision_sound == null:
+		print("ERROR: CollisionSound node not found!")
+	elif collision_sound.stream == null:
+		print("ERROR: No audio stream assigned to CollisionSound!")
+	else:
+		print("Audio setup OK - Stream: ", collision_sound.stream)
 func _input(event):
 	if event.is_action_released("RightClick") \
 	&& global_position.distance_to(start_pos) < 4\
@@ -55,12 +64,10 @@ func _on_sleeping_state_changed() -> void:
 			if raycast.is_colliding():
 				rolled_value = raycast.opposite_side
 				landed_on_side = true
-
 		#is stopped but not landed
 		if !landed_on_side:
 			_roll()
 			return
-
 		#tween back, then up and down once landed
 		var tween = create_tween()
 		tween.tween_property(self,"position", start_pos,.5)
@@ -73,3 +80,18 @@ func _on_tween_finished():
 		emit_signal("roll_finished", rolled_value)
 		can_emit = false
 		print("roll finished")
+
+func _integrate_forces(state):
+	if is_rolling:
+		set_sleeping(false)  # Prevent sleeping during rolls
+	
+	if state.get_contact_count() > 0:
+		# Calculate collision force/velocity to avoid playing sound on tiny contacts
+		var collision_force = linear_velocity.length()
+		
+		print("Contacts detected: ", state.get_contact_count(), " Force: ", collision_force)
+		
+		# Only play if force is significant and sound isn't already playing
+		if collision_force > min_collision_force and not collision_sound.playing:
+			print("Playing collision sound - Force: ", collision_force)
+			collision_sound.play()

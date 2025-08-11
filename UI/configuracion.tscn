@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwlcv4lakuc7f"]
+[gd_scene load_steps=8 format=3 uid="uid://bbv6n8qvqb3hj"]
 
 [ext_resource type="Script" uid="uid://x3ine3l4blbm" path="res://UI/configuracion.gd" id="1_jtylf"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_uk8ga"]
 [ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="2_vw167"]
-[ext_resource type="Script" uid="uid://cccl5se7was1s" path="res://UI/volver_1.gd" id="3_vycbt"]
+[ext_resource type="Script" path="res://UI/volver_1.gd" id="3_vycbt"]
 [ext_resource type="Script" uid="uid://og8qqkjn132" path="res://UI/music_control.gd" id="5_vycbt"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ekisy"]
@@ -73,7 +73,6 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 script = ExtResource("5_vycbt")
-audio_bus_name = "MusicaDeFondo"
 
 [node name="Label2" type="Label" parent="."]
 self_modulate = Color(0, 0, 0, 1)
