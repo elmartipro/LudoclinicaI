@@ -1,13 +1,22 @@
 extends Control
-#Define Panel y El timer
-@onready var panel = $PanelContainer
-@onready var timer = $PanelContainer/Timer
 
+@onready var ventana = $CanvasLayer/VentanaEmergente
+@onready var texto_ventana = $CanvasLayer/VentanaEmergente/TextoVentana
+@onready var boton_mostrar = $CanvasLayer/MostrarVentana
+@onready var boton_cerrar = $CanvasLayer/VentanaEmergente/CerrarVentana
 
 func _ready():
-	panel.visible = false #hace que el panel este invisible
-	timer.start() #el timer comienza, tarda 2 seg
-	timer.timeout.connect(_on_Timer_timeout)
+	ventana.visible = false
+	boton_mostrar.pressed.connect(_on_mostrar_ventana)
+	boton_cerrar.pressed.connect(_on_cerrar_ventana)
 
-func _on_Timer_timeout():
-	panel.visible = true #vuelve visible el panel con texto cuando el timer llega a 0
+func _on_mostrar_ventana():
+	texto_ventana.text = "🩺 ¡Bienvenido a Ludoclínica!"
+	ventana.popup_centered()  # Muestra la ventana centrada
+
+func _on_cerrar_ventana():
+	ventana.hide()
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://UI/pantalla_de_incio.tscn")

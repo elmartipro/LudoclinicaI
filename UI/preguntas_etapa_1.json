@@ -1,0 +1,230 @@
+{
+  "Epidemiología": [
+    {
+      "texto": "¿Cuál de las siguientes afirmaciones es más precisa respecto a la epidemiología y el patrón hereditario de la SHM?",
+      "opciones": [
+        "La SHM presenta herencia autosómica recesiva, con mayor prevalencia en mujeres adultas.",
+        "La SHM tiene una prevalencia global estable y afecta exclusivamente a individuos de ascendencia europea.",
+        "La SHM es una condición autosómica dominante con penetrancia completa y distribución etaria homogénea.",
+        "La SHM tiene herencia autosómica dominante con expresividad variable y mayor incidencia en hombres luego de la adolescencia"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La SHM se transmite como un rasgo autosómico dominante, lo que significa que una sola copia del gen alterado es suficiente para predisponer a la enfermedad. Sin embargo, la expresividad es variable (es decir, los síntomas pueden diferir entre individuos) y la penetrancia es incompleta (no todos los portadores manifiestan síntomas). La incidencia es igual entre sexos en la niñez, pero aumenta en hombres después de la adolescencia."
+    },
+    {
+      "texto": "¿Cuál de las siguientes opciones representa una interpretación incorrecta del comportamiento clínico de la SHM en relación con la anestesia?",
+      "opciones": [
+        "La SHM puede manifestarse durante el postoperatorio inmediato o tardío.",
+        "La mayoría de las crisis de SHM ocurren tras múltiples exposiciones a agentes desencadenantes.",
+        "La incidencia de SHM puede ser subestimada por casos clínicos leves no detectados.",
+        "La SHM es comúnmente diagnosticada en recién nacidos y ancianos."
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La SHM no es comúnmente diagnosticada en recién nacidos ni en ancianos, lo que convierte esta opción en la incorrecta. Por tanto, es la mejor respuesta a una pregunta que busca identificar una afirmación errónea. Las demás opciones están respaldadas por el texto: la SHM puede ocurrir en el postoperatorio, frecuentemente necesita varias exposiciones para manifestarse, y se reconoce que los casos leves pueden pasar desapercibidos."
+    },
+    {
+      "texto": "¿Cuál es la prevalencia estimada de una crisis de hipertermia maligna durante la anestesia general?",
+      "opciones": [
+        "1:50.000 a 1:100.000",
+        "1:1.000 a 1:5.000",
+        "1:30.000 a 1:60.000",
+        "1:10.000 a 1:220.000"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La incidencia de crisis de hipertermia maligna durante la anestesia general varía ampliamente, pero se estima entre 1:10.000 y 1:220.000 procedimientos, dependiendo del país, las técnicas anestésicas y la población estudiada."
+    },
+    {
+      "texto": "¿Cuál es la tasa de mortalidad sin tratamiento para la hipertermia maligna?",
+      "opciones": [
+        "10–20%",
+        "25–35%",
+        "90–95%",
+        "60–80%"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Antes de que existiera tratamiento con dantroleno, la hipertermia maligna tenía una mortalidad cercana al 65%, debido a su evolución rápida y letal si no se intervenía de inmediato."
+    },
+    {
+      "texto": "¿Cuál es la tasa de mortalidad estimada actualmente en países desarrollados cuando se aplica tratamiento adecuado con dantroleno ante una crisis de hipertermia maligna?",
+      "opciones": [
+        "1–3%",
+        "15–20%",
+        "25–30%",
+        "4–10%"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Gracias al reconocimiento precoz del síndrome y al tratamiento oportuno con dantroleno intravenoso, la mortalidad de la hipertermia maligna ha disminuido significativamente, alcanzando cifras entre 4 y 10% en países desarrollados, en contraste con tasas históricas de hasta 65% sin tratamiento."
+    }
+  ],
+  "Fisiopatología": [
+    {
+      "texto": "¿Cuál es la principal causa de la hipertermia maligna?",
+      "opciones": [
+        "Mutaciones en el gen CACNA1",
+        "Exposición a temperaturas extremas",
+        "Infecciones bacterianas",
+        "Mutaciones en el gen RYR1"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La mutación en el gen RYR1 causa una liberación excesiva de calcio en el músculo esquelético, lo que desencadena el hipermetabolismo característico de la hipertermia maligna."
+    },
+    {
+      "texto": "¿Cuál de los siguientes factores ha demostrado ser un disparador de HM en modelos animales, pero no tiene evidencia en humanos?",
+      "opciones": [
+        "Isoflurano",
+        "Hipercalcemia",
+        "Succinilcolina",
+        "Ejercicio físico extenuante"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Aunque el ejercicio físico, estrés y agonistas alfa-adrenérgicos han sido identificados como disparadores de HM en modelos porcinos, no hay evidencia concluyente en humanos. En cambio, isoflurano y succinilcolina son disparadores clásicos reconocidos en humanos, y la hipercalcemia no está implicada como desencadenante en la literatura clínica humana."
+    },
+    {
+      "texto": "¿Cuál de las siguientes afirmaciones sobre la fisiopatología del receptor de rianodina (RYR1) en la HM es correcta?",
+      "opciones": [
+        "El receptor RYR1 está ubicado en la membrana mitocondrial y regula el sodio.",
+        "El receptor CACNA1S controla directamente la contractura muscular patológica en la HM.",
+        "El potencial umbral de contracción muscular en HM es más hiperpolarizado que en músculo normal.",
+        "La despolarización leve puede inducir liberación anómala de calcio en músculos susceptibles."
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "En individuos con SHM, el umbral de activación del retículo sarcoplásmico se desplaza de -90 mV a -86 mV, lo que significa que una despolarización leve puede inducir liberación masiva de calcio. El RYR1 está localizado en el retículo sarcoplásmico, no en la mitocondria, y CACNA1S contribuye al acoplamiento excitación-contracción pero no controla directamente la contractura patológica."
+    },
+    {
+      "texto": "¿Cuál es el fundamento fisiopatológico del aumento de la temperatura corporal en una crisis de HM?",
+      "opciones": [
+        "Disfunción del hipotálamo como centro termorregulador",
+        "Aumento del metabolismo oxidativo hepático",
+        "Hiperactividad de la bomba sodio-potasio por sobreestimulación simpática",
+        "Producción excesiva de calor secundario a contracción muscular generalizada"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La contractura muscular sostenida inducida por el exceso de calcio citosólico genera una gran cantidad de calor, lo que provoca el aumento de la temperatura. La termorregulación central permanece intacta durante la HM, descartando disfunción hipotalámica. El calor no se genera por metabolismo hepático ni por bombas iónicas de manera primaria."
+    },
+    {
+      "texto": "¿Qué papel juega el retículo sarcoplásmico en la contracción muscular?",
+      "opciones": [
+        "Almacena glucógeno",
+        "Produce ATP",
+        "Transporta oxígeno",
+        "Libera calcio"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "El retículo sarcoplásmico regula la contracción muscular liberando calcio al citoplasma, lo que activa la contracción de las fibras musculares."
+    }
+  ],
+  "Manifestaciones clínicas y paraclínicas": [
+    {
+      "texto": "¿Cuál de los siguientes hallazgos clínicos representa la manifestación más temprana y confiable de una crisis de HM en el entorno intraoperatorio?",
+      "opciones": [
+        "Fiebre mayor a 40 °C",
+        "Trismo de aparición súbita",
+        "Hipotensión resistente a líquidos",
+        "Hipercapnia inexplicable detectada por capnografía"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Aunque la fiebre es una característica prominente, no suele ser el primer signo. El aumento del CO₂ espirado sin otra explicación (hipercapnia inexplicable) es el primer cambio fisiológico objetivo detectable, gracias a la monitorización capnográfica. Es una señal temprana y clave para la identificación rápida."
+    },
+    {
+      "texto": "¿Cuál de las siguientes afirmaciones es más correcta respecto al espasmo del masetero asociado a succinilcolina?",
+      "opciones": [
+        "Siempre se asocia a Hipertermia Maligna si persiste más de 30 segundos.",
+        "Es un hallazgo común sin valor diagnóstico en la práctica clínica.",
+        "Su presencia indica invariablemente una mala técnica de intubación.",
+        "Aunque no patognomónico, sugiere susceptibilidad a HM en aproximadamente la mitad de los casos pediátricos."
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "El trismo del masetero, aunque no es específico de HM, es una manifestación preocupante en pediatría. Alrededor del 50% de los niños con este signo durante la inducción tienen SHM confirmado por CHCT. No es patognomónico ni es siempre resultado de técnica incorrecta de intubación."
+    },
+    {
+      "texto": "¿Cuál de las siguientes alteraciones paraclínicas es más probable que aparezca antes del aumento de la temperatura corporal en una crisis de HM?",
+      "opciones": [
+        "Mioglobina en orina",
+        "Elevación de temperatura rectal",
+        "Hiponatremia progresiva",
+        "Acidemia respiratoria y metabólica severa"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La hipertermia es una consecuencia tardía del proceso hipermetabólico, mientras que la acidemia—respiratoria y metabólica—es una de las primeras alteraciones paraclínicas, detectable antes del aumento evidente de temperatura. La mioglobinuria y la elevación de CK también pueden seguir a esta."
+    },
+    {
+      "texto": "¿Cuál de los siguientes signos clínicos se ha identificado como el mejor predictor individual de una prueba positiva de contractura con cafeína-halotano (CHCT) para Hipertermia Maligna?",
+      "opciones": [
+        "Fiebre persistente durante el postoperatorio",
+        "Trismo prolongado tras administración de succinilcolina",
+        "Taquicardia sinusal no explicada por hipovolemia",
+        "Rigidez muscular generalizada durante la anestesia"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Entre los signos clínicos observables durante una crisis de HM, la rigidez muscular generalizada ha demostrado ser el mejor predictor aislado de una prueba de contractura positiva, lo que refleja una alta probabilidad de susceptibilidad genética. Aunque el trismo y la taquicardia pueden ser signos tempranos, su valor predictivo individual es menor y más inespecífico."
+    },
+    {
+      "texto": "¿Cuál de las siguientes afirmaciones refleja adecuadamente la variabilidad clínica de la hipertermia maligna?",
+      "opciones": [
+        "Todos los pacientes con susceptibilidad genética presentan crisis en la primera exposición a anestésicos",
+        "La presentación clínica es uniforme incluso entre familiares con la misma mutación",
+        "La HM siempre se manifiesta después de más de 2 horas de anestesia",
+        "El cuadro clínico puede variar desde formas leves hasta crisis letales"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Debido a la penetrancia incompleta y la variabilidad genética, la HM puede presentarse con síntomas sutiles o manifestarse como una crisis fulminante, incluso en personas de la misma familia"
+    }
+  ],
+  "Diagnóstico diferencial": [
+    {
+      "texto": "Durante una cirugía, un paciente desarrolla hipercapnia, taquicardia y fiebre. ¿Cuál de los siguientes hallazgos clínicos reduce la probabilidad de que el cuadro se deba a una infección o sepsis como diagnóstico principal?",
+      "opciones": [
+        "Fiebre de 39°C sin otro foco evidente",
+        "Leucocitosis con desviación izquierda",
+        "Taquicardia persistente a pesar del control del dolor",
+        "Presencia de rigidez muscular generalizada"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Los anestésicos inhalados y los opioides suprimen la respuesta febril, lo que hace que la fiebre en el intraoperatorio sea rara en cuadros infecciosos. La presencia de rigidez muscular generalizada, en cambio, apunta directamente hacia una crisis de Hipertermia Maligna, descartando sepsis como causa principal del estado hipermetabólico agudo."
+    },
+    {
+      "texto": "En un paciente anestesiado que desarrolla hipertensión severa, taquicardia, y aumento del CO₂ espirado, ¿cuál de los siguientes hallazgos clínicos o antecedentes sería más útil para diferenciar entre Hipertermia Maligna y Feocromocitoma?",
+      "opciones": [
+        "Aumento de temperatura corporal",
+        "Historia de uso reciente de antipsicóticos",
+        "Aumento progresivo del potasio sérico",
+        "Presencia de crisis hipertensivas previas sin anestesia"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "El feocromocitoma suele manifestarse con crisis hipertensivas episódicas, incluso en ausencia de anestesia, a diferencia de la HM, que se desencadena por agentes anestésicos específicos. El hallazgo de crisis previas orienta fuertemente hacia feocromocitoma como diagnóstico alternativo. La hipercalemia es más típica de HM, pero no exclusiva, y la fiebre puede presentarse en ambos."
+    },
+    {
+      "texto": "¿Cuál de los siguientes síntomas NO es característico de la hipertermia maligna?",
+      "opciones": [
+        "Taquicardia",
+        "Hipermetabolismo",
+        "Acidosis láctica",
+        "Hipertensión"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Aunque la taquicardia, hipermetabolismo y acidosis láctica son signos comunes en la hipertermia maligna, la hipertensión no es un hallazgo típico ni consistente; en cambio, puede haber hipotensión en fases avanzadas por colapso hemodinámico."
+    },
+    {
+      "texto": "¿Cuál de los siguientes métodos se utiliza para confirmar la susceptibilidad a la hipertermia maligna?",
+      "opciones": [
+        "Pruebas de función hepática",
+        "Análisis de gases en sangre",
+        "Electrocardiograma",
+        "Prueba de contractura con halotano y cafeína"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "La prueba de contractura con cafeína y halotano (CHCT) es el método de referencia para confirmar la susceptibilidad a hipertermia maligna (SHM). Consiste en evaluar la respuesta contráctil de una muestra de músculo esquelético expuesta a estos agentes. Ninguna prueba clínica o de laboratorio general puede reemplazarla actualmente."
+    },
+    {
+      "texto": "¿Cuál de las siguientes afirmaciones es verdadera respecto a la relación entre ejercicio y susceptibilidad a hipertermia maligna (HM)?",
+      "opciones": [
+        "Las personas susceptibles a HM no deben realizar ejercicio físico",
+        "Los individuos susceptibles a HM pueden usar dantroleno antes del ejercicio para prevenir el golpe de calor por esfuerzo.",
+        "Todas las personas que han sufrido un golpe de calor por esfuerzo son susceptibles a HM",
+        "Las personas con antecedentes de rabdomiolisis inducida por ejercicio intenso tienen mayor riesgo de ser susceptibles a HM que la población general"
+      ],
+      "respuesta_correcta": 3,
+      "retroalimentacion": "Aunque el ejercicio no está contraindicado en individuos con susceptibilidad a HM, un historial de rabdomiolisis inducida por esfuerzo puede indicar un riesgo aumentado. No se recomienda el uso profiláctico de dantroleno para prevenir el golpe de calor por esfuerzo, ni todos los casos de golpe de calor implican susceptibilidad a HM."
+    }
+  ]
+}

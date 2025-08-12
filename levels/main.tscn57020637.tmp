@@ -1,0 +1,576 @@
+[gd_scene load_steps=38 format=3 uid="uid://7xvnykktgq8y"]
+
+[ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
+[ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
+[ext_resource type="PackedScene" uid="uid://bky2qlnu210xn" path="res://Assets/Dice/Dice.tscn" id="4_m1504"]
+[ext_resource type="ArrayMesh" uid="uid://dtl0c58piv7rj" path="res://Assets/Podium/podiumA.obj" id="5_5k4jt"]
+[ext_resource type="Material" uid="uid://dxfgq03d0etq2" path="res://Materials/main.tres" id="6_c7dyn"]
+[ext_resource type="ArrayMesh" uid="uid://onaljsjq8mtc" path="res://Assets/Podium/podiumB.obj" id="6_xdh4e"]
+[ext_resource type="ArrayMesh" uid="uid://b00xq4wbvqfqf" path="res://Assets/Podium/podiumC.obj" id="7_c7dyn"]
+[ext_resource type="ArrayMesh" uid="uid://cx0onkphyteyh" path="res://Assets/Podium/podiumD.obj" id="8_1fput"]
+[ext_resource type="ArrayMesh" uid="uid://cbbfeyjwcbfl7" path="res://Assets/Podium/podiumE.obj" id="9_6yxbg"]
+[ext_resource type="ArrayMesh" uid="uid://b8aq6cpjudvut" path="res://Assets/Podium/podiumF.obj" id="10_4fc0e"]
+[ext_resource type="ArrayMesh" uid="uid://bbkn8k1v5jo4v" path="res://Assets/Podium/podiumG.obj" id="11_21ko3"]
+[ext_resource type="Material" uid="uid://dgoskvw825aug" path="res://Materials/neon.tres" id="12_c7dyn"]
+[ext_resource type="ArrayMesh" uid="uid://crepwd8p8e6n8" path="res://Assets/Podium/PodiumH.obj" id="13_1fput"]
+[ext_resource type="Script" path="res://levels/control.gd" id="14_6yxbg"]
+[ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://Artifex.otf" id="15_4fc0e"]
+[ext_resource type="Texture2D" uid="uid://c7y3qen7kjo8x" path="res://UI/Layer 2 1.png" id="15_21ko3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdj6m"]
+size = Vector3(500, 2, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c7dyn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_woytj"]
+albedo_color = Color(0.136085, 0.201433, 0.314399, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
+sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
+sky_horizon_color = Color(1.07971, 1.11012, 1.18659, 1)
+ground_bottom_color = Color(0.1302, 0.139651, 0.369661, 1)
+ground_horizon_color = Color(1.07971, 1.11012, 1.18659, 1)
+energy_multiplier = 0.55
+
+[sub_resource type="Sky" id="Sky_wdj6m"]
+sky_material = SubResource("ProceduralSkyMaterial_2262g")
+
+[sub_resource type="Environment" id="Environment_l8qe7"]
+background_mode = 2
+sky = SubResource("Sky_wdj6m")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 1
+tonemap_white = 1.84
+ssr_fade_in = 1.39626
+ssr_fade_out = 1.86607
+ssr_depth_tolerance = 0.01
+ssao_radius = 2.86
+ssao_intensity = 1.16
+ssao_ao_channel_affect = 0.29
+ssil_radius = 4.66
+glow_enabled = true
+glow_intensity = 0.49
+glow_bloom = 0.39
+glow_hdr_threshold = 0.92
+glow_hdr_scale = 4.0
+glow_hdr_luminance_cap = 0.78
+fog_light_energy = 0.01
+fog_density = 0.0311
+adjustment_enabled = true
+adjustment_brightness = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fput"]
+albedo_color = Color(0.759511, 0.27848, 0.261586, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6yxbg"]
+albedo_color = Color(0.886582, 0.353326, 0.082323, 1)
+emission_enabled = true
+emission = Color(0.896642, 0.150959, 0.25077, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4fc0e"]
+albedo_color = Color(0.579001, 0.624019, 0.420342, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21ko3"]
+albedo_color = Color(0.644976, 0.533984, 0.161897, 1)
+emission_enabled = true
+emission = Color(0.711028, 0.386505, 0.021948, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s07ge"]
+albedo_color = Color(0.3796, 0.503736, 0.337373, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwo8l"]
+albedo_color = Color(0.0875586, 0.256811, 0.121542, 1)
+emission_enabled = true
+emission = Color(0.217599, 0.564937, 0.281813, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7211"]
+albedo_color = Color(0.189908, 0.527394, 0.463328, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fd7wu"]
+albedo_color = Color(0.200799, 0.618544, 0.585786, 1)
+emission_enabled = true
+emission = Color(0.23331, 0.544077, 0.489252, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m080e"]
+albedo_color = Color(0.697812, 0.302638, 0.50141, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nljbn"]
+albedo_color = Color(0.862489, 0.313701, 0.565628, 1)
+emission_enabled = true
+emission = Color(0.748607, 0.270856, 0.581173, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w23s1"]
+albedo_color = Color(0.520129, 0.384241, 0.698739, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1xy8"]
+albedo_color = Color(0.375774, 0.423082, 0.882635, 1)
+emission_enabled = true
+emission = Color(0.275841, 0.350032, 0.699299, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yxmn"]
+albedo_color = Color(0.284754, 0.491896, 0.598742, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iivgo"]
+albedo_color = Color(0.262303, 0.590675, 0.714625, 1)
+emission_enabled = true
+emission = Color(0.160214, 0.532824, 0.62444, 1)
+emission_energy_multiplier = 2.04
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21ko3"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_wdj6m")
+
+[node name="Dice" parent="." instance=ExtResource("4_m1504")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.785, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.01951, -0.724548)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1.00955, 0, 0, 0, 1.00955, 0, 0, 0, 1.00955, 0, 0, 0)
+shape = SubResource("BoxShape3D_wdj6m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(207.14, 0, -6.58905, 0, 0.336601, 0, 6.43365, 0, 212.144, 0, 0.591032, 0.738786)
+mesh = SubResource("CylinderMesh_c7dyn")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_woytj")
+
+[node name="Player" parent="." node_paths=PackedStringArray("game_spaces") instance=ExtResource("1_2262g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -21.4756, 1.44175, 0.408452)
+game_spaces = [NodePath("../Spots/Spot1"), NodePath("../Spots/Spot2"), NodePath("../Spots/Spot3"), NodePath("../Spots/Spot4"), NodePath("../Spots/Spot5"), NodePath("../Spots/Spot6"), NodePath("../Spots/Spot7"), NodePath("../Spots/Spot8"), NodePath("../Spots/Spot9"), NodePath("../Spots/Spot10"), NodePath("../Spots/Spot11"), NodePath("../Spots/Spot12"), NodePath("../Spots/Spot13"), NodePath("../Spots/Spot14"), NodePath("../Spots/Spot15"), NodePath("../Spots/Spot16"), NodePath("../Spots/Spot17"), NodePath("../Spots/Spot18"), NodePath("../Spots/Spot19"), NodePath("../Spots/Spot20")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-2.54822e-08, -0.919945, 0.392048, -8.02619e-09, 0.392048, 0.919945, -1, 2.02956e-08, -1.73739e-08, 28.3041, 67.7078, -0.925628)
+projection = 1
+current = true
+fov = 22.5
+size = 55.707
+near = 0.001
+far = 3870.64
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
+transform = Transform3D(1, -3.10727e-09, -3.07911e-09, 2.56317e-09, 0.986595, -0.163188, 3.5449e-09, 0.163188, 0.986595, 1106.53, 1495.01, 1910.1)
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l8qe7")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35.549, 0)
+shadow_enabled = true
+shadow_bias = 0.485
+shadow_normal_bias = 0.0
+distance_fade_enabled = true
+omni_range = 54.126
+omni_attenuation = 0.258
+
+[node name="Spots" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541955, 0)
+
+[node name="Spot1" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.1786, 1.12694, 7.15497)
+gizmo_extents = 5.55
+
+[node name="Spot2" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1612, 1.12694, 13.1544)
+gizmo_extents = 5.55
+
+[node name="Spot3" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4099, 1.12694, 17.9116)
+gizmo_extents = 5.55
+
+[node name="Spot4" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30378, 1.12694, 20.7728)
+gizmo_extents = 5.55
+
+[node name="Spot5" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169852, 1.12694, 21.9442)
+gizmo_extents = 5.55
+
+[node name="Spot6" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83599, 1.12694, 20.7726)
+gizmo_extents = 5.55
+
+[node name="Spot7" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9356, 1.12694, 17.6286)
+gizmo_extents = 5.55
+
+[node name="Spot8" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6252, 1.12694, 13.1704)
+gizmo_extents = 5.55
+
+[node name="Spot9" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1947, 1.12694, 6.7346)
+gizmo_extents = 5.55
+
+[node name="Spot10" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.294, 1.12694, -0.00828545)
+gizmo_extents = 5.55
+
+[node name="Spot11" type="Marker3D" parent="Spots"]
+transform = Transform3D(-0.00398636, 0.0020551, -0.99999, 0.00231222, 0.999995, 0.00204588, 0.999989, -0.00230406, -0.0039911, 20.4173, 1.12292, -6.38939)
+gizmo_extents = 5.55
+
+[node name="Spot12" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2181, 1.12694, -12.3851)
+gizmo_extents = 5.55
+
+[node name="Spot13" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4867, 1.12694, -16.8668)
+gizmo_extents = 5.55
+
+[node name="Spot14" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.62694, 1.12694, -20.1098)
+gizmo_extents = 5.55
+
+[node name="Spot15" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0459292, 1.12694, -20.8032)
+gizmo_extents = 5.55
+
+[node name="Spot16" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63562, 1.12694, -19.6705)
+gizmo_extents = 5.55
+
+[node name="Spot17" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5792, 1.12694, -16.6101)
+gizmo_extents = 5.55
+
+[node name="Spot18" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1906, 1.12694, -11.7225)
+gizmo_extents = 5.55
+
+[node name="Spot19" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4407, 1.12694, -6.06215)
+gizmo_extents = 5.55
+
+[node name="Spot20" type="Marker3D" parent="Spots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3697, 1.12694, 0.517183)
+gizmo_extents = 5.55
+
+[node name="Podiums" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3879, 1.07102, 0.513403)
+
+[node name="PodiumA" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374, 0)
+mesh = ExtResource("5_5k4jt")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_1fput")
+surface_material_override/1 = SubResource("StandardMaterial3D_6yxbg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83707, 0)
+light_color = Color(0.866303, 0.146493, 0.176554, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumA3" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.7028, 0.374, -20.1299)
+mesh = ExtResource("5_5k4jt")
+skeleton = NodePath("../PodiumA")
+surface_material_override/0 = SubResource("StandardMaterial3D_1fput")
+surface_material_override/1 = SubResource("StandardMaterial3D_6yxbg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumA3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83707, 0)
+light_color = Color(0.866303, 0.146493, 0.176554, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumA2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.038, 0.374, 12.62)
+mesh = ExtResource("5_5k4jt")
+skeleton = NodePath("../PodiumA")
+surface_material_override/0 = SubResource("StandardMaterial3D_1fput")
+surface_material_override/1 = SubResource("StandardMaterial3D_6yxbg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumA2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83707, 0)
+light_color = Color(0.866303, 0.146493, 0.176554, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumB" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.961425, 0, 0.275067, 0, 1, 0, -0.275067, 0, 0.961425, 15.07, 0.374, 20.174)
+mesh = ExtResource("6_xdh4e")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4fc0e")
+surface_material_override/1 = SubResource("StandardMaterial3D_21ko3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumB"]
+transform = Transform3D(0.961425, 0, -0.275067, 0, 1, 0, 0.275067, 0, 0.961425, 0.0684152, 1.21964, 0.0213842)
+light_color = Color(0.959837, 0.766619, 0.530507, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumB2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, 0.848677, 41.569, 0.374, 6.311)
+mesh = ExtResource("6_xdh4e")
+skeleton = NodePath("../PodiumB")
+surface_material_override/0 = SubResource("StandardMaterial3D_4fc0e")
+surface_material_override/1 = SubResource("StandardMaterial3D_21ko3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumB2"]
+transform = Transform3D(0.961425, 0, -0.275067, 0, 1, 0, 0.275067, 0, 0.961425, 0.0684152, 1.21964, 0.0213842)
+light_color = Color(0.959837, 0.766619, 0.530507, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumB3" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.897751, 0, -0.440503, 0, 1, 0, 0.440503, 0, 0.897751, 8.80201, 0.374, -17.1074)
+mesh = ExtResource("6_xdh4e")
+skeleton = NodePath("../PodiumB")
+surface_material_override/0 = SubResource("StandardMaterial3D_4fc0e")
+surface_material_override/1 = SubResource("StandardMaterial3D_21ko3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumB3"]
+transform = Transform3D(0.961425, 0, -0.275067, 0, 1, 0, 0.275067, 0, 0.961425, 0.0684152, 1.21964, 0.0213842)
+light_color = Color(0.959837, 0.766619, 0.530507, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumC3" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.22429, 0.374, -12.2798)
+mesh = ExtResource("7_c7dyn")
+skeleton = NodePath("../PodiumC")
+surface_material_override/0 = SubResource("StandardMaterial3D_s07ge")
+surface_material_override/1 = SubResource("StandardMaterial3D_iwo8l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumC3"]
+transform = Transform3D(-0.275067, 0, -0.961425, 0, 1, 0, 0.961425, 0, -0.275067, -0.149054, 0.978503, 0.336143)
+light_color = Color(0.392785, 0.700494, 0.353436, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumC" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.208, 0.374, 6.706)
+mesh = ExtResource("7_c7dyn")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_s07ge")
+surface_material_override/1 = SubResource("StandardMaterial3D_iwo8l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumC"]
+transform = Transform3D(-0.275067, 0, -0.961425, 0, 1, 0, 0.961425, 0, -0.275067, -0.149054, 0.978503, 0.336143)
+light_color = Color(0.392785, 0.700494, 0.353436, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumC2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.00398627, 0.0020551, 0.99999, -0.00231222, 0.999995, -0.00204588, -0.999989, -0.00230406, 0.00399102, 42.723, 0.374, -0.441)
+mesh = ExtResource("7_c7dyn")
+skeleton = NodePath("../PodiumC")
+surface_material_override/0 = SubResource("StandardMaterial3D_s07ge")
+surface_material_override/1 = SubResource("StandardMaterial3D_iwo8l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumC2"]
+transform = Transform3D(-0.275067, 0, -0.961425, 0, 1, 0, 0.961425, 0, -0.275067, -0.149054, 0.978503, 0.336143)
+light_color = Color(0.392785, 0.700494, 0.353436, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumD2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.00398627, 0.0020551, 0.99999, -0.00231222, 0.999995, -0.00204588, -0.999989, -0.00230406, 0.00399102, 41.7585, 0.374, -7.00712)
+mesh = ExtResource("8_1fput")
+skeleton = NodePath("../PodiumD")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7211")
+surface_material_override/1 = SubResource("StandardMaterial3D_fd7wu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumD2"]
+transform = Transform3D(-0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, -0.848677, 0.117679, 0.606819, 0.0617146)
+light_color = Color(0.247757, 0.698009, 0.623632, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumD" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.201, 0.374, 12.601)
+mesh = ExtResource("8_1fput")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7211")
+surface_material_override/1 = SubResource("StandardMaterial3D_fd7wu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumD"]
+transform = Transform3D(-0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, -0.848677, 0.117679, 0.606819, 0.0617146)
+light_color = Color(0.247757, 0.698009, 0.623632, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumD3" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.884, 0.374, -6.513)
+mesh = ExtResource("8_1fput")
+skeleton = NodePath("../PodiumD")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7211")
+surface_material_override/1 = SubResource("StandardMaterial3D_fd7wu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumD3"]
+transform = Transform3D(-0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, -0.848677, 0.117679, 0.606819, 0.0617146)
+light_color = Color(0.247757, 0.698009, 0.623632, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumE2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 38.5812, 0.374, -12.7898)
+mesh = ExtResource("9_6yxbg")
+skeleton = NodePath("../PodiumE")
+surface_material_override/0 = SubResource("StandardMaterial3D_m080e")
+surface_material_override/1 = SubResource("StandardMaterial3D_nljbn")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Podiums/PodiumE2"]
+transform = Transform3D(-0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, -0.848677, 0.0492687, 0.606819, 0.0948873)
+light_color = Color(0.819445, 0.429423, 0.890693, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumE" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.09, 0.374, 17.322)
+mesh = ExtResource("9_6yxbg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_m080e")
+surface_material_override/1 = SubResource("StandardMaterial3D_nljbn")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Podiums/PodiumE"]
+transform = Transform3D(-0.848677, 0, 0.528912, 0, 1, 0, -0.528912, 0, -0.848677, 0.0492687, 0.606819, 0.0948873)
+light_color = Color(0.819445, 0.429423, 0.890693, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumF" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.00151401, 0.000691419, 0.999999, -0.000394397, 1, -0.000690826, -0.999999, -0.000393356, 0.00151428, 21.542, 0.374, 21.32)
+mesh = ExtResource("10_4fc0e")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_w23s1")
+surface_material_override/1 = SubResource("StandardMaterial3D_n1xy8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumF"]
+transform = Transform3D(-0.275067, -1.36788e-09, -0.961425, -5.09317e-11, 1, 4.24916e-09, 0.961425, 4.53048e-09, -0.275067, -0.0793724, 1.59526, 0.545548)
+light_color = Color(0.547045, 0.568659, 0.951496, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumF2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(0.00302784, 0.00029911, 0.999995, -0.00108626, 0.999999, -0.00029582, -0.999995, -0.00108537, 0.00302817, 33.8273, 0.374, -17.28)
+mesh = ExtResource("10_4fc0e")
+skeleton = NodePath("../PodiumF")
+surface_material_override/0 = SubResource("StandardMaterial3D_w23s1")
+surface_material_override/1 = SubResource("StandardMaterial3D_n1xy8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumF2"]
+transform = Transform3D(-0.275067, -1.36788e-09, -0.961425, -5.09317e-11, 1, 4.24916e-09, 0.961425, 4.53048e-09, -0.275067, -0.0793724, 1.59526, 0.545548)
+light_color = Color(0.547045, 0.568659, 0.951496, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumG" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-4.36952e-08, 0.0272063, 0.99963, 1.18923e-09, 0.99963, -0.0272063, -1, 0, -4.37114e-08, 28.262, 0.374, 20.295)
+mesh = ExtResource("11_21ko3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_3yxmn")
+surface_material_override/1 = SubResource("StandardMaterial3D_iivgo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumG"]
+transform = Transform3D(-0.275067, 1.21891e-09, -0.961425, 5.58794e-09, 1, 0, 0.961425, -5.58794e-09, -0.275067, -0.0230169, 0.971193, 0.22722)
+light_color = Color(0.165286, 0.664667, 0.87788, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumG2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(-0.000740228, 0.0271963, 0.99963, -0.0271963, 0.99926, -0.0272063, -0.99963, -0.0272063, -4.34811e-08, 28.0513, 0.374, -20.5883)
+mesh = ExtResource("11_21ko3")
+skeleton = NodePath("../PodiumG")
+surface_material_override/0 = SubResource("StandardMaterial3D_3yxmn")
+surface_material_override/1 = SubResource("StandardMaterial3D_iivgo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumG2"]
+transform = Transform3D(-0.275067, 1.21891e-09, -0.961425, 5.58794e-09, 1, 0, 0.961425, -5.58794e-09, -0.275067, -0.0230169, 0.971193, 0.22722)
+light_color = Color(0.165286, 0.664667, 0.87788, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumH" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.344, 0.374, 17.113)
+mesh = ExtResource("13_1fput")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("6_c7dyn")
+surface_material_override/1 = ExtResource("12_c7dyn")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Podiums/PodiumH"]
+transform = Transform3D(-0.528912, 0, -0.848677, 0, 1, 0, 0.848677, 0, -0.528912, 0.0243396, 0.59727, 0.0428353)
+light_color = Color(0.928587, 0.463101, 0.218143, 1)
+light_indirect_energy = 0.0
+
+[node name="PodiumH2" type="MeshInstance3D" parent="Podiums"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3033, 0.374, -21.3184)
+mesh = ExtResource("13_1fput")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("6_c7dyn")
+surface_material_override/1 = ExtResource("12_c7dyn")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Podiums/PodiumH2"]
+transform = Transform3D(-0.528912, 0, -0.848677, 0, 1, 0, 0.848677, 0, -0.528912, 0.0243396, 0.59727, 0.0428353)
+light_color = Color(0.928587, 0.463101, 0.218143, 1)
+light_indirect_energy = 0.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 236.0
+offset_bottom = 83.0
+script = ExtResource("14_6yxbg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="Button" type="Button" parent="Control/CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.002
+offset_left = 11.0
+offset_top = 48.0
+offset_right = 117.16
+offset_bottom = 169.0
+flat = true
+
+[node name="Layer21" type="Sprite2D" parent="Control/CanvasLayer/Button"]
+position = Vector2(59.6875, 62.625)
+scale = Vector2(0.530906, 0.522837)
+texture = ExtResource("15_21ko3")
+
+[node name="Button2" type="Button" parent="Control/CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.002
+offset_left = 12.0
+offset_top = 191.0
+offset_right = 121.16
+offset_bottom = 312.0
+flat = true
+
+[node name="Layer21" type="Sprite2D" parent="Control/CanvasLayer/Button2"]
+position = Vector2(65, 62)
+scale = Vector2(0.554945, 0.519231)
+texture = ExtResource("15_21ko3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 18.0
+offset_right = 1538.0
+offset_bottom = 108.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_21ko3")
+
+[node name="Timer" type="Timer" parent="Control/PanelContainer"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="Control/PanelContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/line_spacing = 5
+theme_override_constants/paragraph_spacing = 10
+theme_override_fonts/font = ExtResource("15_4fc0e")
+theme_override_font_sizes/font_size = 20
+text = "    !Bienvenido a Ludo Trivia,  En este Juego vas a refrescar tus Conocimientos¡
+
+"
+
+[connection signal="timeout" from="Control/PanelContainer/Timer" to="." method="_on_timer_timeout"]

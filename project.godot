@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="Ludoclinica_HipertermiaMaligna"
-run/main_scene="uid://bkq3dsr1qllge"
+run/main_scene="uid://cp1qd8tqy1w7l"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [audio]
 
-buses/default_bus_layout=""
+buses/default_bus_layout="res://Audios/default_bus_layout (2).tres"
 
 [autoload]
 

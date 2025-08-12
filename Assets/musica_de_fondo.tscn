@@ -1,4 +1,6 @@
-[gd_scene load_steps=0 format=3 uid="uid://bifj44up0nwnm"]
+[gd_scene load_steps=2 format=3 uid="uid://bifj44up0nwnm"]
+
+[ext_resource type="Script" uid="uid://cdj7f3lqudm13" path="res://Assets/musica_de_fondo.gd" id="1_86e2m"]
 
 [node name="MusicaDeFondo" type="AudioStreamPlayer2D"]
-bus = &"MusicaDeFondo"
+script = ExtResource("1_86e2m")

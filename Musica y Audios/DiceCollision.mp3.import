@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dlbkkwlcyr0tp"
+path="res://.godot/imported/DiceCollision.mp3-e587564dae05b766b3d502467ee5ce1f.mp3str"
+
+[deps]
+
+source_file="res://Musica y Audios/DiceCollision.mp3"
+dest_files=["res://.godot/imported/DiceCollision.mp3-e587564dae05b766b3d502467ee5ce1f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

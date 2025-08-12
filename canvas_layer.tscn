@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkvc0yco3r8n2"]
+
+[ext_resource type="Script" uid="uid://cfs2oeifo5adt" path="res://levels/trivia_panel.gd" id="1_v2lfg"]
+
+[node name="PreguntasPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 65.0
+offset_right = 1285.0
+offset_bottom = 1017.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_v2lfg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LabelPregunta" type="Label" parent="CanvasLayer"]
+offset_left = 592.0
+offset_top = 132.0
+offset_right = 1285.0
+offset_bottom = 530.0
+
+[node name="Opciones" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 690.0
+offset_top = 580.0
+offset_right = 1218.0
+offset_bottom = 831.0
+theme_override_constants/separation = 30
+
+[node name="Boton0" type="Button" parent="CanvasLayer/Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+
+[node name="Boton1" type="Button" parent="CanvasLayer/Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+
+[node name="Boton2" type="Button" parent="CanvasLayer/Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+
+[node name="Boton3" type="Button" parent="CanvasLayer/Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+
+[node name="LabelFeedback" type="Label" parent="CanvasLayer"]
+offset_left = 489.0
+offset_top = 854.0
+offset_right = 1444.0
+offset_bottom = 1015.0
+
+[connection signal="pressed" from="CanvasLayer/Opciones/Boton0" to="." method="_on_Opcion_pressed" binds= [0]]
+[connection signal="pressed" from="CanvasLayer/Opciones/Boton1" to="." method="_on_Opcion_pressed" binds= [1]]
+[connection signal="pressed" from="CanvasLayer/Opciones/Boton2" to="." method="_on_Opcion_pressed" binds= [2]]
+[connection signal="pressed" from="CanvasLayer/Opciones/Boton3" to="." method="_on_Opcion_pressed" binds= [3]]
