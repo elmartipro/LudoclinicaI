@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=34 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -13,9 +13,6 @@
 [ext_resource type="ArrayMesh" uid="uid://bbkn8k1v5jo4v" path="res://Assets/Podium/podiumG.obj" id="11_21ko3"]
 [ext_resource type="Material" uid="uid://dgoskvw825aug" path="res://Materials/neon.tres" id="12_c7dyn"]
 [ext_resource type="ArrayMesh" uid="uid://crepwd8p8e6n8" path="res://Assets/Podium/PodiumH.obj" id="13_1fput"]
-[ext_resource type="Script" path="res://levels/control.gd" id="14_6yxbg"]
-[ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://UI/Artifex.otf" id="15_4fc0e"]
-[ext_resource type="Texture2D" uid="uid://c7y3qen7kjo8x" path="res://UI/Layer 2 1.png" id="15_21ko3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wdj6m"]
 size = Vector3(500, 2, 500)
@@ -129,8 +126,6 @@ albedo_color = Color(0.262303, 0.590675, 0.714625, 1)
 emission_enabled = true
 emission = Color(0.160214, 0.532824, 0.62444, 1)
 emission_energy_multiplier = 2.04
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21ko3"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_wdj6m")
@@ -505,72 +500,3 @@ surface_material_override/1 = ExtResource("12_c7dyn")
 transform = Transform3D(-0.528912, 0, -0.848677, 0, 1, 0, 0.848677, 0, -0.528912, 0.0243396, 0.59727, 0.0428353)
 light_color = Color(0.928587, 0.463101, 0.218143, 1)
 light_indirect_energy = 0.0
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 236.0
-offset_bottom = 83.0
-script = ExtResource("14_6yxbg")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
-
-[node name="Button" type="Button" parent="Control/CanvasLayer"]
-anchors_preset = -1
-anchor_right = 0.002
-offset_left = 11.0
-offset_top = 48.0
-offset_right = 117.16
-offset_bottom = 169.0
-flat = true
-
-[node name="Layer21" type="Sprite2D" parent="Control/CanvasLayer/Button"]
-position = Vector2(59.6875, 62.625)
-scale = Vector2(0.530906, 0.522837)
-texture = ExtResource("15_21ko3")
-
-[node name="Button2" type="Button" parent="Control/CanvasLayer"]
-anchors_preset = -1
-anchor_right = 0.002
-offset_left = 12.0
-offset_top = 191.0
-offset_right = 121.16
-offset_bottom = 312.0
-flat = true
-
-[node name="Layer21" type="Sprite2D" parent="Control/CanvasLayer/Button2"]
-position = Vector2(65, 62)
-scale = Vector2(0.554945, 0.519231)
-texture = ExtResource("15_21ko3")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PanelContainer" type="PanelContainer" parent="Control"]
-layout_mode = 0
-offset_left = 257.0
-offset_top = 18.0
-offset_right = 1538.0
-offset_bottom = 108.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_21ko3")
-
-[node name="Timer" type="Timer" parent="Control/PanelContainer"]
-wait_time = 2.0
-one_shot = true
-autostart = true
-
-[node name="Label" type="Label" parent="Control/PanelContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/line_spacing = 5
-theme_override_constants/paragraph_spacing = 10
-theme_override_fonts/font = ExtResource("15_4fc0e")
-theme_override_font_sizes/font_size = 20
-text = "    !Bienvenido a Ludo Trivia,  En este Juego vas a refrescar tus Conocimientos¡
-
-"
-
-[connection signal="timeout" from="Control/PanelContainer/Timer" to="." method="_on_timer_timeout"]

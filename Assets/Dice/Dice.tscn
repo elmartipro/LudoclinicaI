@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c0gukvfg2yll8" path="res://Assets/Dice/dice.gd" id="1_0gri7"]
 [ext_resource type="ArrayMesh" uid="uid://n7f6x74pg8un" path="res://Assets/Dice/Dice.obj" id="1_y4aql"]
 [ext_resource type="PackedScene" uid="uid://c4pyewax2yche" path="res://Assets/Dice/dice_raycast.tscn" id="3_q0816"]
-[ext_resource type="AudioStream" uid="uid://dlbkkwlcyr0tp" path="res://Musica y Audios/DiceCollision.mp3" id="4_hxcw4"]
+[ext_resource type="AudioStream" uid="uid://cipg7yn02u6e4" path="res://Musica y Audios/audiomass-output.mp3" id="4_ch4jn"]
 [ext_resource type="Script" uid="uid://nkdntcfagla6" path="res://Assets/Dice/audio_stream_player.gd" id="5_ch4jn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q0816"]
@@ -57,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38556, 0)
 opposite_side = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_hxcw4")
+stream = ExtResource("4_ch4jn")
 script = ExtResource("5_ch4jn")
 
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
