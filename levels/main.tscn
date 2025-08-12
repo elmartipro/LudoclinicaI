@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=39 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
 [ext_resource type="PackedScene" uid="uid://bky2qlnu210xn" path="res://Assets/Dice/Dice.tscn" id="4_m1504"]
+[ext_resource type="PackedScene" uid="uid://cf1kveprt6riq" path="res://Assets/podium_a.tscn" id="4_s07ge"]
 [ext_resource type="ArrayMesh" uid="uid://dtl0c58piv7rj" path="res://Assets/Podium/podiumA.obj" id="5_5k4jt"]
 [ext_resource type="Material" uid="uid://dxfgq03d0etq2" path="res://Materials/main.tres" id="6_c7dyn"]
 [ext_resource type="ArrayMesh" uid="uid://onaljsjq8mtc" path="res://Assets/Podium/podiumB.obj" id="6_xdh4e"]
@@ -262,17 +263,8 @@ gizmo_extents = 5.55
 [node name="Podiums" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3879, 1.07102, 0.513403)
 
-[node name="PodiumA" type="MeshInstance3D" parent="Podiums"]
+[node name="PodiumA" parent="Podiums" instance=ExtResource("4_s07ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374, 0)
-mesh = ExtResource("5_5k4jt")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_1fput")
-surface_material_override/1 = SubResource("StandardMaterial3D_6yxbg")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Podiums/PodiumA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83707, 0)
-light_color = Color(0.866303, 0.146493, 0.176554, 1)
-light_indirect_energy = 0.0
 
 [node name="PodiumA3" type="MeshInstance3D" parent="Podiums"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.7028, 0.374, -20.1299)
