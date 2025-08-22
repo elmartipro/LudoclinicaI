@@ -6,10 +6,10 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toc2r"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5je2x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrvp3"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrvp3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5je2x"]
 bg_color = Color(0, 0, 0, 1)
 
 [node name="PantallaDeIncio" type="Control"]
@@ -88,13 +88,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_toc2r")
 text = "Jugar
 "
 
-[node name="Salir" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 65
-theme_override_styles/normal = SubResource("StyleBoxFlat_5je2x")
-text = "Salir
-"
-
 [node name="Configuracion" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0.581734, 0.815526, 0.703044, 1)
@@ -107,7 +100,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_qrvp3")
 text = "Configuracion
 "
 
+[node name="Salir" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_5je2x")
+text = "Salir
+"
+
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
 [connection signal="pressed" from="VBoxContainer/Configuracion" to="." method="_on_configuracion_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]

@@ -10,7 +10,7 @@ var is_rolling = false
 var centering = false
 var rolled_value : int = 0
 var can_emit = false
-var min_collision_force =  0.1  #Minimum force needed to play sound
+var min_collision_force =  3.5  #Minimum force needed to play sound
 
 signal roll_finished(rolled_value)
 
