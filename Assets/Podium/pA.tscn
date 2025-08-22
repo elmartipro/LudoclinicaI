@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://byuivbespidkr"]
+
+[ext_resource type="ArrayMesh" uid="uid://dtl0c58piv7rj" path="res://Assets/Podium/podiumA.obj" id="1_pg0o4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgv43"]
+albedo_color = Color(0.759511, 0.27848, 0.261586, 1)
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v20lw"]
+albedo_color = Color(0.886582, 0.353326, 0.082323, 1)
+emission_enabled = true
+emission = Color(0.896642, 0.150959, 0.25077, 1)
+emission_energy_multiplier = 2.04
+
+[node name="pA" type="Node3D"]
+
+[node name="PodiumA" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.374, 0)
+mesh = ExtResource("1_pg0o4")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_fgv43")
+surface_material_override/1 = SubResource("StandardMaterial3D_v20lw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(0.866303, 0.146493, 0.176554, 1)
+light_indirect_energy = 0.0

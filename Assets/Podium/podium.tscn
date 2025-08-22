@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://5yyt53x6s4mm"]
+
+[ext_resource type="Script" uid="uid://cqx6aikdsvkny" path="res://Assets/Podium/podium.gd" id="1_d43y7"]
+
+[node name="Podium" type="Node3D"]
+script = ExtResource("1_d43y7")
+assets = null

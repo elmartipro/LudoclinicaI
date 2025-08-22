@@ -67,5 +67,5 @@ scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_qbo6h")
 
 [connection signal="pressed" from="Juego1" to="." method="_on_juego_1_pressed"]
-[connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]
 [connection signal="pressed" from="Volver1" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]
