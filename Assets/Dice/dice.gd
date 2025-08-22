@@ -10,7 +10,7 @@ var is_rolling = false
 var centering = false
 var rolled_value : int = 0
 var can_emit = false
-var min_collision_force =  0.000001  #Minimum force needed to play sound
+var min_collision_force =  0.1  #Minimum force needed to play sound
 
 signal roll_finished(rolled_value)
 
@@ -94,4 +94,14 @@ func _integrate_forces(state):
 		# Only play if force is significant and sound isn't already playing
 		if collision_force > min_collision_force and not collision_sound.playing:
 			print("Playing collision sound - Force: ", collision_force)
-			collision_sound.play()
+
+			var start_time := 0.32
+			var end_time := 0.52
+			var play_duration := end_time - start_time
+			
+			collision_sound.play(start_time)  # start from 0.32
+			
+			# Schedule stop after 0.2 seconds
+			await get_tree().create_timer(play_duration).timeout
+			if collision_sound.playing:
+				collision_sound.stop()
