@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bftdm5jynu3rg"]
+
+[ext_resource type="ArrayMesh" uid="uid://crepwd8p8e6n8" path="res://Assets/Podium/PodiumH.obj" id="1_rddq1"]
+[ext_resource type="Material" uid="uid://dxfgq03d0etq2" path="res://Materials/main.tres" id="2_vrpxm"]
+[ext_resource type="Material" uid="uid://dgoskvw825aug" path="res://Materials/neon.tres" id="3_g0wri"]
+
+[node name="pH" type="Node3D"]
+
+[node name="PodiumH" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("1_rddq1")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_vrpxm")
+surface_material_override/1 = ExtResource("3_g0wri")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.528912, 0, -0.848677, 0, 1, 0, 0.848677, 0, -0.528912, 0, 2, 0)
+light_color = Color(0.928587, 0.463101, 0.218143, 1)
+light_indirect_energy = 0.0

@@ -15,13 +15,13 @@ emission_energy_multiplier = 2.04
 [node name="pC" type="Node3D"]
 
 [node name="PodiumD2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.00398627, 0.0020551, 0.99999, -0.00231222, 0.999995, -0.00204588, -0.999989, -0.00230406, 0.00399102, 0, 0, 0)
+transform = Transform3D(0.00398627, 0.0020551, 0.99999, -0.00231222, 0.999995, -0.00204588, -0.999989, -0.00230406, 0.00399102, 0, 1, 0)
 mesh = ExtResource("1_0arob")
 skeleton = NodePath("../PodiumD")
 surface_material_override/0 = SubResource("StandardMaterial3D_mut7e")
 surface_material_override/1 = SubResource("StandardMaterial3D_5iweg")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(-0.53229, 0.00205509, -0.84656, 0.00304442, 0.999995, 0.000513331, 0.846557, -0.00230404, -0.532293, 0, 1, 0)
+transform = Transform3D(-0.53229, 0.00205509, -0.84656, 0.00304442, 0.999995, 0.000513331, 0.846557, -0.00230404, -0.532293, 0, 2, 0)
 light_color = Color(0.247757, 0.698009, 0.623632, 1)
 light_indirect_energy = 0.0

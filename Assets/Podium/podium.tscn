@@ -4,4 +4,3 @@
 
 [node name="Podium" type="Node3D"]
 script = ExtResource("1_d43y7")
-assets = null
