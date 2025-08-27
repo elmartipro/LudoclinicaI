@@ -1,72 +1,73 @@
 extends CharacterBody3D
 
-@onready var pawn : CharacterBody3D = self #Pawn is Player
+signal pawn_finished_moving(spot: Marker3D)
+
+@onready var pawn: CharacterBody3D = self
 @onready var dice := $"../Dice"
-@export var game_spaces : Array[Marker3D] #Gamespaces as the collection of spots.
+@export var game_spaces: Array[Marker3D]
 
-var pawn_landed : bool = true
+var pawn_landed: bool = true
 
-var place : int = 0 #Initial place
-var place_number : int #init place number
-var remaining_steps : int = 0
+var place: int = 0					# index to move toward next
+var place_number: int = 0
+var remaining_steps: int = 0
 
-#Jump Animation Variables
-var is_jumping = false
-var jump_t = 0.0
-var jump_duration = 0.4
-var jump_start : Vector3
-var jump_end : Vector3
+# jump anim
+var is_jumping := false
+var jump_t := 0.0
+var jump_duration := 0.4
+var jump_start: Vector3
+var jump_end: Vector3
+var current_jump_target_index: int = -1	# <-- NEW: the spot we are jumping to
 
 func _ready() -> void:
-	place_number = game_spaces.size() 
+	place_number = game_spaces.size()
 	dice.roll_finished.connect(_on_dice_roll_finished)
 
-func _on_dice_roll_finished(rolled_value : int) -> void:
-	#Reset places once final place is reached
+func _on_dice_roll_finished(rolled_value: int) -> void:
 	if place >= place_number:
 		place = 0
-	
-	# Prevent mid-jump restarts or multiple signals
+
+	# block mid-jump
 	if is_jumping or remaining_steps > 0:
-		return 
-	
+		return
+
 	remaining_steps = rolled_value
 	pawn_landed = false
 	if rolled_value != 0:
 		_start_next_jump()
 
-func _start_next_jump():
+func _start_next_jump() -> void:
+	current_jump_target_index = place					# remember where we’re going
 	jump_start = pawn.global_position
-	jump_end = game_spaces[place].global_position
+	jump_end = game_spaces[current_jump_target_index].global_position
 	jump_t = 0.0
 	is_jumping = true
 
-func _process(delta):
-	#FPS Counter
-	#print(1 / delta) 
-	
-	#JUMPING(Step by step)
+func _process(delta: float) -> void:
 	if is_jumping:
 		jump_t += delta / jump_duration
 		if jump_t >= 1.0:
 			jump_t = 1.0
 			is_jumping = false
 			pawn.global_position = jump_end
-			place += 1
-			if place >= place_number:
-				place = 0
+
+			# advance place for the NEXT step/turn
+			place = (place + 1) % place_number
+
 			remaining_steps -= 1
-			if remaining_steps > 0: #if there are still places to move, start nect jump
+			if remaining_steps > 0:
 				_start_next_jump()
-			else: #else, pawn has landed
+			else:
 				pawn_landed = true
-		var t = jump_t
-		var pos = jump_start.lerp(jump_end, t)
-		
-		# Parabolic arc
-		var height = 10.0
-		var arc = 4 * height * t * (1 - t)
+				# emit the spot we actually landed on this turn
+				var landed_spot: Marker3D = game_spaces[current_jump_target_index]
+				emit_signal("pawn_finished_moving", landed_spot)
+
+		# parabolic interpolation
+		var t := jump_t
+		var pos := jump_start.lerp(jump_end, t)
+		var height := 10.0
+		var arc := 4.0 * height * t * (1.0 - t)
 		pos.y += arc
-		
-		#Assign position
 		pawn.global_position = pos

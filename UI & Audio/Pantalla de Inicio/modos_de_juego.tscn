@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://7kvam30126dw"]
 
-[ext_resource type="Script" uid="uid://c2mo0x867t3ny" path="res://UI/modos_de_juego.gd" id="1_45pl6"]
-[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_dd8w2"]
-[ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="3_qbo6h"]
+[ext_resource type="Script" uid="uid://c2mo0x867t3ny" path="res://UI & Audio/Pantalla de Inicio/modos_de_juego.gd" id="1_cqabt"]
+[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="2_qrji3"]
+[ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI & Audio/Icons & Backgrounds/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="3_nh7f4"]
 
 [node name="ModosDeJuego" type="Control"]
 layout_mode = 3
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_45pl6")
+script = ExtResource("1_cqabt")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -19,7 +19,7 @@ offset_left = -200.0
 offset_top = -168.0
 offset_right = 2224.0
 offset_bottom = 1256.0
-texture = ExtResource("1_dd8w2")
+texture = ExtResource("2_qrji3")
 
 [node name="Juego3" type="TextureButton" parent="."]
 layout_mode = 0
@@ -61,11 +61,11 @@ offset_top = 960.0
 offset_right = 200.0
 offset_bottom = 1032.44
 
-[node name="E531a6d28931f7c224Be0c595c5f5Cf1-flecha-izquierda-de-graffiti" type="Sprite2D" parent="."]
+[node name="Arrow" type="Sprite2D" parent="."]
 position = Vector2(128, 1000)
 scale = Vector2(0.234375, 0.203125)
-texture = ExtResource("3_qbo6h")
+texture = ExtResource("3_nh7f4")
 
 [connection signal="pressed" from="Juego1" to="." method="_on_juego_1_pressed"]
-[connection signal="pressed" from="Volver1" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]
+[connection signal="pressed" from="Volver1" to="." method="_on_texture_button_pressed"]

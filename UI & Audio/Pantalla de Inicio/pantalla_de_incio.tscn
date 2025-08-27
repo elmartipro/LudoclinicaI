@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
 
-[ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI/pantalla_de_incio.gd" id="1_5je2x"]
-[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI/Background.png" id="1_toc2r"]
+[ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
+[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="1_toc2r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toc2r"]
 bg_color = Color(0, 0, 0, 1)
@@ -109,5 +109,5 @@ text = "Salir
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Configuracion" to="." method="_on_configuracion_pressed"]
-[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
 [connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
