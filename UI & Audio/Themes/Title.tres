@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d25jybhybw7qa"]
+
+[ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://UI & Audio/Artifex.otf" id="1_ca6cu"]
+
+[resource]
+/font_sizes/Title = 28
+/fonts/Title = ExtResource("1_ca6cu")

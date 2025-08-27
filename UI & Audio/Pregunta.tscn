@@ -6,19 +6,31 @@
 script = ExtResource("1_jnd4e")
 
 [node name="LabelPregunta" type="Label" parent="."]
-offset_left = 592.0
-offset_top = 132.0
-offset_right = 1285.0
-offset_bottom = 530.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.266
+anchor_right = 0.5
+anchor_bottom = 0.266
+offset_left = -346.5
+offset_top = -199.28
+offset_right = 346.5
+offset_bottom = 198.72
+grow_horizontal = 2
+size_flags_horizontal = 4
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Opciones" type="VBoxContainer" parent="."]
-offset_left = 690.0
-offset_top = 580.0
-offset_right = 1218.0
-offset_bottom = 831.0
+anchors_preset = -1
+anchor_left = 0.497
+anchor_top = 0.653
+anchor_right = 0.497
+anchor_bottom = 0.653
+offset_left = -264.24
+offset_top = -125.24
+offset_right = 263.76
+offset_bottom = 125.76
 theme_override_constants/separation = 30
 
 [node name="Boton0" type="Button" parent="Opciones"]

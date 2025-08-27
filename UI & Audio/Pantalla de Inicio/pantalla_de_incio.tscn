@@ -109,5 +109,5 @@ text = "Salir
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Configuracion" to="." method="_on_configuracion_pressed"]
-[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_play_pressed"]

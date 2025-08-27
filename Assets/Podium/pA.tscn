@@ -20,6 +20,7 @@ radius = 3.17432
 
 [node name="PodiumF" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.00151401, 0.000691419, 0.999999, -0.000394397, 1, -0.000690826, -0.999999, -0.000393356, 0.00151428, 0, 1, 0)
+layers = 3
 mesh = ExtResource("1_wv632")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_st6tj")
@@ -27,6 +28,7 @@ surface_material_override/1 = SubResource("StandardMaterial3D_14f83")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(0.999848, 0, 0.0174524, 0, 1, 0, -0.0174524, 0, 0.999848, 0, 2, 0)
+layers = 2
 light_color = Color(0.547045, 0.568659, 0.951496, 1)
 light_indirect_energy = 0.0
 
