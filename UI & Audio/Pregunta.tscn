@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkvc0yco3r8n2"]
+
+[ext_resource type="Script" uid="uid://cfs2oeifo5adt" path="res://UI & Audio/preguntas_panel.gd" id="1_jnd4e"]
+
+[node name="PreguntasPanel" type="CanvasLayer"]
+script = ExtResource("1_jnd4e")
+
+[node name="LabelPregunta" type="Label" parent="."]
+offset_left = 592.0
+offset_top = 132.0
+offset_right = 1285.0
+offset_bottom = 530.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Opciones" type="VBoxContainer" parent="."]
+offset_left = 690.0
+offset_top = 580.0
+offset_right = 1218.0
+offset_bottom = 831.0
+theme_override_constants/separation = 30
+
+[node name="Boton0" type="Button" parent="Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+autowrap_mode = 3
+
+[node name="Boton1" type="Button" parent="Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+autowrap_mode = 3
+
+[node name="Boton2" type="Button" parent="Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+autowrap_mode = 3
+
+[node name="Boton3" type="Button" parent="Opciones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = ")"
+autowrap_mode = 3
+
+[node name="LabelFeedback" type="Label" parent="."]
+offset_left = 489.0
+offset_top = 854.0
+offset_right = 1444.0
+offset_bottom = 1015.0

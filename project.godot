@@ -20,7 +20,7 @@ buses/default_bus_layout="res://Audios/default_bus_layout (2).tres"
 
 [autoload]
 
-MusicaDeFondo="*res://Assets/musica_de_fondo.tscn"
+MusicaDeFondo="*res://UI & Audio/Musica y Audios/musica_de_fondo.tscn"
 
 [display]
 
@@ -33,7 +33,7 @@ window/canvas_textures/default_texture_filter=0
 [file_customization]
 
 folder_colors={
-"res://UI/": "green"
+"res://UI & Audio/": "green"
 }
 
 [input]

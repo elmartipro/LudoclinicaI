@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7y3qen7kjo8x"
-path="res://.godot/imported/Layer 2 1.png-565245b027eab22279b48c0160b3d35c.ctex"
+uid="uid://3k62o1bugww5"
+path="res://.godot/imported/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp-1dc79f976154c7bb6aaa0c9f6c7400a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Layer 2 1.png"
-dest_files=["res://.godot/imported/Layer 2 1.png-565245b027eab22279b48c0160b3d35c.ctex"]
+source_file="res://UI & Audio/Icons & Backgrounds/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp"
+dest_files=["res://.godot/imported/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp-1dc79f976154c7bb6aaa0c9f6c7400a0.ctex"]
 
 [params]
 

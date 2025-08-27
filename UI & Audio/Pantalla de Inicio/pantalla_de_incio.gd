@@ -1,7 +1,7 @@
 extends Control
 
 # Musica De el juego 
-var sonido_fondo := preload("res://Musica y Audios/no-copyright-music-corporate-medical-338514 (2).mp3") 
+var sonido_fondo := preload("res://UI & Audio/Musica y Audios/main_music.mp3") 
 
 
 func _ready():
@@ -17,11 +17,11 @@ func _ready():
 
 # Jugar redirecciona a la escena de escoger modos 
 func _on_play_pressed(): 
-	get_tree().change_scene_to_file("res://UI/modos_de_juego.tscn")
+	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/modos_de_juego.tscn")
 
 
 func _on_configuracion_pressed():
-	get_tree().change_scene_to_file("res://UI/configuracion.tscn")
+	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/configuracion.tscn")
 
 
 func _on_salir_pressed():

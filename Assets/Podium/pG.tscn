@@ -1,27 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ff4pwgkudfr"]
+[gd_scene load_steps=5 format=3 uid="uid://csbrvpiue7sss"]
 
-[ext_resource type="ArrayMesh" uid="uid://bbkn8k1v5jo4v" path="res://Assets/Podium/podiumG.obj" id="1_vxw2y"]
+[ext_resource type="ArrayMesh" uid="uid://onaljsjq8mtc" path="res://Assets/Podium/podiumB.obj" id="1_vxw2y"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkb5b"]
-albedo_color = Color(0.284754, 0.491896, 0.598742, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wjjn"]
+albedo_color = Color(0.579001, 0.624019, 0.420342, 1)
 metallic_specular = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6oic"]
-albedo_color = Color(0.262303, 0.590675, 0.714625, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_raju2"]
+albedo_color = Color(0.644976, 0.533984, 0.161897, 1)
 emission_enabled = true
-emission = Color(0.160214, 0.532824, 0.62444, 1)
+emission = Color(0.711028, 0.386505, 0.021948, 1)
 emission_energy_multiplier = 2.04
 
-[node name="pH" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kaae6"]
+height = 1.34302
+radius = 3.17432
 
-[node name="PodiumG" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.36952e-08, 0.0272063, 0.99963, 1.18923e-09, 0.99963, -0.0272063, -1, 0, -4.37114e-08, 0, 1, 0)
+[node name="pB" type="StaticBody3D"]
+
+[node name="PodiumB" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.961425, 0, 0.275067, 0, 1, 0, -0.275067, 0, 0.961425, 0, 1, 0)
 mesh = ExtResource("1_vxw2y")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_wkb5b")
-surface_material_override/1 = SubResource("StandardMaterial3D_w6oic")
+surface_material_override/0 = SubResource("StandardMaterial3D_2wjjn")
+surface_material_override/1 = SubResource("StandardMaterial3D_raju2")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(0.961069, 0.0272063, -0.274965, -0.0261568, 0.99963, 0.00748355, 0.275067, -1.12668e-09, 0.961425, 0, 2, 0)
-light_color = Color(0.165286, 0.664667, 0.87788, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0.959837, 0.766619, 0.530507, 1)
 light_indirect_energy = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593628, 0)
+shape = SubResource("CylinderShape3D_kaae6")

@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://5yyt53x6s4mm"]
+[gd_scene load_steps=2 format=3 uid="uid://c8cv7lgw1twqi"]
 
-[ext_resource type="Script" uid="uid://cqx6aikdsvkny" path="res://Assets/Podium/podium.gd" id="1_d43y7"]
+[sub_resource type="GDScript" id="GDScript_l42qh"]
+script/source = "extends Node3D
+
+@export var assets : Array[PackedScene] = [
+	preload(\"res://Assets/Podium/pA.tscn\"),
+	preload(\"res://Assets/Podium/pB.tscn\"),
+	preload(\"res://Assets/Podium/pC.tscn\"),
+	preload(\"res://Assets/Podium/pD.tscn\"),
+	preload(\"res://Assets/Podium/pE.tscn\"),
+	preload(\"res://Assets/Podium/pF.tscn\"),
+	preload(\"res://Assets/Podium/pG.tscn\"),
+	preload(\"res://Assets/Podium/pH.tscn\")
+]
+
+var podiums : Array[PackedScene] = []
+"
 
 [node name="Podium" type="Node3D"]
-script = ExtResource("1_d43y7")
+script = SubResource("GDScript_l42qh")

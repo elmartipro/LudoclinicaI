@@ -89,14 +89,11 @@ func _integrate_forces(state):
 		# Calculate collision force/velocity to avoid playing sound on tiny contacts
 		var collision_force = linear_velocity.length()
 		
-		print("Contacts detected: ", state.get_contact_count(), " Force: ", collision_force)
-		
 		# Only play if force is significant and sound isn't already playing
 		if collision_force > min_collision_force and not collision_sound.playing:
-			print("Playing collision sound - Force: ", collision_force)
 
 			var start_time := 0.32
-			var end_time := 0.52
+			var end_time := 0.42
 			var play_duration := end_time - start_time
 			
 			collision_sound.play(start_time)  # start from 0.32
