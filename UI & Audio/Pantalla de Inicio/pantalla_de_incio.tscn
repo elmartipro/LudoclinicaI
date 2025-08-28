@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=7 format=3 uid="uid://cp1qd8tqy1w7l"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="1_muksq"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="1_toc2r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toc2r"]
@@ -23,6 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
+theme = ExtResource("1_muksq")
 script = ExtResource("1_5je2x")
 
 [node name="TextureRect3" type="TextureRect" parent="."]
@@ -48,21 +50,21 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -352.0
-offset_top = -540.0
+offset_top = -409.0
 offset_right = 381.0
-offset_bottom = -155.0
+offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
+theme = ExtResource("1_muksq")
 
 [node name="Label" type="Label" parent="PanelContainer"]
 modulate = Color(0, 0, 0.0392157, 1)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 70
+theme = ExtResource("1_muksq")
 text = "Ludoclínica
-Hipertermia Maligna
-"
+Hipertermia Maligna"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -73,10 +75,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -172.5
-offset_top = -150.5
-offset_right = 172.5
-offset_bottom = 150.5
+offset_left = -326.0
+offset_top = -67.0
+offset_right = 326.0
+offset_bottom = 273.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 35

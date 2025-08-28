@@ -1,7 +1,17 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d25jybhybw7qa"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cjifprtp6t2w7"]
 
-[ext_resource type="FontFile" uid="uid://4ttfqhjaviyd" path="res://UI & Audio/Artifex.otf" id="1_ca6cu"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f80up"]
 
 [resource]
-/font_sizes/Title = 28
-/fonts/Title = ExtResource("1_ca6cu")
+default_font_size = 0
+Label/colors/font_color = Color(0.462745, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 70
+Label/fonts/font = null
+Label/styles/normal = SubResource("StyleBoxEmpty_f80up")
