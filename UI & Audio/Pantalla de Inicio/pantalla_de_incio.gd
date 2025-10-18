@@ -5,13 +5,17 @@ var sonido_fondo := preload("res://UI & Audio/Musica y Audios/main_music.mp3")
 
 
 func _ready():
- # Verifica si el stream actual es diferente al que quieres usar
+	# Make sure we assign the right stream
 	if MusicaDeFondo.stream != sonido_fondo:
 		MusicaDeFondo.stream = sonido_fondo
 
-	# Reproduce la música solo si no está sonando
-		if not MusicaDeFondo.playing:
-			MusicaDeFondo.play()
+	# Ensure it loops forever
+	if MusicaDeFondo.stream is AudioStream:
+		MusicaDeFondo.stream.set_loop(true)  # Godot 4.x
+	
+	# Play if not already playing
+	if not MusicaDeFondo.playing:
+		MusicaDeFondo.play()
 
 
 

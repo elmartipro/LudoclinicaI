@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwhmo4wghkyi8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0vnud"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="Curve" id="Curve_0djch"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00497019), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7ymiy"]
+colors = PackedColorArray(2.40654e-07, 0.342023, 0.505155, 1, 0.2, 0.560784, 0.529412, 1)
+
+[node name="Node3D" type="CPUParticles3D"]
+emitting = false
+amount = 80
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_0vnud")
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_max = 6.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_0djch")
+color_ramp = SubResource("Gradient_7ymiy")

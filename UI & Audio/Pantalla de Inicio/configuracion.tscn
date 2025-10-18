@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbv6n8qvqb3hj"]
+[gd_scene load_steps=10 format=3 uid="uid://bbv6n8qvqb3hj"]
 
 [ext_resource type="Script" uid="uid://x3ine3l4blbm" path="res://UI & Audio/Pantalla de Inicio/configuracion.gd" id="1_jtylf"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="1_uk8ga"]
 [ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI & Audio/Icons & Backgrounds/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="2_vw167"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="3_1361w"]
 [ext_resource type="Script" uid="uid://cccl5se7was1s" path="res://UI & Audio/volver_1.gd" id="3_vycbt"]
 [ext_resource type="Script" uid="uid://og8qqkjn132" path="res://UI & Audio/Pantalla de Inicio/music_control.gd" id="5_vycbt"]
+[ext_resource type="Theme" uid="uid://cqcfr2tjiuihx" path="res://UI & Audio/Themes/Main.tres" id="7_j8rvh"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ekisy"]
 color = Color(1, 1, 1, 1)
@@ -32,7 +34,6 @@ offset_bottom = 1352.0
 texture = ExtResource("1_uk8ga")
 
 [node name="Label" type="Label" parent="."]
-self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -41,9 +42,10 @@ offset_left = -344.0
 offset_right = 344.0
 offset_bottom = 256.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 70
+theme = ExtResource("3_1361w")
 text = "Configuracion"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Volver2" type="TextureButton" parent="."]
 layout_mode = 1
@@ -75,12 +77,12 @@ value = 1.0
 script = ExtResource("5_vycbt")
 
 [node name="Label2" type="Label" parent="."]
-self_modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 304.0
 offset_top = 320.0
 offset_right = 728.0
 offset_bottom = 440.0
+theme = ExtResource("7_j8rvh")
 theme_override_font_sizes/font_size = 40
 text = "Volumen de la musica"
 vertical_alignment = 1

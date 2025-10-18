@@ -23,6 +23,7 @@ var current_jump_target_index: int = -1	# <-- NEW: the spot we are jumping to
 func _ready() -> void:
 	place_number = game_spaces.size()
 	dice.roll_finished.connect(_on_dice_roll_finished)
+	self.pawn_finished_moving.connect(_on_pawn_finished_moving) # connect locally
 
 func _on_dice_roll_finished(rolled_value: int) -> void:
 	if place >= place_number:
@@ -71,3 +72,9 @@ func _process(delta: float) -> void:
 		var arc := 4.0 * height * t * (1.0 - t)
 		pos.y += arc
 		pawn.global_position = pos
+
+func _on_pawn_finished_moving(_landed_spot: Node) -> void:
+	var vfx = preload("res://Assets/Vfx/PawnLandingVfx.tscn").instantiate()
+	get_tree().current_scene.add_child(vfx)
+	vfx.global_position = global_position   # pawn position
+	print("vfx")

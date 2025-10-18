@@ -56,8 +56,9 @@ opposite_side = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38556, 0)
 opposite_side = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Dice sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ch4jn")
+volume_db = 7.889
 script = ExtResource("5_ch4jn")
 
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

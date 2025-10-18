@@ -12,8 +12,8 @@ emission_enabled = true
 emission = Color(0.711028, 0.386505, 0.021948, 1)
 emission_energy_multiplier = 2.04
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kaae6"]
-height = 1.34302
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vxw2y"]
+height = 2.49768
 radius = 3.17432
 
 [node name="pB" type="StaticBody3D"]
@@ -32,6 +32,6 @@ layers = 2
 light_color = Color(0.959837, 0.766619, 0.530507, 1)
 light_indirect_energy = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593628, 0)
-shape = SubResource("CylinderShape3D_kaae6")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17096, 0)
+shape = SubResource("CylinderShape3D_vxw2y")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7kvam30126dw"]
+[gd_scene load_steps=5 format=3 uid="uid://7kvam30126dw"]
 
 [ext_resource type="Script" uid="uid://c2mo0x867t3ny" path="res://UI & Audio/Pantalla de Inicio/modos_de_juego.gd" id="1_cqabt"]
 [ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="2_qrji3"]
 [ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI & Audio/Icons & Backgrounds/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="3_nh7f4"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="3_qrji3"]
 
 [node name="ModosDeJuego" type="Control"]
 layout_mode = 3
@@ -21,36 +22,34 @@ offset_right = 2224.0
 offset_bottom = 1256.0
 texture = ExtResource("2_qrji3")
 
-[node name="Juego3" type="TextureButton" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Juego1" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -268.0
-offset_top = 376.0
-offset_right = 276.0
-offset_bottom = 440.0
+anchor_bottom = 0.5
+offset_left = -316.0
+offset_top = -161.0
+offset_right = 316.0
+offset_bottom = 161.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 46
-text = "Modo De Juego 1"
+grow_vertical = 2
+theme = ExtResource("3_qrji3")
+alignment = 1
 
-[node name="Juego2" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -268.0
-offset_top = 600.0
-offset_right = 276.0
-offset_bottom = 672.0
-grow_horizontal = 2
+[node name="Juego1" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_qrji3")
 theme_override_font_sizes/font_size = 46
-text = "Modo De Juego 2"
+text = "Modo Demo"
+
+[node name="Juego2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_qrji3")
+theme_override_font_sizes/font_size = 46
+disabled = true
+text = "Modo Exámen"
 
 [node name="Volver1" type="TextureButton" parent="."]
 layout_mode = 1
@@ -66,6 +65,5 @@ position = Vector2(128, 1000)
 scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_nh7f4")
 
-[connection signal="pressed" from="Juego1" to="." method="_on_juego_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/Juego1" to="." method="_on_juego_1_pressed"]
 [connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]
-[connection signal="pressed" from="Volver1" to="." method="_on_texture_button_pressed"]
