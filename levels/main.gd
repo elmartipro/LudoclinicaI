@@ -1,6 +1,6 @@
 extends Node
 
-const CATEGORY_COLORS = {
+var CATEGORY_COLORS = {
 	"Epidemiología": Color.html("#7159C4"),
 	"Fisiopatología": Color.html("#C0429D"),
 	"Manifestaciones clínicas y paraclínicas": Color.html("#108072"),
