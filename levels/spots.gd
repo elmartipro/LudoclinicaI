@@ -71,28 +71,28 @@ func _category_from_filename(fname: String) -> String:
 	return category_map.get(fname, "Varios")
 
 func _on_pawn_finished_moving(landed_spot: Node) -> void:
-        var podium: Node = null
-        if landed_spot.get_child_count() > 0 and landed_spot.get_child(0).has_meta("category"):
-                podium = landed_spot.get_child(0)
-        else:
-		for child in landed_spot.get_children():
-			if child.has_meta("category"):
-				podium = child
-				break
+		var podium: Node = null
+		if landed_spot.get_child_count() > 0 and landed_spot.get_child(0).has_meta("category"):
+				podium = landed_spot.get_child(0)
+		else:
+			for child in landed_spot.get_children():
+				if child.has_meta("category"):
+					podium = child
+					break
 
-        if podium:
-                var category: String = podium.get_meta("category")
+		if podium:
+				var category: String = podium.get_meta("category")
 
-                # 🔥 Caso especial: Podio de vida extra
-                if category == "Health":
-                        var preguntas_panel = $"../PreguntasPanel"
-                        if preguntas_panel:
-                                preguntas_panel.vidas += 1
-                                preguntas_panel._update_health_label()
-                                extra_life_awarded.emit(preguntas_panel.vidas)
-                        return
+				# 🔥 Caso especial: Podio de vida extra
+				if category == "Health":
+						var preguntas_panel = $"../PreguntasPanel"
+						if preguntas_panel:
+								preguntas_panel.vidas += 1
+								preguntas_panel._update_health_label()
+								extra_life_awarded.emit(preguntas_panel.vidas)
+						return
 
-                # 🔥 Para cualquier otro podio → pregunta normal
-                var panel := $"../PreguntasPanel"
-                category_reached.emit(category)
-                panel.mostrar_pregunta_de_categoria(category)
+				# 🔥 Para cualquier otro podio → pregunta normal
+				var panel := $"../PreguntasPanel"
+				category_reached.emit(category)
+				panel.mostrar_pregunta_de_categoria(category)
