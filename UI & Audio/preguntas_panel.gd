@@ -545,4 +545,3 @@ func _hide_timeout_effect() -> void:
 		timeout_label.visible = false
 		timeout_label.modulate = Color(1, 1, 1, 0)
 		timeout_label.scale = Vector2.ONE
-

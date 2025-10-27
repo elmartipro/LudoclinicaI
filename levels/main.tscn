@@ -220,17 +220,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.117647, 0.156863, 0.188235, 0.0)
+color = Color(0.117647, 0.156863, 0.188235, 0)
 
 [node name="HUDMessages" type="CanvasLayer" parent="."]
 layer = 2
 
 [node name="ExtraLifeLabel" type="Label" parent="HUDMessages"]
-anchors_preset = 7
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
 offset_left = -260.0
 offset_top = 80.0
 offset_right = 260.0
@@ -243,8 +243,6 @@ theme_override_styles/normal = ExtResource("8_etqu2")
 text = "+1 Vida extra!"
 horizontal_alignment = 1
 vertical_alignment = 1
-visible = false
-modulate = Color(1, 1, 1, 0)
 
 [node name="VictoryOverlay" type="CanvasLayer" parent="."]
 layer = 20
@@ -268,33 +266,37 @@ grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="VictoryOverlay/CenterContainer"]
 custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
 theme = ExtResource("7_6et1j")
 theme_override_styles/panel = ExtResource("8_etqu2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VictoryOverlay/CenterContainer/Panel"]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 theme_override_constants/separation = 28
+alignment = 1
 
 [node name="TitleLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("7_6et1j")
 theme_override_font_sizes/font_size = 54
 text = "¡Victoria!"
 horizontal_alignment = 1
 
 [node name="MessageLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("7_6et1j")
-theme_override_font_sizes/font_size = 32
 theme_override_colors/font_color = Color(0.87451, 0.952941, 0.941176, 1)
+theme_override_font_sizes/font_size = 32
 text = "Alcanzaste 15 puntos y ganaste la partida."
 horizontal_alignment = 1
 autowrap_mode = 1
 
 [node name="RestartButton" type="Button" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("7_6et1j")
 text = "Reiniciar partida"

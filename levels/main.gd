@@ -1,15 +1,15 @@
 extends Node
 
 var CATEGORY_COLORS = {
-	"Epidemiología": Color.html("#3498db"),
-	"Fisiopatología": Color.html("#9b59b6"),
-	"Manifestaciones clínicas y paraclínicas": Color.html("#e67e22"),
-	"Diagnóstico diferencial": Color.html("#1abc9c"),
-	"Tratamiento": Color.html("#e74c3c"),
-	"Seguimiento": Color.html("#f1c40f"),
-	"Cultura": Color.html("#2ecc71"),
+	"Epidemiología": Color.html("#7159C4"),
+	"Fisiopatología": Color.html("#C0429D"),
+	"Manifestaciones clínicas y paraclínicas": Color.html("#108072"),
+	"Diagnóstico diferencial": Color.html("#2A6E96"),
+	"Tratamiento": Color.html("#BC3232"),
+	"Seguimiento": Color.html("#446F47"),
+	"Cultura": Color.html("#E7CB8B"),
 	"Health": Color.html("#27ae60"),
-	"default": Color.html("#1e272e")
+	"default": Color.html("#5F9A88")
 }
 
 const PANEL_ACTIVE_ALPHA = 0.38
@@ -130,14 +130,14 @@ func _show_end_overlay(victory: bool, total_points: int) -> void:
 	if victory_title_label:
 		victory_title_label.text = "¡Victoria!" if victory else "Juego terminado"
 	if victory_message_label:
-		victory_message_label.text = ("Alcanzaste %d puntos y ganaste la partida." % total_points) if victory else "Te quedaste sin vidas. ¡Inténtalo de nuevo!"
+		victory_message_label.text = ("Alcanzaste %d puntos y ganaste la partida." % total_points) if victory else "Te quedaste sin vidas.\n¡Inténtalo de nuevo!"
 
 	current_category = ""
 	var finish_color = Color.html("#f5d76e") if victory else Color.html("#e06666")
-        var podium_color = _update_floor_color(finish_color)
-        _tween_overlay_color(podium_color, 0.42)
-        _tween_light_color(finish_color)
-        _update_ui_colors(podium_color)
+	var podium_color = _update_floor_color(finish_color)
+	_tween_overlay_color(podium_color, 0.42)
+	_tween_light_color(finish_color)
+	_update_ui_colors(podium_color)
 
 	_lock_gameplay()
 
@@ -157,13 +157,13 @@ func _restart_game() -> void:
 	get_tree().reload_current_scene()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
-        var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
-        var podium_color = _update_floor_color(base_color)
-        _tween_overlay_color(podium_color, 0.0 if alpha < 0.4 else alpha)
-        _tween_light_color(base_color)
-        _update_ui_colors(podium_color)
-        if preguntas_panel and preguntas_panel.has_method("actualizar_colores_de_ui"):
-                preguntas_panel.actualizar_colores_de_ui(podium_color)
+	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
+	var podium_color = _update_floor_color(base_color)
+	_tween_overlay_color(podium_color, 0.0 if alpha < 0.4 else alpha)
+	_tween_light_color(base_color)
+	_update_ui_colors(podium_color)
+	if preguntas_panel and preguntas_panel.has_method("actualizar_colores_de_ui"):
+		preguntas_panel.actualizar_colores_de_ui(podium_color)
 
 func _floor_prepare_material() -> void:
 	var active_material: Material = floor_mesh.get_active_material(0)
@@ -176,25 +176,25 @@ func _floor_prepare_material() -> void:
 		default_floor_color = Color.WHITE
 
 func _update_floor_color(base_color: Color) -> Color:
-        if not floor_material:
-                return base_color
-        var target_color = base_color.lerp(default_floor_color, 0.35)
-        (floor_material as BaseMaterial3D).albedo_color = target_color
-        return target_color
+	if not floor_material:
+		return base_color
+	var target_color = base_color.lerp(default_floor_color, 0.35)
+	(floor_material as BaseMaterial3D).albedo_color = target_color
+	return target_color
 
 func _update_ui_colors(podium_color: Color) -> void:
-        var accent = podium_color.lerp(Color.WHITE, 0.6)
-        var secondary = podium_color.lerp(Color.BLACK, 0.35)
-        if score_label:
-                score_label.add_theme_color_override("font_color", accent)
-                score_label.add_theme_color_override("font_outline_color", secondary)
-        if health_label:
-                health_label.add_theme_color_override("font_color", accent)
-                health_label.add_theme_color_override("font_outline_color", secondary)
+	var accent = podium_color.lerp(Color.WHITE, 0.6)
+	var secondary = podium_color.lerp(Color.BLACK, 0.35)
+	if score_label:
+		score_label.add_theme_color_override("font_color", accent)
+		score_label.add_theme_color_override("font_outline_color", secondary)
+	if health_label:
+		health_label.add_theme_color_override("font_color", accent)
+		health_label.add_theme_color_override("font_outline_color", secondary)
 
 func _tween_overlay_color(base_color: Color, alpha: float) -> void:
-        if not color_rect:
-                return
+	if not color_rect:
+		return
 	var target_color: Color = Color(base_color.r, base_color.g, base_color.b, alpha)
 	if overlay_tween and overlay_tween.is_running():
 		overlay_tween.kill()
