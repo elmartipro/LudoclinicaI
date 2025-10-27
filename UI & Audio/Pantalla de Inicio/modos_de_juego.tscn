@@ -42,7 +42,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("3_qrji3")
 theme_override_font_sizes/font_size = 46
-text = "Easy Mode"
+text = "Modo Fácil"
 
 [node name="Juego2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
