@@ -65,9 +65,6 @@ distance_fade_shadow = 91.05
 omni_range = 61.576
 omni_attenuation = 0.258
 
-[node name="Dice" parent="." instance=ExtResource("4_m1504")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.785, 0)
-
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.618376, -0.724548)
 
@@ -194,11 +191,23 @@ offset_bottom = 117.0
 theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
-text = "Puntos: 0 / 15"
+text = "Aciertos: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Health" type="Label" parent="."]
+[node name="Progress" type="Label" parent="."]
+offset_left = 708.0
+offset_top = 19.0
+offset_right = 1140.0
+offset_bottom = 117.0
+theme = ExtResource("7_6et1j")
+theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
+theme_override_styles/normal = ExtResource("8_etqu2")
+text = "Pregunta: 0 / 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExamTimer" type="Label" parent="."]
 offset_left = 1458.0
 offset_top = 19.0
 offset_right = 1890.0
@@ -206,7 +215,7 @@ offset_bottom = 117.0
 theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
-text = "Vidas: 3"
+text = "Tiempo: 00:00.00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -221,28 +230,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.117647, 0.156863, 0.188235, 0)
-
-[node name="HUDMessages" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="ExtraLifeLabel" type="Label" parent="HUDMessages"]
-visible = false
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -260.0
-offset_top = 80.0
-offset_right = 260.0
-offset_bottom = 130.0
-grow_horizontal = 2
-theme = ExtResource("7_6et1j")
-theme_override_colors/font_color = Color(0.827451, 0.964706, 0.854902, 1)
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = ExtResource("8_etqu2")
-text = "+1 Vida extra!"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="VictoryOverlay" type="CanvasLayer" parent="."]
 layer = 20
@@ -283,20 +270,101 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("7_6et1j")
 theme_override_font_sizes/font_size = 54
-text = "¡Victoria!"
+text = "Resumen del examen"
 horizontal_alignment = 1
 
-[node name="MessageLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+[node name="StatsGrid" type="GridContainer" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+columns = 2
+theme = ExtResource("7_6et1j")
+theme_override_constants/v_separation = 12
+theme_override_constants/h_separation = 24
+
+[node name="PercentageLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Porcentaje de aciertos:"
+
+[node name="PercentageValue" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "0.00%"
+horizontal_alignment = 2
+
+[node name="TotalTimeLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Tiempo total:"
+
+[node name="TotalTimeValue" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "00:00.00"
+horizontal_alignment = 2
+
+[node name="AverageTimeLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Promedio por pregunta:"
+
+[node name="AverageTimeValue" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "00:00.00"
+horizontal_alignment = 2
+
+[node name="BestCategoryLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Categoría con más aciertos:"
+
+[node name="BestCategoryValue" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "—"
+horizontal_alignment = 2
+
+[node name="WorstCategoryLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Categoría con más errores:"
+
+[node name="WorstCategoryValue" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "—"
+horizontal_alignment = 2
+
+[node name="ComparativaLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.87451, 0.952941, 0.941176, 1)
-theme_override_font_sizes/font_size = 32
-text = "Alcanzaste 15 puntos y ganaste la partida."
+theme_override_font_sizes/font_size = 24
+text = "Este es tu primer intento guardado."
 horizontal_alignment = 1
 autowrap_mode = 1
+
+[node name="HistoryButton" type="Button" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("7_6et1j")
+text = "Ver historial"
+
+[node name="HistoryContainer" type="Panel" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+visible = false
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_minimum_size = Vector2(560, 220)
+theme = ExtResource("7_6et1j")
+theme_override_styles/panel = ExtResource("8_etqu2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/HistoryContainer"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_horizontal = false
+
+[node name="HistoryList" type="VBoxContainer" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer/HistoryContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 18
 
 [node name="RestartButton" type="Button" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("7_6et1j")
-text = "Reiniciar partida"
+text = "Reiniciar examen"

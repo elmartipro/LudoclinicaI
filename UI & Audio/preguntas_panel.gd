@@ -1,23 +1,31 @@
 extends CanvasLayer
 
-signal respondida(correcta: bool)
 signal panel_closed
 signal panel_opened
-signal victoria_alcanzada(total_puntos: int)
-signal derrota_alcanzada
+signal pregunta_finalizada(resultado: Dictionary)
+signal examen_finalizado(resumen: Dictionary)
 
-const WIN_THRESHOLD = 15
-const HEALTH_ICON = "✚"
+const DEFAULT_TIEMPO_LIMITE: int = 40
 
 var pregunta_actual: Dictionary = {}
 var preguntas_por_categoria: Dictionary = {}
 var preguntas_originales: Dictionary = {}
+var indices_por_categoria: Dictionary = {}
 var waiting_for_continue: bool = false
-var puntos: int = 0
-var vidas: int = 3
+var aciertos: int = 0
+var total_preguntas: int = 0
+var preguntas_contestadas: int = 0
+var examen_activo: bool = false
 var ultima_correcta: bool = true
-var tiempo_limite: int = 45
-var tiempo_restante: int = tiempo_limite
+var tiempo_limite: int = DEFAULT_TIEMPO_LIMITE
+var tiempo_restante: int = DEFAULT_TIEMPO_LIMITE
+var categoria_actual: String = ""
+var historial: Array = []
+var categoria_stats: Dictionary = {}
+var resultado_pregunta_actual: Dictionary = {}
+var tiempo_pregunta_inicio: float = 0.0
+var tiempo_total_respuestas: float = 0.0
+var current_spot: Node = null
 var accent_color: Color = Color.html("#68908d")
 var cronometro_base_color: Color = Color.html("#68908d")
 var cronometro_warning_color: Color = Color.html("#cc6666")
@@ -43,7 +51,6 @@ var timeout_tween: Tween = null
 @onready var categoria_icon: TextureRect = $Panel/CategoriaIcon
 @onready var continue_hint: Label = $ContinueHint
 @onready var score_label: Label = $"../Score"
-@onready var health_label: Label = $"../Health"
 @onready var background_rect: ColorRect = $ColorRect
 @onready var card_panel: Panel = $Card
 @onready var info_panel: Panel = $Panel
@@ -57,8 +64,7 @@ var icon_map = {
 	"Diagnóstico diferencial": preload("res://Assets/Icons/diagnostico.svg"),
 	"Tratamiento": preload("res://Assets/Icons/tratamiento.svg"),
 	"Seguimiento": preload("res://Assets/Icons/seguimiento.svg"),
-	"Cultura": preload("res://Assets/Icons/cultura.svg"),
-	"Health": preload("res://Assets/Icons/health.svg")
+	"Cultura": preload("res://Assets/Icons/cultura.svg")
 }
 
 func _ready() -> void:
@@ -68,7 +74,6 @@ func _ready() -> void:
 	actualizar_colores_de_ui(Color.html("#1e272e"))
 	_cargar_preguntas()
 	_update_score_label()
-	_update_health_label()
 	if continue_hint:
 		continue_hint.visible = false
 		continue_hint.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -85,6 +90,18 @@ func _ready() -> void:
 		botones[i].pressed.connect(_on_opcion_pressed.bind(i))
 	timer.timeout.connect(_on_timer_tick)
 
+func configurar_examen(total: int) -> void:
+	total_preguntas = max(total, 0)
+	preguntas_contestadas = 0
+	aciertos = 0
+	historial.clear()
+	categoria_stats.clear()
+	indices_por_categoria.clear()
+	for categoria in preguntas_por_categoria.keys():
+		indices_por_categoria[categoria] = 0
+	examen_activo = total_preguntas > 0
+	_update_score_label()
+
 func _cargar_preguntas() -> void:
 	var f = FileAccess.open("res://UI & Audio/preguntas_etapa_1.json", FileAccess.READ)
 	if f:
@@ -92,51 +109,55 @@ func _cargar_preguntas() -> void:
 		if typeof(parsed) == TYPE_DICTIONARY:
 			preguntas_por_categoria = parsed.duplicate(true)
 			preguntas_originales = parsed.duplicate(true)
+			for categoria in preguntas_por_categoria.keys():
+				indices_por_categoria[categoria] = 0
 		else:
 			push_error("Formato JSON no esperado.")
 	else:
 		push_error("No se pudo abrir el archivo de preguntas.")
 
-func mostrar_pregunta_de_categoria(cat: String) -> void:
-	if preguntas_por_categoria.has(cat):
-		var lista: Array = preguntas_por_categoria[cat]
-		if lista.size() == 0 and preguntas_originales.has(cat):
-			preguntas_por_categoria[cat] = preguntas_originales[cat].duplicate(true)
-			lista = preguntas_por_categoria[cat]
-		if lista.size() > 0:
-			var idx = randi() % lista.size()
-			var pregunta = lista[idx]
-			preguntas_por_categoria[cat].remove_at(idx)
-			_mostrar_pregunta(pregunta, cat)
-		else:
-			push_error("Categoría vacía incluso tras reiniciar: " + cat)
-	else:
+func mostrar_pregunta_de_categoria(cat: String, spot: Node) -> void:
+	if not examen_activo:
+		return
+	if not preguntas_por_categoria.has(cat):
 		push_error("Categoría no encontrada: " + cat)
+		return
+	var lista: Array = preguntas_por_categoria[cat]
+	if lista.size() == 0:
+		push_error("Categoría vacía: " + cat)
+		return
+	var indice: int = indices_por_categoria.get(cat, 0)
+	if indice >= lista.size():
+		indice = 0
+		indices_por_categoria[cat] = 0
+	var pregunta = lista[indice]
+	indices_por_categoria[cat] = indice + 1
+	categoria_actual = cat
+	current_spot = spot
+	_mostrar_pregunta(pregunta, cat)
 
 func _mostrar_pregunta(p: Dictionary, cat: String) -> void:
 	pregunta_actual = p.duplicate(true)
+	resultado_pregunta_actual.clear()
 	label_categoria.text = cat
-	label_pregunta.text = p["texto"]
+	label_pregunta.text = p.get("texto", "")
 	_hide_timeout_effect()
-	var opciones: Array = []
-	for i in range(p["opciones"].size()):
-		opciones.append({"texto": p["opciones"][i], "correcta": i == p["respuesta_correcta"]})
-	opciones.shuffle()
-	pregunta_actual["opciones"] = []
-	for i in range(opciones.size()):
-		pregunta_actual["opciones"].append(opciones[i]["texto"])
-		if opciones[i]["correcta"]:
-			pregunta_actual["respuesta_correcta"] = i
 	for i in range(botones.size()):
-		botones[i].text = char(65 + i) + ") " + pregunta_actual["opciones"][i]
-		botones[i].disabled = false
-		botones[i].add_theme_color_override("font_color", accent_color.lerp(Color.WHITE, 0.5))
+		if i < p["opciones"].size():
+			botones[i].text = char(65 + i) + ") " + p["opciones"][i]
+			botones[i].disabled = false
+			botones[i].add_theme_color_override("font_color", accent_color.lerp(Color.WHITE, 0.5))
+		else:
+			botones[i].text = ""
+			botones[i].disabled = true
 	if botones.size() > 0:
 		botones[0].grab_focus()
 	label_feedback.text = ""
 	waiting_for_continue = false
 	_set_continue_hint("", false)
+	tiempo_limite = DEFAULT_TIEMPO_LIMITE
 	tiempo_restante = tiempo_limite
+	tiempo_pregunta_inicio = Time.get_ticks_msec() / 1000.0
 	timer.stop()
 	timer.wait_time = 1
 	timer.start()
@@ -153,31 +174,78 @@ func _mostrar_pregunta(p: Dictionary, cat: String) -> void:
 	_play_intro_animation()
 
 func _on_opcion_pressed(index: int) -> void:
+	if waiting_for_continue:
+		return
 	timer.stop()
-	ultima_correcta = index == pregunta_actual["respuesta_correcta"]
+	ultima_correcta = index == pregunta_actual.get("respuesta_correcta", -1)
 	var retro = pregunta_actual.get("retroalimentacion", "")
 	for b in botones:
 		b.disabled = true
 	label_feedback.clear()
 	label_feedback.bbcode_enabled = true
+	var respuesta_usuario_texto: String = ""
+	if index >= 0 and index < pregunta_actual.get("opciones", []).size():
+		respuesta_usuario_texto = pregunta_actual["opciones"][index]
 	if ultima_correcta:
-		puntos += 1
+		aciertos += 1
 		_update_score_label()
-		label_feedback.text = "[color=#66bb66]¡Correcto![/color]\n\n"
-		if puntos >= WIN_THRESHOLD:
-			label_feedback.text += "[color=#f1c40f]¡Has alcanzado la meta de %d puntos![/color]" % WIN_THRESHOLD
-			respondida.emit(true)
-			_trigger_victory()
-			return
+		label_feedback.text = "[color=#66bb66]¡Correcto![/color]
+
+"
 	else:
-		label_feedback.text = "[color=#cc6666]¡Incorrecto![/color]\n"
-		var letra_correcta = char(65 + pregunta_actual["respuesta_correcta"])
-		label_feedback.text += "La respuesta correcta era: [color=#66bb66]" + letra_correcta + "[/color]\n\n"
+		label_feedback.text = "[color=#cc6666]¡Incorrecto![/color]
+"
+		var letra_correcta = char(65 + pregunta_actual.get("respuesta_correcta", 0))
+		label_feedback.text += "La respuesta correcta era: [color=#66bb66]" + letra_correcta + "[/color]
+
+"
 	if retro != "":
 		label_feedback.text += "[color=white]" + retro + "[/color]"
-	respondida.emit(ultima_correcta)
+	_registrar_resultado(respuesta_usuario_texto, index, false)
 	waiting_for_continue = true
 	_set_continue_hint("Haz clic o presiona Enter para continuar", true)
+
+func _registrar_resultado(respuesta_usuario_texto: String, indice_usuario: int, por_timeout: bool) -> void:
+	var tiempo_fin = Time.get_ticks_msec() / 1000.0
+	var tiempo_usado = max(tiempo_fin - tiempo_pregunta_inicio, 0.0)
+	tiempo_total_respuestas += tiempo_usado
+	var indice_correcto = pregunta_actual.get("respuesta_correcta", -1)
+	var respuesta_correcta_texto = ""
+	var opciones: Array = []
+	if pregunta_actual.has("opciones"):
+		opciones = pregunta_actual["opciones"].duplicate()
+		if indice_correcto >= 0 and indice_correcto < opciones.size():
+			respuesta_correcta_texto = opciones[indice_correcto]
+	if categoria_actual != "":
+		if not categoria_stats.has(categoria_actual):
+			categoria_stats[categoria_actual] = {"correctas": 0, "incorrectas": 0}
+		var registro_categoria: Dictionary = categoria_stats[categoria_actual]
+		if ultima_correcta:
+			registro_categoria["correctas"] = registro_categoria.get("correctas", 0) + 1
+		else:
+			registro_categoria["incorrectas"] = registro_categoria.get("incorrectas", 0) + 1
+	var respuesta_usuario_indice = indice_usuario
+	var respuesta_usuario_texto_final = respuesta_usuario_texto
+	var respuesta_correcta_flag = ultima_correcta
+	if por_timeout:
+		respuesta_usuario_indice = -1
+		respuesta_usuario_texto_final = "Sin respuesta"
+		respuesta_correcta_flag = false
+	var historial_entry = {
+		"categoria": categoria_actual,
+		"texto": pregunta_actual.get("texto", ""),
+		"opciones": opciones,
+		"respuesta_correcta": indice_correcto,
+		"respuesta_correcta_texto": respuesta_correcta_texto,
+		"respuesta_usuario": respuesta_usuario_indice,
+		"respuesta_usuario_texto": respuesta_usuario_texto_final,
+		"correcta": respuesta_correcta_flag,
+		"retroalimentacion": pregunta_actual.get("retroalimentacion", ""),
+		"tiempo": tiempo_usado
+	}
+	historial.append(historial_entry)
+	resultado_pregunta_actual = historial_entry.duplicate(true)
+	resultado_pregunta_actual["spot"] = current_spot
 
 func _on_timer_tick() -> void:
 	tiempo_restante -= 1
@@ -188,18 +256,19 @@ func _on_timer_tick() -> void:
 			label_cronometro.add_theme_color_override("font_color", cronometro_base_color)
 	else:
 		label_cronometro.add_theme_color_override("font_color", cronometro_base_color)
-	label_cronometro.text = str(tiempo_restante)
+	label_cronometro.text = str(max(tiempo_restante, 0))
 	if tiempo_restante <= 0:
 		timer.stop()
 		for b in botones:
 			b.disabled = true
 		ultima_correcta = false
-		var letra_correcta = char(65 + pregunta_actual["respuesta_correcta"])
 		label_feedback.clear()
 		label_feedback.bbcode_enabled = true
 		label_feedback.text = "[color=#cc6666]¡Se acabó el tiempo![/color]
 "
+		var letra_correcta = char(65 + pregunta_actual.get("respuesta_correcta", 0))
 		label_feedback.text += "La respuesta correcta era: [color=#66bb66]" + letra_correcta + "[/color]"
+		_registrar_resultado("", -1, true)
 		waiting_for_continue = true
 		_set_continue_hint("Haz clic o presiona Enter para continuar", true)
 		_show_time_out_effect()
@@ -219,42 +288,36 @@ func _close_question() -> void:
 		intro_tween.kill()
 		_finalize_intro_visuals()
 	_hide_timeout_effect()
-	if not ultima_correcta:
-		_perder_vida()
-		if vidas <= 0:
-			return
+	timer.stop()
 	hide()
 	panel_closed.emit()
+	if resultado_pregunta_actual.is_empty():
+		return
+	preguntas_contestadas += 1
+	var resultado = resultado_pregunta_actual.duplicate(true)
+	resultado_pregunta_actual.clear()
+	current_spot = null
+	pregunta_finalizada.emit(resultado)
+	if preguntas_contestadas >= total_preguntas and examen_activo:
+		examen_activo = false
+		examen_finalizado.emit(_crear_resumen())
+
+func _crear_resumen() -> Dictionary:
+	var resumen = {
+		"aciertos": aciertos,
+		"total": total_preguntas,
+		"historial": historial.duplicate(true),
+		"categoria_stats": categoria_stats.duplicate(true),
+		"tiempo_total_respuestas": tiempo_total_respuestas
+	}
+	return resumen
 
 func _update_score_label() -> void:
 	if score_label:
-		score_label.text = "Puntos: %d / %d" % [puntos, WIN_THRESHOLD]
-
-func _update_health_label() -> void:
-	if health_label:
-		var icons = HEALTH_ICON.repeat(max(vidas, 0))
-		if icons.is_empty():
-			icons = "—"
-		health_label.text = "Vidas: %s" % icons
-
-func _perder_vida() -> void:
-	vidas -= 1
-	_update_health_label()
-	if vidas <= 0:
-		_game_over()
-
-func _game_over() -> void:
-	timer.stop()
-	for b in botones:
-		b.disabled = true
-	if intro_tween and intro_tween.is_running():
-		intro_tween.kill()
-		_finalize_intro_visuals()
-	_hide_timeout_effect()
-	waiting_for_continue = false
-	hide()
-	panel_closed.emit()
-	derrota_alcanzada.emit()
+		if total_preguntas > 0:
+			score_label.text = "Aciertos: %d / %d" % [aciertos, total_preguntas]
+		else:
+			score_label.text = "Aciertos: %d" % aciertos
 
 func _set_continue_hint(text: String, show: bool) -> void:
 	if continue_hint:
@@ -262,20 +325,6 @@ func _set_continue_hint(text: String, show: bool) -> void:
 		continue_hint.visible = show
 		var target_color = continue_hint_base_color
 		continue_hint.add_theme_color_override("font_color", target_color)
-
-func _trigger_victory() -> void:
-	timer.stop()
-	for b in botones:
-		b.disabled = true
-	if intro_tween and intro_tween.is_running():
-		intro_tween.kill()
-		_finalize_intro_visuals()
-	_hide_timeout_effect()
-	waiting_for_continue = false
-	_set_continue_hint("", false)
-	hide()
-	panel_closed.emit()
-	victoria_alcanzada.emit(puntos)
 
 func _prepare_intro_animation() -> void:
 	if intro_tween and intro_tween.is_running():
@@ -400,139 +449,32 @@ func _apply_stylebox_color(node: Control, style_name: String, color: Color) -> v
 			fallback_style.content_margin_right = 16
 			fallback_style.content_margin_top = 12
 			fallback_style.content_margin_bottom = 12
-		else:
-			fallback_style.corner_radius_top_left = 32
-			fallback_style.corner_radius_top_right = 32
-			fallback_style.corner_radius_bottom_left = 32
-			fallback_style.corner_radius_bottom_right = 32
-			fallback_style.content_margin_left = 0
-			fallback_style.content_margin_right = 0
-			fallback_style.content_margin_top = 0
-			fallback_style.content_margin_bottom = 0
 		node.add_theme_stylebox_override(style_name, fallback_style)
 
-func _apply_button_styles(button: Button, base_color: Color) -> void:
-	if not button:
-		return
-	var normal_color = base_color.lerp(Color.BLACK, 0.2)
-	var hover_color = base_color.lerp(Color.WHITE, 0.15)
-	var pressed_color = base_color.lerp(Color.BLACK, 0.35)
-	var disabled_color = base_color.lerp(Color.BLACK, 0.45)
-	var focus_color = base_color.lerp(Color.WHITE, 0.05)
-	var state_colors = {
-		"normal": normal_color,
-		"hover": hover_color,
-		"pressed": pressed_color,
-		"disabled": disabled_color,
-		"focus": focus_color
-	}
-	for state in state_colors.keys():
-		var stylebox: StyleBox = button.get_theme_stylebox(state, "Button")
-		var new_style: StyleBoxFlat = null
-		if stylebox and stylebox is StyleBoxFlat:
-			new_style = stylebox.duplicate()
-		else:
-			new_style = StyleBoxFlat.new()
-			new_style.corner_radius_top_left = 18
-			new_style.corner_radius_top_right = 18
-			new_style.corner_radius_bottom_left = 18
-			new_style.corner_radius_bottom_right = 18
-			new_style.content_margin_left = 24
-			new_style.content_margin_right = 24
-			new_style.content_margin_top = 16
-			new_style.content_margin_bottom = 16
-		new_style.bg_color = state_colors[state]
-		new_style.border_color = state_colors[state].lerp(Color.BLACK, 0.3)
-		button.add_theme_stylebox_override(state, new_style)
+func actualizar_colores_de_ui(base_color: Color) -> void:
+	accent_color = base_color.lerp(Color.WHITE, 0.35)
+	cronometro_base_color = base_color.lerp(Color.WHITE, 0.35)
+	cronometro_warning_color = base_color.lerp(Color.RED, 0.45)
+	continue_hint_base_color = base_color.lerp(Color.WHITE, 0.6)
+	continue_hint_hover_color = base_color.lerp(Color.WHITE, 0.85)
+	info_panel_target_modulate = Color(base_color.r, base_color.g, base_color.b, 0.92)
+	card_panel_target_modulate = Color(base_color.r, base_color.g, base_color.b, 0.88)
+	info_panel_style_color = base_color.lerp(Color.BLACK, 0.25)
+	card_panel_style_color = base_color.lerp(Color.BLACK, 0.3)
+	question_style_target_color = base_color.lerp(Color.WHITE, 0.65)
+	feedback_style_target_color = base_color.lerp(Color.WHITE, 0.72)
+	_apply_stylebox_color(label_pregunta, "normal", question_style_target_color)
+	_apply_stylebox_color(label_feedback, "normal", feedback_style_target_color)
+	_apply_stylebox_color(info_panel, "panel", info_panel_style_color)
+	_apply_stylebox_color(card_panel, "panel", card_panel_style_color)
+	_update_button_feedback_colors()
 
-	button.add_theme_color_override("font_outline_color", base_color.lerp(Color.BLACK, 0.5))
-
-func actualizar_colores_de_ui(color: Color) -> void:
-	background_target_color = Color(color.r, color.g, color.b, background_alpha)
-	info_panel_style_color = color.lerp(Color.BLACK, 0.3)
-	card_panel_style_color = color.lerp(Color.BLACK, 0.35)
-	info_panel_target_modulate = Color(1, 1, 1, 1)
-	card_panel_target_modulate = Color(1, 1, 1, 1)
-	question_style_target_color = card_panel_style_color
-	feedback_style_target_color = card_panel_style_color
-	accent_color = color.lerp(Color.WHITE, 0.5)
-	cronometro_base_color = accent_color.lerp(Color.WHITE, 0.25)
-	cronometro_warning_color = Color.html("#cc6666").lerp(accent_color, 0.3)
-	continue_hint_base_color = accent_color.lerp(Color.WHITE, 0.15)
-	continue_hint_hover_color = continue_hint_base_color.lerp(Color.WHITE, 0.35)
-	if background_rect:
-		background_rect.color = background_target_color
-		background_rect.modulate = Color(1, 1, 1, 1)
-	if info_panel:
-		_apply_stylebox_color(info_panel, "panel", info_panel_style_color)
-		info_panel.modulate = info_panel_target_modulate
-	if card_panel:
-		_apply_stylebox_color(card_panel, "panel", card_panel_style_color)
-		card_panel.modulate = card_panel_target_modulate
-	if label_pregunta:
-		_apply_stylebox_color(label_pregunta, "normal", question_style_target_color)
-	if label_feedback:
-		_apply_stylebox_color(label_feedback, "normal", feedback_style_target_color)
-	if label_categoria:
-		label_categoria.add_theme_color_override("font_color", Color.WHITE)
-	if continue_hint:
-		continue_hint.add_theme_color_override("font_color", continue_hint_base_color)
-	if label_cronometro:
-		_apply_stylebox_color(label_cronometro, "normal", info_panel_style_color)
-		label_cronometro.add_theme_color_override("font_color", cronometro_base_color)
-	if categoria_icon:
-		categoria_icon.self_modulate = Color.WHITE
+func _update_button_feedback_colors() -> void:
 	for button in botones:
 		if button:
-			_apply_button_styles(button, card_panel_style_color)
 			button.add_theme_color_override("font_color", accent_color.lerp(Color.WHITE, 0.5))
-			button.add_theme_color_override("font_color_hover", accent_color)
-			button.add_theme_color_override("font_color_pressed", accent_color.lerp(Color.BLACK, 0.25))
-
-func _on_continue_hint_mouse_entered() -> void:
-	if continue_hint and continue_hint.visible:
-		continue_hint.add_theme_color_override("font_color", continue_hint_hover_color)
-
-func _on_continue_hint_mouse_exited() -> void:
-	if continue_hint:
-		continue_hint.add_theme_color_override("font_color", continue_hint_base_color)
-
-func _show_time_out_effect() -> void:
-	if timeout_tween and timeout_tween.is_running():
-		timeout_tween.kill()
-	if timeout_overlay:
-		timeout_overlay.visible = true
-		timeout_overlay.modulate = Color(1, 1, 1, 0)
-	if timeout_label:
-		timeout_label.visible = true
-		timeout_label.modulate = Color(1, 1, 1, 0)
-		timeout_label.scale = Vector2(0.85, 0.85)
-	timeout_tween = create_tween()
-	timeout_tween.set_parallel(true)
-	if timeout_overlay:
-		var overlay_in = timeout_tween.parallel().tween_property(timeout_overlay, "modulate:a", 1.0, 0.25)
-		overlay_in.from(0.0)
-		overlay_in.set_trans(Tween.TRANS_SINE)
-		overlay_in.set_ease(Tween.EASE_OUT)
-	if timeout_label:
-		var label_in = timeout_tween.parallel().tween_property(timeout_label, "modulate:a", 1.0, 0.25)
-		label_in.from(0.0)
-		label_in.set_trans(Tween.TRANS_CUBIC)
-		label_in.set_ease(Tween.EASE_OUT)
-		var label_scale = timeout_tween.parallel().tween_property(timeout_label, "scale", Vector2.ONE, 0.3)
-		label_scale.from(Vector2(0.85, 0.85))
-		label_scale.set_trans(Tween.TRANS_BACK)
-		label_scale.set_ease(Tween.EASE_OUT)
-	timeout_tween.tween_interval(0.35)
-	if timeout_overlay:
-		var overlay_out = timeout_tween.parallel().tween_property(timeout_overlay, "modulate:a", 0.0, 0.35)
-		overlay_out.set_trans(Tween.TRANS_SINE)
-		overlay_out.set_ease(Tween.EASE_IN)
-	if timeout_label:
-		var label_out = timeout_tween.parallel().tween_property(timeout_label, "modulate:a", 0.0, 0.3)
-		label_out.set_trans(Tween.TRANS_SINE)
-		label_out.set_ease(Tween.EASE_IN)
-	timeout_tween.finished.connect(_hide_timeout_effect)
+			button.add_theme_color_override("font_focus_color", accent_color.lerp(Color.WHITE, 0.8))
+			button.add_theme_color_override("font_pressed_color", accent_color.lerp(Color.BLACK, 0.2))
 
 func _hide_timeout_effect() -> void:
 	if timeout_tween and timeout_tween.is_running():
@@ -545,3 +487,33 @@ func _hide_timeout_effect() -> void:
 		timeout_label.visible = false
 		timeout_label.modulate = Color(1, 1, 1, 0)
 		timeout_label.scale = Vector2.ONE
+
+func _show_time_out_effect() -> void:
+	if timeout_overlay:
+		timeout_overlay.visible = true
+	if timeout_label:
+		timeout_label.visible = true
+	timeout_tween = create_tween()
+	timeout_tween.set_parallel(true)
+	if timeout_overlay:
+		var overlay_track = timeout_tween.parallel().tween_property(timeout_overlay, "modulate:a", 0.4, 0.35)
+		overlay_track.from(0.0)
+		overlay_track.set_trans(Tween.TRANS_SINE)
+		overlay_track.set_ease(Tween.EASE_OUT)
+	if timeout_label:
+		var label_alpha_track = timeout_tween.parallel().tween_property(timeout_label, "modulate:a", 1.0, 0.35)
+		label_alpha_track.from(0.0)
+		label_alpha_track.set_trans(Tween.TRANS_SINE)
+		label_alpha_track.set_ease(Tween.EASE_OUT)
+		var label_scale_track = timeout_tween.parallel().tween_property(timeout_label, "scale", Vector2.ONE * 1.05, 0.4)
+		label_scale_track.from(Vector2.ONE)
+		label_scale_track.set_trans(Tween.TRANS_BACK)
+		label_scale_track.set_ease(Tween.EASE_OUT)
+
+func _on_continue_hint_mouse_entered() -> void:
+	if continue_hint and continue_hint.visible:
+		continue_hint.add_theme_color_override("font_color", continue_hint_hover_color)
+
+func _on_continue_hint_mouse_exited() -> void:
+	if continue_hint and continue_hint.visible:
+		continue_hint.add_theme_color_override("font_color", continue_hint_base_color)
