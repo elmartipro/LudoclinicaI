@@ -179,7 +179,7 @@ func _update_floor_color(base_color: Color) -> void:
 	if not floor_material:
 		return
 	var target_color = base_color.lerp(default_floor_color, 0.35)
-        (floor_material as BaseMaterial3D).albedo_color = target_color
+	(floor_material as BaseMaterial3D).albedo_color = target_color
 
 func _update_ui_colors(base_color: Color) -> void:
 	var accent = base_color.lerp(Color.WHITE, 0.55)
