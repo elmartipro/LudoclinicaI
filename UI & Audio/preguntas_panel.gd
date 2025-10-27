@@ -22,6 +22,14 @@ var accent_color: Color = Color.html("#68908d")
 var cronometro_base_color: Color = Color.html("#68908d")
 var cronometro_warning_color: Color = Color.html("#cc6666")
 var background_alpha: float = 0.9
+var background_target_color: Color = Color.TRANSPARENT
+var info_panel_target_modulate: Color = Color.WHITE
+var card_panel_target_modulate: Color = Color.WHITE
+var info_panel_style_color: Color = Color.WHITE
+var card_panel_style_color: Color = Color.WHITE
+var question_style_target_color: Color = Color.WHITE
+var feedback_style_target_color: Color = Color.WHITE
+var intro_tween: Tween = null
 
 @onready var label_categoria: Label = $Categoria
 @onready var label_pregunta: RichTextLabel = $Pregunta
@@ -92,8 +100,6 @@ func mostrar_pregunta_de_categoria(cat: String) -> void:
 
 func _mostrar_pregunta(p: Dictionary, cat: String) -> void:
         pregunta_actual = p.duplicate(true)
-        show()
-        panel_opened.emit()
         label_categoria.text = cat
         label_pregunta.text = p["texto"]
         var opciones: Array = []
@@ -125,6 +131,10 @@ func _mostrar_pregunta(p: Dictionary, cat: String) -> void:
                 categoria_icon.self_modulate = Color.WHITE
         else:
                 categoria_icon.texture = null
+        _prepare_intro_animation()
+        show()
+        panel_opened.emit()
+        _play_intro_animation()
 
 func _on_opcion_pressed(index: int) -> void:
         timer.stop()
@@ -187,6 +197,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _close_question() -> void:
         waiting_for_continue = false
         _set_continue_hint("", false)
+        if intro_tween and intro_tween.is_running():
+                intro_tween.kill()
+                _finalize_intro_visuals()
         if not ultima_correcta:
                 _perder_vida()
                 if vidas <= 0:
@@ -215,6 +228,9 @@ func _game_over() -> void:
         timer.stop()
         for b in botones:
                 b.disabled = true
+        if intro_tween and intro_tween.is_running():
+                intro_tween.kill()
+                _finalize_intro_visuals()
         waiting_for_continue = false
         hide()
         panel_closed.emit()
@@ -229,25 +245,170 @@ func _trigger_victory() -> void:
         timer.stop()
         for b in botones:
                 b.disabled = true
+        if intro_tween and intro_tween.is_running():
+                intro_tween.kill()
+                _finalize_intro_visuals()
         waiting_for_continue = false
         _set_continue_hint("", false)
         hide()
         panel_closed.emit()
         victoria_alcanzada.emit(puntos)
 
+func _prepare_intro_animation() -> void:
+        if intro_tween and intro_tween.is_running():
+                intro_tween.kill()
+                _finalize_intro_visuals()
+        intro_tween = null
+        if background_rect:
+                background_rect.modulate = Color(1, 1, 1, 0)
+        if info_panel:
+                info_panel.modulate = Color(info_panel_target_modulate.r, info_panel_target_modulate.g, info_panel_target_modulate.b, 0)
+        if card_panel:
+                card_panel.modulate = Color(card_panel_target_modulate.r, card_panel_target_modulate.g, card_panel_target_modulate.b, 0)
+        if label_categoria:
+                label_categoria.modulate = Color(accent_color.r, accent_color.g, accent_color.b, 0)
+                label_categoria.scale = Vector2(0.75, 0.75)
+        if label_pregunta:
+                label_pregunta.modulate = Color(1, 1, 1, 0)
+        if label_feedback:
+                label_feedback.modulate = Color(1, 1, 1, 0)
+        for button in botones:
+                if button:
+                        button.modulate = Color(1, 1, 1, 0)
+
+func _play_intro_animation() -> void:
+        intro_tween = create_tween()
+        intro_tween.set_parallel(true)
+        if background_rect:
+                var background_track = intro_tween.parallel().tween_property(background_rect, "modulate:a", 1.0, 0.45)
+                background_track.from(0.0)
+                background_track.set_trans(Tween.TRANS_SINE)
+                background_track.set_ease(Tween.EASE_OUT)
+        if info_panel:
+                var info_track = intro_tween.parallel().tween_property(info_panel, "modulate", info_panel_target_modulate, 0.35)
+                info_track.from(Color(info_panel_target_modulate.r, info_panel_target_modulate.g, info_panel_target_modulate.b, 0))
+                info_track.set_trans(Tween.TRANS_SINE)
+                info_track.set_ease(Tween.EASE_OUT)
+        if card_panel:
+                var card_track = intro_tween.parallel().tween_property(card_panel, "modulate", card_panel_target_modulate, 0.4)
+                card_track.from(Color(card_panel_target_modulate.r, card_panel_target_modulate.g, card_panel_target_modulate.b, 0))
+                card_track.set_trans(Tween.TRANS_SINE)
+                card_track.set_ease(Tween.EASE_OUT)
+        if label_pregunta:
+                var pregunta_track = intro_tween.parallel().tween_property(label_pregunta, "modulate:a", 1.0, 0.3)
+                pregunta_track.from(0.0)
+                pregunta_track.set_delay(0.1)
+                pregunta_track.set_trans(Tween.TRANS_CUBIC)
+                pregunta_track.set_ease(Tween.EASE_OUT)
+        if label_feedback:
+                var feedback_track = intro_tween.parallel().tween_property(label_feedback, "modulate:a", 1.0, 0.3)
+                feedback_track.from(0.0)
+                feedback_track.set_delay(0.15)
+                feedback_track.set_trans(Tween.TRANS_CUBIC)
+                feedback_track.set_ease(Tween.EASE_OUT)
+        if label_categoria:
+                var categoria_color_track = intro_tween.parallel().tween_property(label_categoria, "modulate", Color(accent_color.r, accent_color.g, accent_color.b, 1.0), 0.3)
+                categoria_color_track.from(Color(accent_color.r, accent_color.g, accent_color.b, 0.0))
+                categoria_color_track.set_delay(0.1)
+                categoria_color_track.set_trans(Tween.TRANS_BACK)
+                categoria_color_track.set_ease(Tween.EASE_OUT)
+                var categoria_scale_track = intro_tween.parallel().tween_property(label_categoria, "scale", Vector2.ONE, 0.32)
+                categoria_scale_track.from(Vector2(0.75, 0.75))
+                categoria_scale_track.set_delay(0.1)
+                categoria_scale_track.set_trans(Tween.TRANS_BACK)
+                categoria_scale_track.set_ease(Tween.EASE_OUT)
+        for button in botones:
+                if button:
+                        var button_track = intro_tween.parallel().tween_property(button, "modulate:a", 1.0, 0.3)
+                        button_track.from(0.0)
+                        button_track.set_delay(0.18)
+                        button_track.set_trans(Tween.TRANS_SINE)
+                        button_track.set_ease(Tween.EASE_OUT)
+        intro_tween.finished.connect(_finalize_intro_visuals)
+
+func _finalize_intro_visuals() -> void:
+        intro_tween = null
+        if background_rect:
+                background_rect.modulate = Color(1, 1, 1, 1)
+        if info_panel:
+                info_panel.modulate = info_panel_target_modulate
+        if card_panel:
+                card_panel.modulate = card_panel_target_modulate
+        if label_categoria:
+                label_categoria.modulate = Color(accent_color.r, accent_color.g, accent_color.b, 1.0)
+                label_categoria.scale = Vector2.ONE
+        if label_pregunta:
+                label_pregunta.modulate = Color(1, 1, 1, 1)
+        if label_feedback:
+                label_feedback.modulate = Color(1, 1, 1, 1)
+        for button in botones:
+                if button:
+                        button.modulate = Color(1, 1, 1, 1)
+
+func _apply_stylebox_color(node: Control, style_name: String, color: Color) -> void:
+        if not node:
+                return
+        var base_style = node.get_theme_stylebox(style_name, node.get_class())
+        if base_style and base_style is StyleBoxFlat:
+                var custom_style: StyleBoxFlat = base_style.duplicate()
+                custom_style.bg_color = color
+                node.add_theme_stylebox_override(style_name, custom_style)
+        else:
+                var fallback_style = StyleBoxFlat.new()
+                fallback_style.bg_color = color
+                if node is RichTextLabel:
+                        fallback_style.corner_radius_top_left = 24
+                        fallback_style.corner_radius_top_right = 24
+                        fallback_style.corner_radius_bottom_left = 24
+                        fallback_style.corner_radius_bottom_right = 24
+                        fallback_style.content_margin_left = 24
+                        fallback_style.content_margin_right = 24
+                        fallback_style.content_margin_top = 18
+                        fallback_style.content_margin_bottom = 18
+                elif node is Label:
+                        fallback_style.corner_radius_top_left = 18
+                        fallback_style.corner_radius_top_right = 18
+                        fallback_style.corner_radius_bottom_left = 18
+                        fallback_style.corner_radius_bottom_right = 18
+                        fallback_style.content_margin_left = 16
+                        fallback_style.content_margin_right = 16
+                        fallback_style.content_margin_top = 12
+                        fallback_style.content_margin_bottom = 12
+                else:
+                        fallback_style.corner_radius_top_left = 32
+                        fallback_style.corner_radius_top_right = 32
+                        fallback_style.corner_radius_bottom_left = 32
+                        fallback_style.corner_radius_bottom_right = 32
+                        fallback_style.content_margin_left = 0
+                        fallback_style.content_margin_right = 0
+                        fallback_style.content_margin_top = 0
+                        fallback_style.content_margin_bottom = 0
+                node.add_theme_stylebox_override(style_name, fallback_style)
+
 func actualizar_colores_de_ui(color: Color) -> void:
-        var background_color = Color(color.r, color.g, color.b, background_alpha)
-        var panel_base = color.lerp(Color.BLACK, 0.25)
-        var card_base = color.lerp(Color.BLACK, 0.35)
+        background_target_color = Color(color.r, color.g, color.b, background_alpha)
+        info_panel_style_color = color.lerp(Color.BLACK, 0.25)
+        card_panel_style_color = color.lerp(Color.BLACK, 0.35)
+        info_panel_target_modulate = Color(1, 1, 1, 1)
+        card_panel_target_modulate = Color(1, 1, 1, 1)
+        question_style_target_color = color.lerp(Color.BLACK, 0.28)
+        feedback_style_target_color = color.lerp(Color.BLACK, 0.4)
         accent_color = color.lerp(Color.WHITE, 0.5)
         cronometro_base_color = accent_color.lerp(Color.WHITE, 0.25)
         cronometro_warning_color = Color.html("#cc6666").lerp(accent_color, 0.3)
         if background_rect:
-                background_rect.color = background_color
+                background_rect.color = background_target_color
+                background_rect.modulate = Color(1, 1, 1, 1)
         if info_panel:
-                info_panel.modulate = Color(panel_base.r, panel_base.g, panel_base.b, 1.0)
+                _apply_stylebox_color(info_panel, "panel", info_panel_style_color)
+                info_panel.modulate = info_panel_target_modulate
         if card_panel:
-                card_panel.modulate = Color(card_base.r, card_base.g, card_base.b, 1.0)
+                _apply_stylebox_color(card_panel, "panel", card_panel_style_color)
+                card_panel.modulate = card_panel_target_modulate
+        if label_pregunta:
+                _apply_stylebox_color(label_pregunta, "normal", question_style_target_color)
+        if label_feedback:
+                _apply_stylebox_color(label_feedback, "normal", feedback_style_target_color)
         if label_categoria:
                 label_categoria.add_theme_color_override("font_color", accent_color)
         if continue_hint:
