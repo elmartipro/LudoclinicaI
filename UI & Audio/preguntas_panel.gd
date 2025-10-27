@@ -352,10 +352,12 @@ func _apply_stylebox_color(node: Control, style_name: String, color: Color) -> v
         if base_style and base_style is StyleBoxFlat:
                 var custom_style: StyleBoxFlat = base_style.duplicate()
                 custom_style.bg_color = color
+                custom_style.border_color = color.lerp(Color.BLACK, 0.25)
                 node.add_theme_stylebox_override(style_name, custom_style)
         else:
                 var fallback_style = StyleBoxFlat.new()
                 fallback_style.bg_color = color
+                fallback_style.border_color = color.lerp(Color.BLACK, 0.25)
                 if node is RichTextLabel:
                         fallback_style.corner_radius_top_left = 24
                         fallback_style.corner_radius_top_right = 24
@@ -385,14 +387,50 @@ func _apply_stylebox_color(node: Control, style_name: String, color: Color) -> v
                         fallback_style.content_margin_bottom = 0
                 node.add_theme_stylebox_override(style_name, fallback_style)
 
+func _apply_button_styles(button: Button, base_color: Color) -> void:
+        if not button:
+                return
+        var normal_color = base_color.lerp(Color.BLACK, 0.2)
+        var hover_color = base_color.lerp(Color.WHITE, 0.15)
+        var pressed_color = base_color.lerp(Color.BLACK, 0.35)
+        var disabled_color = base_color.lerp(Color.BLACK, 0.45)
+        var focus_color = base_color.lerp(Color.WHITE, 0.05)
+        var state_colors = {
+                "normal": normal_color,
+                "hover": hover_color,
+                "pressed": pressed_color,
+                "disabled": disabled_color,
+                "focus": focus_color
+        }
+        for state in state_colors.keys():
+                var stylebox: StyleBox = button.get_theme_stylebox(state, "Button")
+                var new_style: StyleBoxFlat = null
+                if stylebox and stylebox is StyleBoxFlat:
+                        new_style = stylebox.duplicate()
+                else:
+                        new_style = StyleBoxFlat.new()
+                        new_style.corner_radius_top_left = 18
+                        new_style.corner_radius_top_right = 18
+                        new_style.corner_radius_bottom_left = 18
+                        new_style.corner_radius_bottom_right = 18
+                        new_style.content_margin_left = 24
+                        new_style.content_margin_right = 24
+                        new_style.content_margin_top = 16
+                        new_style.content_margin_bottom = 16
+                new_style.bg_color = state_colors[state]
+                new_style.border_color = state_colors[state].lerp(Color.BLACK, 0.3)
+                button.add_theme_stylebox_override(state, new_style)
+
+        button.add_theme_color_override("font_outline_color", base_color.lerp(Color.BLACK, 0.5))
+
 func actualizar_colores_de_ui(color: Color) -> void:
         background_target_color = Color(color.r, color.g, color.b, background_alpha)
         info_panel_style_color = color.lerp(Color.BLACK, 0.25)
         card_panel_style_color = color.lerp(Color.BLACK, 0.35)
         info_panel_target_modulate = Color(1, 1, 1, 1)
         card_panel_target_modulate = Color(1, 1, 1, 1)
-        question_style_target_color = color.lerp(Color.BLACK, 0.28)
-        feedback_style_target_color = color.lerp(Color.BLACK, 0.4)
+        question_style_target_color = color.lerp(Color.BLACK, 0.2)
+        feedback_style_target_color = color.lerp(Color.BLACK, 0.3)
         accent_color = color.lerp(Color.WHITE, 0.5)
         cronometro_base_color = accent_color.lerp(Color.WHITE, 0.25)
         cronometro_warning_color = Color.html("#cc6666").lerp(accent_color, 0.3)
@@ -419,6 +457,7 @@ func actualizar_colores_de_ui(color: Color) -> void:
                 categoria_icon.self_modulate = Color.WHITE
         for button in botones:
                 if button:
+                        _apply_button_styles(button, card_panel_style_color)
                         button.add_theme_color_override("font_color", accent_color.lerp(Color.WHITE, 0.5))
                         button.add_theme_color_override("font_color_hover", accent_color)
                         button.add_theme_color_override("font_color_pressed", accent_color.lerp(Color.BLACK, 0.25))
