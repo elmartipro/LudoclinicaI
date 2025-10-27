@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 @onready var raycasts = $Raycasts.get_children()
-@onready var pawn := $"../Player"
+@onready var pawn = $"../Player"
 @onready var collision_sound: AudioStreamPlayer = $"Dice sound"
 @onready var preguntas_panel = $"../PreguntasPanel" # reference to the question panel
 
@@ -103,9 +103,9 @@ func _integrate_forces(state):
 			collision_sound.pitch_scale = pitch
 
 			# Play only part of the sound
-			var start_time := 0.32
-			var end_time := 0.42
-			var play_duration := end_time - start_time
+                        var start_time = 0.32
+                        var end_time = 0.42
+                        var play_duration = end_time - start_time
 			collision_sound.play(start_time)
 			
 			await get_tree().create_timer(play_duration).timeout

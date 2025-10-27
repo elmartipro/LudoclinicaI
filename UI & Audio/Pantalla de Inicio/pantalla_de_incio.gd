@@ -1,7 +1,7 @@
 extends Control
 
 # Musica De el juego 
-var sonido_fondo := preload("res://UI & Audio/Musica y Audios/main_music.mp3") 
+var sonido_fondo = preload("res://UI & Audio/Musica y Audios/main_music.mp3")
 
 
 func _ready():

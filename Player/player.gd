@@ -3,7 +3,7 @@ extends CharacterBody3D
 signal pawn_finished_moving(spot: Marker3D)
 
 @onready var pawn: CharacterBody3D = self
-@onready var dice := $"../Dice"
+@onready var dice = $"../Dice"
 @export var game_spaces: Array[Marker3D]
 
 var pawn_landed: bool = true
@@ -13,9 +13,9 @@ var place_number: int = 0
 var remaining_steps: int = 0
 
 # jump anim
-var is_jumping := false
-var jump_t := 0.0
-var jump_duration := 0.4
+var is_jumping = false
+var jump_t = 0.0
+var jump_duration = 0.4
 var jump_start: Vector3
 var jump_end: Vector3
 var current_jump_target_index: int = -1	# <-- NEW: the spot we are jumping to
@@ -66,10 +66,10 @@ func _process(delta: float) -> void:
 				emit_signal("pawn_finished_moving", landed_spot)
 
 		# parabolic interpolation
-		var t := jump_t
-		var pos := jump_start.lerp(jump_end, t)
-		var height := 10.0
-		var arc := 4.0 * height * t * (1.0 - t)
+                var t = jump_t
+                var pos = jump_start.lerp(jump_end, t)
+                var height = 10.0
+                var arc = 4.0 * height * t * (1.0 - t)
 		pos.y += arc
 		pawn.global_position = pos
 

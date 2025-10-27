@@ -1,6 +1,6 @@
 extends AudioStreamPlayer2D
 
-var started := false
+var started = false
 
 func _ready():
 	if not started:
