@@ -29,6 +29,8 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var victory_title_label: Label = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/TitleLabel"
 @onready var victory_message_label: Label = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/MessageLabel"
 @onready var restart_button: Button = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/RestartButton"
+@onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
+@onready var config_overlay: CanvasLayer = $ConfigMenuOverlay
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -37,6 +39,7 @@ var floor_material: BaseMaterial3D
 var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
+var end_state_victory: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -66,14 +69,32 @@ func _ready() -> void:
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_button_pressed)
 
+	if exit_confirm_dialog:
+		exit_confirm_dialog.dialog_text = "¿Está seguro que quiere ir al menu principal?\nSu progreso no se guardará"
+		var ok_button: Button = exit_confirm_dialog.get_ok_button()
+		if ok_button:
+			ok_button.text = "Sí"
+		var cancel_button: Button = exit_confirm_dialog.get_cancel_button()
+		if cancel_button:
+			cancel_button.text = "No"
+		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
+	if config_overlay:
+		if config_overlay.has_signal("menu_requested"):
+			config_overlay.menu_requested.connect(_on_config_menu_requested)
 	_apply_scene_color("default", 0.0)
 	_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		get_tree().reload_current_scene()
+		if config_overlay and config_overlay.has_method("is_menu_open") and config_overlay.is_menu_open():
+			config_overlay.close_menu()
+			return
+		_show_exit_dialog()
 	elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
-		_restart_game()
+		if end_state_victory:
+			_restart_game()
+		else:
+			_return_to_main_menu()
 
 func _on_category_reached(category: String) -> void:
 	current_category = category
@@ -125,12 +146,15 @@ func _on_defeat_reached() -> void:
 	_show_end_overlay(false, 0)
 
 func _show_end_overlay(victory: bool, total_points: int) -> void:
+	end_state_victory = victory
+	if config_overlay and config_overlay.has_method("close_menu"):
+		config_overlay.close_menu()
 	if victory_overlay:
 		victory_overlay.visible = true
 	if victory_title_label:
 		victory_title_label.text = "¡Victoria!" if victory else "Juego terminado"
 	if victory_message_label:
-		victory_message_label.text = ("Alcanzaste %d puntos y ganaste la partida." % total_points) if victory else "Te quedaste sin vidas.\n¡Inténtalo de nuevo!"
+		victory_message_label.text = ("Alcanzaste %d puntos y ganaste la partida." % total_points) if victory else "Te quedaste sin vidas.\nSerás enviado al menú principal."
 
 	current_category = ""
 	var finish_color = Color.html("#f5d76e") if victory else Color.html("#e06666")
@@ -142,7 +166,32 @@ func _show_end_overlay(victory: bool, total_points: int) -> void:
 	_lock_gameplay()
 
 	if restart_button:
+		if victory:
+			restart_button.text = "Jugar de nuevo"
+		else:
+			restart_button.text = "Volver al menú principal"
 		restart_button.grab_focus()
+
+func _show_exit_dialog() -> void:
+	if exit_confirm_dialog == null:
+		_return_to_main_menu()
+		return
+	if exit_confirm_dialog.visible:
+		return
+	exit_confirm_dialog.popup_centered()
+	exit_confirm_dialog.grab_focus()
+	var cancel_button: Button = exit_confirm_dialog.get_cancel_button()
+	if cancel_button:
+		cancel_button.grab_focus()
+
+func _on_exit_confirmed() -> void:
+	_return_to_main_menu()
+
+func _on_config_menu_requested() -> void:
+	_show_exit_dialog()
+
+func _return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.tscn")
 
 func _lock_gameplay() -> void:
 	if dice and dice.has_method("lock_roll"):
@@ -151,7 +200,10 @@ func _lock_gameplay() -> void:
 		preguntas_panel.hide()
 
 func _on_restart_button_pressed() -> void:
-	_restart_game()
+	if end_state_victory:
+		_restart_game()
+	else:
+		_return_to_main_menu()
 
 func _restart_game() -> void:
 	get_tree().reload_current_scene()

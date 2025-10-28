@@ -79,6 +79,19 @@ text = "Categoría"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Progreso" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_top = 160.0
+offset_right = 180.0
+offset_bottom = 210.0
+grow_horizontal = 2
+theme = ExtResource("5_seqsk")
+text = "Pregunta 0 / 0"
+horizontal_alignment = 1
+
 [node name="Pregunta" type="RichTextLabel" parent="."]
 anchors_preset = -1
 anchor_left = 0.051

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 ]
+[gd_scene load_steps=16 format=3 ]
 
 [ext_resource type="PackedScene" path="res://Player/player_exam.tscn" id="1_2262g"]
 [ext_resource type="Script" path="res://levels/exam_main.gd" id="1_wdj6m"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
 [ext_resource type="StyleBox" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
 [ext_resource type="PackedScene" path="res://UI & Audio/exam_results_overlay.tscn" id="9_lm4r7"]
+[ext_resource type="PackedScene" path="res://UI & Audio/config_menu_overlay.tscn" id="10_rpksx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -64,7 +65,6 @@ distance_fade_enabled = true
 distance_fade_shadow = 91.05
 omni_range = 61.576
 omni_attenuation = 0.258
-
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.618376, -0.724548)
@@ -221,6 +221,8 @@ mouse_filter = 2
 color = Color(0.117647, 0.156863, 0.188235, 0)
 
 [node name="ExamResultsOverlay" parent="." instance=ExtResource("9_lm4r7")]
+
+[node name="ConfigMenuOverlay" parent="." instance=ExtResource("10_rpksx")]
 
 [node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Confirmar salida"

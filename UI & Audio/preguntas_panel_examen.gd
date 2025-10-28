@@ -2,6 +2,7 @@ extends "res://UI & Audio/preguntas_panel.gd"
 
 signal examen_pregunta_finalizada(datos: Dictionary)
 
+@onready var label_progreso: Label = $Progreso
 var categoria_actual: String = ""
 var indices_por_categoria: Dictionary = {}
 var respuestas_historial: Array = []
@@ -18,6 +19,8 @@ func _ready() -> void:
 	vidas = 0
 	indices_por_categoria.clear()
 	respuestas_historial.clear()
+	pregunta_actual_indice = 0
+	_actualizar_progreso_label()
 	if score_label:
 		score_label.text = "Aciertos: 0"
 	if health_label:
@@ -25,6 +28,7 @@ func _ready() -> void:
 
 func configurar_total_preguntas(total: int) -> void:
 	total_preguntas = max(total, 0)
+	_actualizar_progreso_label()
 
 func mostrar_pregunta_de_categoria(cat: String) -> void:
 	if not preguntas_por_categoria.has(cat):
@@ -42,6 +46,7 @@ func mostrar_pregunta_de_categoria(cat: String) -> void:
 	categoria_actual = cat
 	indice_respuesta_seleccionada = -1
 	pregunta_actual_indice += 1
+	_actualizar_progreso_label()
 	inicio_pregunta_segundos = Time.get_ticks_msec() / 1000.0
 	_mostrar_pregunta_examen(pregunta, cat)
 
@@ -135,6 +140,16 @@ func _on_timer_tick() -> void:
 	_set_continue_hint("Haz clic o presiona Enter para continuar", true)
 	_show_time_out_effect()
 	respondida.emit(false)
+
+func _actualizar_progreso_label() -> void:
+	if not label_progreso:
+		return
+	var total: int = max(total_preguntas, 0)
+	var actual: int = clamp(pregunta_actual_indice, 0, total)
+	if total > 0:
+		label_progreso.text = "Pregunta %d / %d" % [actual, total]
+	else:
+		label_progreso.text = "Preguntas 0 / 0"
 
 func _close_question() -> void:
 	waiting_for_continue = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=15 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bkvc0yco3r8n2" path="res://UI & Audio/Pregunta.tscn" id="5_ifaiv"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
 [ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
+[ext_resource type="PackedScene" path="res://UI & Audio/config_menu_overlay.tscn" id="9_rpksx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -300,3 +301,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("7_6et1j")
 text = "Reiniciar partida"
+
+[node name="ConfigMenuOverlay" parent="." instance=ExtResource("9_rpksx")]
+[node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
+title = "Confirmar salida"
+visible = false

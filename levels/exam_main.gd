@@ -23,6 +23,7 @@ const PANEL_IDLE_ALPHA: float = 0.18
 @onready var exam_overlay: CanvasLayer = $ExamResultsOverlay
 @onready var player: CharacterBody3D = $Player
 @onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
+@onready var config_overlay: CanvasLayer = $ConfigMenuOverlay
 
 var category_sequence: Array[String] = []
 var floor_material: BaseMaterial3D
@@ -89,6 +90,9 @@ func _ready() -> void:
 		if cancel_button_ready:
 			cancel_button_ready.text = "No"
 		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
+	if config_overlay:
+		if config_overlay.has_signal("menu_requested"):
+			config_overlay.menu_requested.connect(_on_config_menu_requested)
 	_apply_scene_color("default", 0.0)
 	set_process(true)
 	set_process_input(true)
@@ -96,6 +100,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		if config_overlay and config_overlay.has_method("is_menu_open") and config_overlay.is_menu_open():
+			config_overlay.close_menu()
+			return
 		_show_exit_dialog()
 
 func _process(_delta: float) -> void:
@@ -167,6 +174,8 @@ func _finalize_exam() -> void:
 	if exam_finished:
 		return
 	exam_finished = true
+	if config_overlay and config_overlay.has_method("close_menu"):
+		config_overlay.close_menu()
 	exam_end_time = Time.get_ticks_msec() / 1000.0
 	var total_time: float = 0.0
 	if exam_started:
@@ -218,7 +227,7 @@ func _persist_attempt(resumen: Dictionary) -> Array:
 	return previous
 
 func _on_overlay_closed() -> void:
-	pass
+	_return_to_main_menu()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = _resolve_category_color(category)
@@ -336,6 +345,9 @@ func _compute_exam_length() -> int:
 		return clamp(finish_spot_index + 1, 1, total_spots)
 	return total_spots
 
+func _on_config_menu_requested() -> void:
+	_show_exit_dialog()
+
 func _show_exit_dialog() -> void:
 	if exit_confirm_dialog == null:
 		return
@@ -347,5 +359,8 @@ func _show_exit_dialog() -> void:
 	if cancel_button:
 		cancel_button.grab_focus()
 
-func _on_exit_confirmed() -> void:
+func _return_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.tscn")
+
+func _on_exit_confirmed() -> void:
+	_return_to_main_menu()
