@@ -1,0 +1,112 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://UI & Audio/config_overlay.gd" id="1_m5nsi"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Main.tres" id="2_ciy7v"]
+[ext_resource type="Script" path="res://UI & Audio/Pantalla de Inicio/music_control.gd" id="3_v9n24"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="4_b4yq8"]
+
+[node name="ConfigOverlay" type="CanvasLayer"]
+layer = 50
+visible = false
+script = ExtResource("1_m5nsi")
+pause_mode = 2
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.0352941, 0.0588235, 0.0901961, 0.72549)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(520, 420)
+theme = ExtResource("2_ciy7v")
+theme_override_font_sizes/font_size = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ciy7v")
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_b4yq8")
+theme_override_font_sizes/font_size = 46
+text = "Configuración"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Ajusta la experiencia sin salir del juego."
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="VolumeContainer" type="VBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VolumeLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+text = "Volumen de la música"
+
+[node name="VolumeSlider" type="HSlider" parent="CenterContainer/Panel/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("3_v9n24")
+
+[node name="SliderInfo" type="Label" parent="CenterContainer/Panel/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 1
+
+[node name="MuteToggle" type="CheckButton" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Silenciar música"
+
+[node name="ButtonGrid" type="GridContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+columns = 3
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_constants/h_separation = 16
+
+[node name="RestartButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/ButtonGrid"]
+text = "Reiniciar partida"
+size_flags_horizontal = 4
+
+[node name="MainMenuButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/ButtonGrid"]
+text = "Volver al menú"
+size_flags_horizontal = 4
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/ButtonGrid"]
+text = "Reanudar"
+size_flags_horizontal = 4
+
+[node name="Footer" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Atajo rápido: ESC"
+horizontal_alignment = 1
+
+[connection signal="toggled" from="CenterContainer/Panel/VBoxContainer/MuteToggle" to="." method="_on_mute_toggle_toggled"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/ButtonGrid/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/ButtonGrid/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/ButtonGrid/CloseButton" to="." method="_on_close_button_pressed"]

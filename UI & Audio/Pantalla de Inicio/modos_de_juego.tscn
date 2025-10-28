@@ -48,7 +48,6 @@ text = "Modo Fácil"
 layout_mode = 2
 theme = ExtResource("3_qrji3")
 theme_override_font_sizes/font_size = 46
-disabled = true
 text = "Modo Exámen"
 
 [node name="Volver1" type="TextureButton" parent="."]
@@ -66,4 +65,5 @@ scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_nh7f4")
 
 [connection signal="pressed" from="VBoxContainer/Juego1" to="." method="_on_juego_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/Juego2" to="." method="_on_juego_2_pressed"]
 [connection signal="pressed" from="Volver1" to="." method="_on_volver_1_pressed"]

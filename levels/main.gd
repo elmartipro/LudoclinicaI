@@ -29,6 +29,10 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var victory_title_label: Label = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/TitleLabel"
 @onready var victory_message_label: Label = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/MessageLabel"
 @onready var restart_button: Button = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/RestartButton"
+@onready var menu_button: Button = $"VictoryOverlay/CenterContainer/Panel/VBoxContainer/MenuButton"
+@onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
+@onready var config_overlay: CanvasLayer = $ConfigOverlay
+@onready var config_button: Button = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -37,6 +41,7 @@ var floor_material: BaseMaterial3D
 var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
+var defeat_forces_menu: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -65,13 +70,34 @@ func _ready() -> void:
 
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_button_pressed)
+	if menu_button:
+		menu_button.pressed.connect(_on_menu_button_pressed)
+	if exit_confirm_dialog:
+		exit_confirm_dialog.dialog_text = "¿Está seguro que quiere ir al menu principal?\nSu progreso no se guardará"
+		var ok_button: Button = exit_confirm_dialog.get_ok_button()
+		if ok_button:
+			ok_button.text = "Sí"
+		var cancel_button: Button = exit_confirm_dialog.get_cancel_button()
+		if cancel_button:
+			cancel_button.text = "No"
+		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
+	if config_button:
+		config_button.pressed.connect(_on_config_button_pressed)
+	if config_overlay:
+		config_overlay.overlay_closed.connect(_on_config_overlay_closed)
+		config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
+		config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+	defeat_forces_menu = false
 
 	_apply_scene_color("default", 0.0)
 	_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		get_tree().reload_current_scene()
+		if config_overlay and config_overlay.is_open:
+			config_overlay.close()
+		else:
+			_show_exit_dialog()
 	elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
 		_restart_game()
 
@@ -128,21 +154,44 @@ func _show_end_overlay(victory: bool, total_points: int) -> void:
 	if victory_overlay:
 		victory_overlay.visible = true
 	if victory_title_label:
-		victory_title_label.text = "¡Victoria!" if victory else "Juego terminado"
+		if victory:
+			victory_title_label.text = "¡Victoria!"
+		else:
+			victory_title_label.text = "Juego terminado"
 	if victory_message_label:
-		victory_message_label.text = ("Alcanzaste %d puntos y ganaste la partida." % total_points) if victory else "Te quedaste sin vidas.\n¡Inténtalo de nuevo!"
+		if victory:
+			victory_message_label.text = "Alcanzaste %d puntos y ganaste la partida." % total_points
+		else:
+			victory_message_label.text = "Te quedaste sin vidas.\n¡Inténtalo de nuevo!"
 
 	current_category = ""
-	var finish_color = Color.html("#f5d76e") if victory else Color.html("#e06666")
+	var finish_color: Color = Color.html("#f5d76e")
+	if not victory:
+		finish_color = Color.html("#e06666")
 	var podium_color = _update_floor_color(finish_color)
 	_tween_overlay_color(podium_color, 0.42)
 	_tween_light_color(finish_color)
 	_update_ui_colors(podium_color)
 
 	_lock_gameplay()
-
+	defeat_forces_menu = not victory
 	if restart_button:
-		restart_button.grab_focus()
+		if victory:
+			restart_button.visible = true
+			restart_button.text = "Reiniciar partida"
+		else:
+			restart_button.visible = false
+	if menu_button:
+		menu_button.visible = true
+		menu_button.text = "Menú principal"
+	if victory:
+		if restart_button and restart_button.visible:
+			restart_button.grab_focus()
+		elif menu_button:
+			menu_button.grab_focus()
+	else:
+		if menu_button:
+			menu_button.grab_focus()
 
 func _lock_gameplay() -> void:
 	if dice and dice.has_method("lock_roll"):
@@ -154,6 +203,45 @@ func _on_restart_button_pressed() -> void:
 	_restart_game()
 
 func _restart_game() -> void:
+	if defeat_forces_menu:
+		_return_to_main_menu()
+		return
+	get_tree().reload_current_scene()
+
+func _on_menu_button_pressed() -> void:
+	_return_to_main_menu()
+
+func _show_exit_dialog() -> void:
+	if exit_confirm_dialog == null:
+		return
+	if exit_confirm_dialog.visible:
+		return
+	exit_confirm_dialog.popup_centered()
+	exit_confirm_dialog.grab_focus()
+	var cancel_button: Button = exit_confirm_dialog.get_cancel_button()
+	if cancel_button:
+		cancel_button.grab_focus()
+
+func _on_exit_confirmed() -> void:
+	defeat_forces_menu = false
+	_return_to_main_menu()
+
+func _return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.tscn")
+
+func _on_config_button_pressed() -> void:
+	if config_overlay:
+		config_overlay.open()
+
+func _on_config_overlay_closed() -> void:
+	if config_button:
+		config_button.grab_focus()
+
+func _on_config_overlay_menu_requested() -> void:
+	_show_exit_dialog()
+
+func _on_config_overlay_restart_requested() -> void:
+	defeat_forces_menu = false
 	get_tree().reload_current_scene()
 
 func _apply_scene_color(category: String, alpha: float) -> void:

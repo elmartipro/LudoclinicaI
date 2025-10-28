@@ -1,14 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=16 format=3 ]
 
-[ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
-[ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
-[ext_resource type="Material" uid="uid://bs1tnyfqwumvw" path="res://Materials/floor.tres" id="3_5k4jt"]
-[ext_resource type="Script" uid="uid://djp6p48n454m1" path="res://levels/spots.gd" id="4_ifaiv"]
-[ext_resource type="PackedScene" uid="uid://bky2qlnu210xn" path="res://Assets/Dice/Dice.tscn" id="4_m1504"]
-[ext_resource type="PackedScene" uid="uid://bkvc0yco3r8n2" path="res://UI & Audio/Pregunta.tscn" id="5_ifaiv"]
-[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
-[ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
-[ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
+[ext_resource type="PackedScene" path="res://Player/player_exam.tscn" id="1_2262g"]
+[ext_resource type="Script" path="res://levels/exam_main.gd" id="1_wdj6m"]
+[ext_resource type="Material" path="res://Materials/floor.tres" id="3_5k4jt"]
+[ext_resource type="Script" path="res://levels/exam_spots.gd" id="4_ifaiv"]
+[ext_resource type="PackedScene" path="res://UI & Audio/PreguntaExamen.tscn" id="5_ifaiv"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
+[ext_resource type="StyleBox" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
+[ext_resource type="PackedScene" path="res://UI & Audio/exam_results_overlay.tscn" id="9_lm4r7"]
+[ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="10_l41yk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -66,8 +66,6 @@ distance_fade_shadow = 91.05
 omni_range = 61.576
 omni_attenuation = 0.258
 
-[node name="Dice" parent="." instance=ExtResource("4_m1504")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.785, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.618376, -0.724548)
@@ -195,7 +193,7 @@ offset_bottom = 117.0
 theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
-text = "Puntos: 0 / 15"
+text = "Aciertos: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -207,7 +205,7 @@ offset_bottom = 117.0
 theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
-text = "Vidas: 3"
+text = "Tiempo total: 00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -223,92 +221,9 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.117647, 0.156863, 0.188235, 0)
 
-[node name="HUDMessages" type="CanvasLayer" parent="."]
-layer = 2
+[node name="ExamResultsOverlay" parent="." instance=ExtResource("9_lm4r7")]
 
-[node name="ExtraLifeLabel" type="Label" parent="HUDMessages"]
-visible = false
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -260.0
-offset_top = 80.0
-offset_right = 260.0
-offset_bottom = 130.0
-grow_horizontal = 2
-theme = ExtResource("7_6et1j")
-theme_override_colors/font_color = Color(0.827451, 0.964706, 0.854902, 1)
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = ExtResource("8_etqu2")
-text = "+1 Vida extra!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VictoryOverlay" type="CanvasLayer" parent="."]
-layer = 20
-visible = false
-
-[node name="Dimmer" type="ColorRect" parent="VictoryOverlay"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0.0509804, 0.0784314, 0.0941176, 0.745098)
-
-[node name="CenterContainer" type="CenterContainer" parent="VictoryOverlay"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="VictoryOverlay/CenterContainer"]
-custom_minimum_size = Vector2(640, 360)
-layout_mode = 2
-theme = ExtResource("7_6et1j")
-theme_override_styles/panel = ExtResource("8_etqu2")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VictoryOverlay/CenterContainer/Panel"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 28
-alignment = 1
-
-[node name="TitleLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("7_6et1j")
-theme_override_font_sizes/font_size = 54
-text = "¡Victoria!"
-horizontal_alignment = 1
-
-[node name="MessageLabel" type="Label" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("7_6et1j")
-theme_override_colors/font_color = Color(0.87451, 0.952941, 0.941176, 1)
-theme_override_font_sizes/font_size = 32
-text = "Alcanzaste 15 puntos y ganaste la partida."
-horizontal_alignment = 1
-autowrap_mode = 1
-
-[node name="RestartButton" type="Button" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("7_6et1j")
-text = "Reiniciar partida"
-
-[node name="MenuButton" type="Button" parent="VictoryOverlay/CenterContainer/Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("7_6et1j")
-text = "Menú principal"
-
-[node name="ConfigOverlay" parent="." instance=ExtResource("9_vps1v")]
+[node name="ConfigOverlay" parent="." instance=ExtResource("10_l41yk")]
 
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40
