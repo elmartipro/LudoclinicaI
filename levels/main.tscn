@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=19 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
 [ext_resource type="PackedScene" path="res://UI & Audio/mode_intro_overlay.tscn" id="10_mk5p0"]
 [ext_resource type="Texture2D" path="res://Assets/Icons/config_icon.svg" id="11_x8r5m"]
+[ext_resource type="PackedScene" path="res://UI & Audio/guide_overlay.tscn" id="12_n8m2v"]
+[ext_resource type="Texture2D" path="res://Assets/Icons/guide_icon.svg" id="13_k1a0b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -310,9 +312,48 @@ size_flags_horizontal = 4
 theme = ExtResource("7_6et1j")
 text = "Menú principal"
 
+[node name="GuideOverlay" parent="." instance=ExtResource("12_n8m2v")]
+
 [node name="ConfigOverlay" parent="." instance=ExtResource("9_vps1v")]
 
 [node name="ModeIntroOverlay" parent="." instance=ExtResource("10_mk5p0")]
+
+[node name="GuideButtonLayer" type="CanvasLayer" parent="."]
+layer = 35
+
+[node name="GuideButtonRoot" type="Control" parent="GuideButtonLayer"]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -108.0
+offset_right = 88.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="GuideButton" type="TextureButton" parent="GuideButtonLayer/GuideButtonRoot"]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 72.0
+offset_bottom = 72.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("13_k1a0b")
+texture_pressed = ExtResource("13_k1a0b")
+texture_hover = ExtResource("13_k1a0b")
+expand = true
+stretch_mode = 3
+tooltip_text = "Guía de hipertermia maligna"
+focus_mode = 2
 
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40

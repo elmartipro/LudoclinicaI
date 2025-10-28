@@ -26,6 +26,8 @@ const PANEL_IDLE_ALPHA: float = 0.18
 @onready var config_overlay: CanvasLayer = $ConfigOverlay
 @onready var intro_overlay: CanvasLayer = $ModeIntroOverlay
 @onready var config_button: BaseButton = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
+@onready var guide_overlay: CanvasLayer = $GuideOverlay
+@onready var guide_button: BaseButton = $"GuideButtonLayer/GuideButtonRoot/GuideButton"
 
 var category_sequence: Array[String] = []
 var floor_material: BaseMaterial3D
@@ -99,6 +101,10 @@ func _ready() -> void:
 			config_overlay.overlay_closed.connect(_on_config_overlay_closed)
 			config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
 			config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+		if guide_button:
+			guide_button.pressed.connect(_on_guide_button_pressed)
+		if guide_overlay:
+			guide_overlay.overlay_closed.connect(_on_guide_overlay_closed)
 		if intro_overlay:
 			intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
 		awaiting_menu_after_results = false
@@ -112,7 +118,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if config_overlay and config_overlay.is_open:
+		if guide_overlay and guide_overlay.is_open:
+			guide_overlay.close()
+		elif config_overlay and config_overlay.is_open:
 			config_overlay.close()
 		else:
 			_show_exit_dialog()
@@ -331,6 +339,14 @@ func _tween_light_color(base_color: Color) -> void:
 	var target: Color = base_color.lerp(default_light_color, 0.4)
 	light_tween = create_tween()
 	light_tween.tween_property(omni_light, "light_color", target, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _on_guide_button_pressed() -> void:
+	if guide_overlay:
+		guide_overlay.open()
+
+func _on_guide_overlay_closed() -> void:
+	if guide_button:
+		guide_button.grab_focus()
 
 func _update_score_label() -> void:
 	if score_label:
