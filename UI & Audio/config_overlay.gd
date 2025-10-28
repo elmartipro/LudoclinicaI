@@ -4,11 +4,12 @@ signal overlay_closed
 signal menu_requested
 signal restart_requested
 
-@onready var panel: Panel = $CenterContainer/Panel
-@onready var volume_slider: HSlider = $"CenterContainer/Panel/VBoxContainer/VolumeContainer/VolumeSlider"
-@onready var slider_info: Label = $"CenterContainer/Panel/VBoxContainer/VolumeContainer/SliderInfo"
-@onready var mute_toggle: CheckButton = $"CenterContainer/Panel/VBoxContainer/MuteToggle"
-@onready var close_button: Button = $"CenterContainer/Panel/VBoxContainer/ButtonGrid/CloseButton"
+@onready var panel: Panel = get_node_or_null("CenterContainer/Panel") as Panel
+@onready var volume_slider: HSlider = get_node_or_null("CenterContainer/Panel/VBoxContainer/VolumeContainer/VolumeSlider") as HSlider
+@onready var slider_info: Label = get_node_or_null("CenterContainer/Panel/VBoxContainer/VolumeContainer/SliderInfo") as Label
+@onready var mute_toggle: CheckButton = get_node_or_null("CenterContainer/Panel/VBoxContainer/MuteToggle") as CheckButton
+@onready var close_button: Button = get_node_or_null("CenterContainer/Panel/VBoxContainer/ButtonGrid/CloseButton") as Button
+@onready var dimmer: ColorRect = get_node_or_null("Dimmer") as ColorRect
 
 var is_open: bool = false
 var pause_applied: bool = false
@@ -16,6 +17,7 @@ var ignore_toggle_update: bool = false
 var stored_volume: float = 1.0
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	visible = false
 	if volume_slider:
 		stored_volume = max(volume_slider.value, 0.05)
@@ -23,6 +25,8 @@ func _ready() -> void:
 		volume_slider.value_changed.connect(_on_volume_value_changed)
 	if mute_toggle:
 		mute_toggle.button_pressed = volume_slider.value <= 0.001
+	if dimmer:
+		dimmer.gui_input.connect(_on_dimmer_gui_input)
 
 func open() -> void:
 	if is_open:
@@ -104,3 +108,11 @@ func _update_slider_info(value: float) -> void:
 		return
 	var percent: int = int(round(value * 100.0))
 	slider_info.text = "%d%%" % percent
+
+func _on_dimmer_gui_input(event: InputEvent) -> void:
+	if not is_open:
+		return
+	if event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.LEFT:
+		_on_close_button_pressed()
+		if get_viewport():
+			get_viewport().set_input_as_handled()
