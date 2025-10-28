@@ -112,7 +112,7 @@ func _update_slider_info(value: float) -> void:
 func _on_dimmer_gui_input(event: InputEvent) -> void:
 	if not is_open:
 		return
-	if event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.LEFT:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
 		_on_close_button_pressed()
 		if get_viewport():
 			get_viewport().set_input_as_handled()
