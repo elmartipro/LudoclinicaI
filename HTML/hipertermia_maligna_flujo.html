@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sueños que arden: Hipertermia Maligna — Diagrama de Flujo</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #111827;
+    --accent: #38bdf8;
+    --accent2: #22c55e;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --line: #334155;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: linear-gradient(180deg, #0b1220 0%, var(--bg) 100%);
+    color: var(--text);
+  }
+  header {
+    padding: 28px 20px;
+    border-bottom: 1px solid #1f2937;
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(56,189,248,.15), transparent 60%);
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: .2px; }
+  .subtitle { color: var(--muted); font-size: 14px; }
+  main { display: grid; grid-template-columns: 340px 1fr; gap: 18px; padding: 20px 0 40px; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+  /* SIDEBAR / FLOW */
+  .flow-panel {
+    position: sticky; top: 12px;
+    background: linear-gradient(180deg, #0b1220 0%, #0b1220a8 30%, #0b122020 100%), var(--panel);
+    border: 1px solid #1f2937; border-radius: 14px; padding: 16px;
+  }
+  .flow-title { font-size: 14px; letter-spacing: .5px; text-transform: uppercase; color: #a5b4fc; margin-bottom: 10px; }
+  /* Flow diagram using CSS grid + simple connectors */
+  .flowchart {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    position: relative;
+  }
+  .node {
+    position: relative;
+    background: #0b1220;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 12px 12px 12px 14px;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .node:hover {
+    transform: translateY(-2px);
+    border-color: #2a3648;
+    box-shadow: 0 10px 24px rgba(2,6,23,.25);
+  }
+  .node a {
+    text-decoration: none; color: var(--text); display: block;
+  }
+  .tag { display: inline-block; font-size: 11px; letter-spacing: .4px; text-transform: uppercase; color: #67e8f9; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.3); padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+  .node h3 { margin: 2px 0 2px; font-size: 16px; }
+  .node p { margin: 0; color: var(--muted); font-size: 13px; }
+  .branch {
+    margin-top: 10px; padding-left: 12px; border-left: 2px dashed #273244;
+  }
+  .branch .node { background: #0c1323; }
+  /* CONTENT */
+  .content {
+    background: #0b1220;
+    border: 1px solid #1f2937; border-radius: 14px; padding: 6px 8px;
+  }
+  section {
+    border-bottom: 1px dashed #1f2937; padding: 18px 14px;
+  }
+  section:last-child { border-bottom: none; }
+  h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: .2px; }
+  h3 { font-size: 18px; margin: 12px 0 8px; }
+  p { line-height: 1.65; }
+  .small { color: var(--muted); font-size: 13px; }
+  .info {
+    display: grid; gap: 10px;
+    background: #0b1426; border: 1px solid #1e2a3d; border-radius: 12px; padding: 12px;
+  }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  @media (max-width: 720px){ .grid-2{ grid-template-columns: 1fr; } }
+  .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; background: #0b1220; border: 1px solid #253244; border-radius: 6px; padding: 1px 6px; color: #cbd5e1; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #1f2a3c; padding: 8px; vertical-align: top; }
+  th { background: #0e1729; text-align: left; }
+  .pill { display: inline-block; padding: 2px 8px; border: 1px solid #20455a; color: #93c5fd; background: rgba(37, 99, 235, .08); border-radius: 999px; font-size: 12px; }
+  .foot {
+    margin-top: 14px; color: var(--muted); font-size: 12px;
+  }
+  .cta {
+    margin-top: 12px; display: inline-block; text-decoration: none; color: #00111a; background: linear-gradient(180deg, #67e8f9, #22d3ee); padding: 8px 12px; border-radius: 10px; border: 0; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Sueños que arden: el desafío de la Hipertermia Maligna</h1>
+    <div class="subtitle">Luz María Gómez B. — Anestesióloga</div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- FLOW PANEL / MAPA DE SECCIONES -->
+  <aside class="flow-panel">
+    <div class="flow-title">Mapa del contenido (Diagrama de flujo)</div>
+    <div class="flowchart">
+      <div class="node">
+        <span class="tag">Inicio</span>
+        <h3><a href="#resumen">Resumen</a></h3>
+        <p>Visión general, objetivo y público.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Contexto</span>
+        <h3><a href="#introduccion">Introducción</a></h3>
+        <p>Definición, historia y mortalidad con/sin dantroleno.</p>
+        <div class="branch">
+          <div class="node">
+            <h3><a href="#epidemiologia">Epidemiología</a></h3>
+            <p>Herencia, incidencia, edad, sexo y expresividad.</p>
+          </div>
+          <div class="node">
+            <h3><a href="#disparadores">Disparadores</a></h3>
+            <p>Succinilcolina, inhalados potentes, diferenciación con SNM.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="node">
+        <span class="tag">Mecanismo</span>
+        <h3><a href="#fisiopatologia">Fisiopatología</a></h3>
+        <p>RYR1 / CACNA1S, calcio y hipermetabolismo.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Clínica</span>
+        <h3><a href="#presentacion">Presentación clínica</a></h3>
+        <p>Rigidez, hipercapnia, taquicardia, trismo.</p>
+        <div class="branch">
+          <div class="node">
+            <h3><a href="#paraclinicos">Manifestaciones paraclínicas</a></h3>
+            <p>Acidemia, CK, mioglobinuria, K+.</p>
+          </div>
+          <div class="node">
+            <h3><a href="#diferencial">Diagnóstico diferencial</a></h3>
+            <p>Infección, tirotoxicosis, feo, iatrogenia, SNM…</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="node">
+        <span class="tag">Manejo</span>
+        <h3><a href="#tratamiento">Tratamiento de la crisis</a></h3>
+        <p>Dantroleno IV, soporte, enfriamiento, monitorización.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Diagnóstico</span>
+        <h3><a href="#susceptibilidad">Diagnóstico de susceptibilidad</a></h3>
+        <p>CHCT/IVCT, genética (RYR1), sensibilidad.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Asociaciones</span>
+        <h3><a href="#asociaciones">Asociación con otras miopatías</a></h3>
+        <p>Miopatía de núcleo central, King–Denborough…</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Perioperatorio</span>
+        <h3><a href="#anestesia">Anestesia en pacientes susceptibles</a></h3>
+        <p>TIVA, preparación máquina &lt; 5 ppm, filtros carbón.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Orientación</span>
+        <h3><a href="#orientacion">Orientación a pacientes y familiares</a></h3>
+        <p>Educación, alerta médica y pruebas en familiares.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Cierre</span>
+        <h3><a href="#conclusiones">Conclusiones</a></h3>
+        <p>Disponibilidad de dantroleno + reconocimiento precoz.</p>
+      </div>
+
+      <div class="node">
+        <span class="tag">Referencias</span>
+        <h3><a href="#bibliografia">Bibliografía y recursos</a></h3>
+        <p>Artículos clave, guías EMHG, MHAUS.</p>
+      </div>
+    </div>
+    <div class="foot small">Haz clic en cualquier nodo para saltar a la sección.</div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <section id="resumen">
+      <h2>Resumen</h2>
+      <p>Este documento académico tiene como objetivo proporcionar una visión general sobre la hipertermia maligna (HM), un síndrome hipermetabólico de origen genético que representa una emergencia anestésica crítica. La intención principal es consolidar y aplicar conocimientos clave en fisiología, farmacología, genética y medicina perioperatoria, mediante el estudio estructurado de esta entidad clínica altamente relevante.</p>
+      <p>A través de una revisión de la literatura científica actual, se busca reforzar la comprensión teórica del síndrome, promover el reconocimiento precoz de sus manifestaciones clínicas y paraclínicas, y presentar las estrategias terapéuticas y preventivas basadas en evidencia. Este enfoque formativo permite al lector integrar los conceptos fundamentales en el contexto de la práctica clínica y prepararse para la toma de decisiones ante eventos potencialmente fatales.</p>
+      <p>El contenido está dirigido a estudiantes avanzados de medicina, profesionales en formación y especialistas del área quirúrgica y anestésica, y pretende servir como herramienta educativa útil para la actualización, la reflexión académica y el fortalecimiento de competencias en el manejo seguro del paciente en el entorno perioperatorio.</p>
+    </section>
+
+    <section id="introduccion">
+      <h2>Introducción</h2>
+      <p>La Hipertermia Maligna (HM) es un síndrome farmacogenético hipermetabólico agudo que se desencadena en individuos genéticamente predispuestos por la exposición a la succinilcolina o a anestésicos inhalados potentes (con la excepción del óxido nitroso). Su inicio puede ser fulminante y tener un curso rápido, caracterizándose por signos como rigidez muscular, hipercapnia y un aumento de la temperatura corporal. Sin un tratamiento específico y oportuno, estos signos pueden progresar en menos de una hora a un trastorno metabólico irreversible, usualmente letal.</p>
+      <p>Históricamente, la mortalidad de la HM sin tratamiento se acercaba al 65%. Sin embargo, con el reconocimiento temprano y el tratamiento adecuado, incluyendo la administración intravenosa de dantroleno, la mortalidad se ha reducido significativamente, estimándose en la actualidad entre el 4 y el 10% en países desarrollados.</p>
+      <p>Los primeros reportes de HM se realizaron en la década de 1960 por el grupo de Michael A. Denborough en Australia. El primer caso descrito en 1960 involucró a un paciente con antecedentes familiares de muertes durante la anestesia general con halotano, quien sobrevivió a pesar de no recibir tratamiento específico. En 1970, se desarrolló la prueba de contractura con cafeína y halotano (CHCT). En 1975 se estableció el dantroleno como tratamiento efectivo, especialmente en su forma endovenosa.</p>
+    </section>
+
+    <section id="epidemiologia">
+      <h2>Epidemiología</h2>
+      <div class="info">
+        <div class="grid-2">
+          <div>
+            <h3>Genética y herencia</h3>
+            <p>Herencia autosómica dominante, expresividad variable y penetrancia incompleta. Prevalencia estimada del trastorno genético entre 1:3.000 y 1:8.500.</p>
+          </div>
+          <div>
+            <h3>Incidencia</h3>
+            <p>Crisis durante anestesia general de 1:5.000 a 1:100.000. Mayor incidencia reportada en niños (≈4×), con escasa presentación en neonatos y ancianos.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <h3>Distribución por edad/sexo</h3>
+            <p>Promedio de edad de 18 años al momento de la crisis. Incidencia igual por sexo hasta la adolescencia, luego más común en hombres.</p>
+          </div>
+          <div>
+            <h3>Otros</h3>
+            <p>Crisis en cualquier momento perioperatorio, incluso postoperatorio tardío. La incidencia real puede estar subestimada por casos leves no diagnosticados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="disparadores">
+      <h2>Disparadores de la Hipertermia Maligna</h2>
+      <ul>
+        <li><span class="pill">Clásicos</span> Succinilcolina y anestésicos inhalados potentes (halotano, isoflurano, sevoflurano, desflurano).</li>
+        <li><span class="pill">No disparador</span> Óxido nitroso.</li>
+        <li><span class="pill">Modelos animales</span> En porcinos: agonistas alfa, ejercicio y estrés pueden desencadenar HM.</li>
+        <li><span class="pill">Humanos</span> Sin evidencia de que vasopresores, hipercapnia, hipercalcemia o digoxina sean disparadores.</li>
+      </ul>
+      <p><strong>Diferenciar de SNM:</strong> reacción hipermetabólica por neurolépticos; clínica similar pero fisiopatología distinta. Se han reportado pruebas de contractura positivas tras SNM.</p>
+    </section>
+
+    <section id="fisiopatologia">
+      <h2>Fisiopatología</h2>
+      <p>Alteración en la regulación del calcio del músculo esquelético por mutaciones en <em>RYR1</em> y la subunidad alfa del receptor de dihidropiridina (<em>CACNA1S</em>). Ante desencadenantes, el RYR1 permite liberación masiva y sostenida de Ca<sup>2+</sup> al citosol, con contracciones incontroladas y un hipermetabolismo acelerado.</p>
+      <ul>
+        <li>↑ Consumo de O<sub>2</sub> y ↑ producción de CO<sub>2</sub>.</li>
+        <li>Acidosis láctica, ↑ temperatura corporal.</li>
+        <li>Rabdomiólisis: ↑ CK y mioglobinuria.</li>
+        <li>↑ Gasto cardíaco y consumo de O<sub>2</sub> miocárdico.</li>
+      </ul>
+      <p>La termorregulación central permanece intacta; la hipertermia es consecuencia del trabajo muscular y calor excesivo por contractura generalizada.</p>
+    </section>
+
+    <section id="presentacion">
+      <h2>Presentación clínica</h2>
+      <p>La variabilidad genética y penetrancia incompleta explican presentaciones irregulares. Usualmente durante las dos primeras horas de anestesia, pero también tardía.</p>
+      <ul>
+        <li><strong>Primeros signos:</strong> rigidez muscular, taquicardia sinusal, hipertensión e hipercapnia (frecuentemente el primer hallazgo por ETCO<sub>2</sub>).</li>
+        <li><strong>Piel:</strong> moteada, cianosis/parches eritematosos.</li>
+        <li><strong>Trismo (espasmo masetero):</strong> tras succinilcolina; ≈50% de niños con trismo presentan susceptibilidad.</li>
+        <li><strong>Mejor predictor aislado de CHCT positivo:</strong> rigidez muscular generalizada.</li>
+      </ul>
+    </section>
+
+    <section id="paraclinicos">
+      <h2>Manifestaciones paraclínicas</h2>
+      <ul>
+        <li>Acidemia severa (respiratoria y metabólica) precede a la hipertermia.</li>
+        <li>↑ CK y mioglobinuria (rabdomiólisis).</li>
+        <li>Hiperkalemia progresiva.</li>
+      </ul>
+    </section>
+
+    <section id="diferencial">
+      <h2>Diagnóstico diferencial</h2>
+      <table>
+        <thead>
+          <tr><th>Diagnóstico</th><th>Comentario</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cuadro infeccioso o séptico</td><td>La fiebre intraanestésica es rara; considerar el cuadro de base e hipermetabolismo por otras causas.</td></tr>
+          <tr><td>Tirotoxicosis</td><td>Historia clínica orienta síntomas y manejo.</td></tr>
+          <tr><td>Feocromocitoma</td><td>Predominan crisis hipertensivas severas.</td></tr>
+          <tr><td>Iatrogenia</td><td>Insuflación de CO<sub>2</sub>, sobrecalentamiento, superficialidad anestésica, ventilación inadecuada.</td></tr>
+          <tr><td>Síndrome Neuroléptico Maligno</td><td>Asociado a neurolépticos, ATC, IMAO o retiro de antiparkinsonianos.</td></tr>
+          <tr><td>Síndrome anticolinérgico</td><td>Antihistamínicos, atropina, escopolamina, ATC.</td></tr>
+          <tr><td>Toxicidad por drogas</td><td>Cocaína, anfetaminas, salicilatos.</td></tr>
+          <tr><td>Síndrome de abstinencia</td><td>Historia clínica orienta.</td></tr>
+          <tr><td>Lesión cerebral</td><td>Historia clínica orienta.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="tratamiento">
+      <h2>Tratamiento de la crisis de Hipertermia Maligna</h2>
+      <ol>
+        <li><strong>Suspender</strong> inmediatamente agentes desencadenantes.</li>
+        <li><strong>Hiperventilar</strong> con O<sub>2</sub> al 100% a flujos altos.</li>
+        <li><strong>Dantroleno IV:</strong> dosis inicial 2.5 mg/kg; repetir cada 5–10 min hasta revertir signos o dosis total 10 mg/kg.</li>
+        <li><strong>Bicarbonato de sodio</strong> 1–2 mEq/kg IV para acidosis severa/hiperkalemia (asegurar ventilación).</li>
+        <li><strong>Enfriamiento activo:</strong> compresas frías cervical/axilas/ingle, lavado gástrico/rectal con SSN fría; considerar inmersión en casos severos; convección/evaporación.</li>
+        <li><strong>Monitorización continua:</strong> signos vitales, gases, electrolitos, CK, orina (mioglobinuria).</li>
+        <li><strong>Diuresis adecuada</strong> para prevenir FRA por mioglobinuria.</li>
+      </ol>
+      <div class="info">
+        <h3>Dantroleno: preparación y continuidad</h3>
+        <ul>
+          <li>Cada vial 20 mg reconstituir con 60 ml de agua estéril (sin bacteriostáticos). No usar SSN ni dextrosa.</li>
+          <li>Agitar vigorosamente hasta solución clara. Un paciente de 70 kg puede requerir múltiples viales.</li>
+          <li><strong>Mantener</strong> dantroleno 1 mg/kg cada 4–6 h o infusión continua por 24–48 h para prevenir recurrencia (UCI).</li>
+          <li>Simulación de reconstitución con modelos de bajo costo reduce tiempos en crisis reales.</li>
+        </ul>
+      </div>
+      <p class="small">Ver <span class="kbd">Listas de Chequeo: Crisis en Salas de Cirugía</span> (Ariadne Labs / S.C.A.R.E.) para algoritmos operativos.</p>
+    </section>
+
+    <section id="susceptibilidad">
+      <h2>Diagnóstico de susceptibilidad a HM</h2>
+      <ul>
+        <li><strong>Prueba de referencia:</strong> contractura con cafeína y halotano (CHCT) / contractura <em>in vitro</em> (IVCT).</li>
+        <li><strong>Genética:</strong> múltiples mutaciones, principalmente <em>RYR1</em>; sensibilidad global de pruebas genéticas ≈25%, útil en familiares cuando se identifica mutación índice.</li>
+        <li>No hay pruebas menos invasivas que reemplacen a la prueba de contractura.</li>
+      </ul>
+    </section>
+
+    <section id="asociaciones">
+      <h2>Asociación con otras enfermedades musculares</h2>
+      <p>Mayor riesgo de susceptibilidad en Miopatía de Núcleo Central y síndrome de King–Denborough. Distrofias de Duchenne y Becker no incrementan el riesgo más allá de la población general. En pediatría con sospecha de miopatía, evitar desencadenantes.</p>
+    </section>
+
+    <section id="anestesia">
+      <h2>Anestesia en pacientes susceptibles</h2>
+      <ul>
+        <li><strong>Técnicas seguras:</strong> anestesia regional o TIVA con agentes no desencadenantes.</li>
+        <li><strong>Máquina de anestesia:</strong> purga con O<sub>2</sub> a alto flujo, recambio de componentes y uso de filtros de carbón activado para residuales &lt; 5 ppm. Seguir manuales del fabricante.</li>
+        <li>No se recomienda profilaxis con dantroleno cuando se evitan desencadenantes y se dispone de tratamiento IV.</li>
+      </ul>
+    </section>
+
+    <section id="orientacion">
+      <h2>Orientación a pacientes y familiares</h2>
+      <p>Evaluar probabilidad clínica de evento con escalas. Considerar susceptibles a caso confirmado y familiares de primer grado. Ofrecer información detallada, recomendar pruebas (contractura/genética) y el uso de alertas médicas; informar a anestesiólogos en futuras atenciones.</p>
+    </section>
+
+    <section id="conclusiones">
+      <h2>Conclusiones</h2>
+      <p>La HM es un evento crítico que exige conciencia y preparación. La disponibilidad de dantroleno, el reconocimiento temprano y la implementación inmediata de protocolos mejoran el pronóstico. Comprender fisiopatología, disparadores, diagnóstico y manejo perioperatorio seguro en pacientes susceptibles es esencial. La simulación de escenarios y de la reconstitución del dantroleno fortalece la respuesta ante esta emergencia.</p>
+    </section>
+
+    <section id="bibliografia">
+      <h2>Bibliografía</h2>
+      <ul>
+        <li>Rincón D, Sessler D. Cap. 34. En: Tratado de anestesia pediátrica. Tomo 1. Bogotá: SCARE; 2014. p. 1034-71. ISBN: 978-958-8873-18-3.</li>
+        <li>Barash PG, Cullen BF, Stoelting RK, et al. Hyperthermia Maligna. En: Miller's Basics of Anesthesia. 8a ed. Elsevier; 2023. p. 379-384.</li>
+        <li>Gupta PK, Bilmen JG, Hopkins PM. BJA Educ. 2021;21(6):218-224. doi:10.1016/j.bjae.2021.01.003.</li>
+        <li>Glahn KPE, et al.; EMHG. BJA. 2025;134(1):221-223. doi:10.1016/j.bja.2024.09.022.</li>
+        <li>Giraldo-Gutiérrez DS, Arrendo-Verbel MA, Rincón-Valenzuela DA. Rev. colomb. anestesiol. 2018.</li>
+        <li>Heiderich S, et al. Anaesthesist. 2021;70(2):155-157. doi:10.1007/s00101-020-00893-5.</li>
+        <li>Rüffert H, et al.; EMHG. BJA. 2021;126(1):120-130. doi:10.1016/j.bja.2020.09.029.</li>
+      </ul>
+      <h3>Recursos</h3>
+      <ul>
+        <li><a href="https://www.mhaus.org/videos/" target="_blank" rel="noopener">MHAUS — Videos</a></li>
+        <li><a href="https://www.emhg.org/about" target="_blank" rel="noopener">EMHG — About</a></li>
+      </ul>
+      <div class="small">Fecha: Mayo 2025.</div>
+    </section>
+  </div>
+</main>
+</body>
+</html>
