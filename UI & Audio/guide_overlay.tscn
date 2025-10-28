@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="CenterContainer"]
-custom_minimum_size = Vector2(1500, 860)
+custom_minimum_size = Vector2(1380, 820)
 layout_mode = 2
 theme = ExtResource("2_e45n4")
 
@@ -89,7 +89,7 @@ theme_override_constants/separation = 24
 
 [node name="MapPanel" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body"]
 layout_mode = 2
-custom_minimum_size = Vector2(420, 0)
+custom_minimum_size = Vector2(340, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
@@ -103,7 +103,7 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Mapa del contenido"
 autowrap_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 22
 theme_override_colors/font_color = Color(0.721569, 0.807843, 0.956863, 1)
 
 [node name="MapScroll" type="ScrollContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel/MapVBox"]
@@ -123,7 +123,7 @@ theme_override_constants/separation = 12
 layout_mode = 2
 text = "Haz clic en cualquier nodo para saltar a la sección."
 autowrap_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.611765, 0.67451, 0.745098, 1)
 
 [node name="ContentScroll" type="ScrollContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body"]

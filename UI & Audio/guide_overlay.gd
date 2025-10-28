@@ -416,21 +416,21 @@ func _create_map_entry(entry: Dictionary, is_child: bool) -> Control:
 	if is_child:
 		panel_container.modulate = Color(0.9, 0.98, 1.0, 0.9)
 	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 12)
-	margin.add_theme_constant_override("margin_right", 12)
-	margin.add_theme_constant_override("margin_top", 10)
-	margin.add_theme_constant_override("margin_bottom", 10)
+	margin.add_theme_constant_override("margin_left", 8)
+	margin.add_theme_constant_override("margin_right", 8)
+	margin.add_theme_constant_override("margin_top", 6)
+	margin.add_theme_constant_override("margin_bottom", 6)
 	panel_container.add_child(margin)
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_theme_constant_override("separation", 6)
+	box.add_theme_constant_override("separation", 4)
 	margin.add_child(box)
 	if entry.has("tag") and not is_child:
 		var tag_label := Label.new()
 		tag_label.text = entry["tag"].to_upper()
 		tag_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		tag_label.add_theme_color_override("font_color", ACCENT_COLOR)
-		tag_label.add_theme_font_size_override("font_size", 16)
+		tag_label.add_theme_font_size_override("font_size", 13)
 		box.add_child(tag_label)
 	var button := Button.new()
 	button.text = entry.get("title", "")
@@ -438,7 +438,7 @@ func _create_map_entry(entry: Dictionary, is_child: bool) -> Control:
 	button.focus_mode = Control.FOCUS_ALL
 	button.flat = true
 	button.add_theme_color_override("font_color", Color(0.94, 0.96, 1.0))
-	button.add_theme_font_size_override("font_size", 22 if not is_child else 18)
+	button.add_theme_font_size_override("font_size", 18 if not is_child else 16)
 	button.pressed.connect(_on_map_button_pressed.bind(entry.get("section_id", "")))
 	box.add_child(button)
 	if entry.has("summary"):
@@ -446,14 +446,15 @@ func _create_map_entry(entry: Dictionary, is_child: bool) -> Control:
 		summary.text = entry["summary"]
 		summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		summary.add_theme_color_override("font_color", MUTED_COLOR)
+		summary.add_theme_font_size_override("font_size", 13 if not is_child else 12)
 		box.add_child(summary)
 	if entry.has("children"):
 		var branch_margin := MarginContainer.new()
-		branch_margin.add_theme_constant_override("margin_left", 18)
-		branch_margin.add_theme_constant_override("margin_top", 6)
+		branch_margin.add_theme_constant_override("margin_left", 14)
+		branch_margin.add_theme_constant_override("margin_top", 4)
 		box.add_child(branch_margin)
 		var branch_box := VBoxContainer.new()
-		branch_box.add_theme_constant_override("separation", 8)
+		branch_box.add_theme_constant_override("separation", 6)
 		branch_margin.add_child(branch_box)
 		for child_entry in entry["children"]:
 			var child_node: Control = _create_map_entry(child_entry, true)
