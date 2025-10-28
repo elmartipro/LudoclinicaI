@@ -16,6 +16,7 @@ color = Color(0.0196078, 0.784314, 0.67451, 1)
 thickness = 8
 
 [node name="Configuracion" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,13 +24,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jtylf")
-visible = false
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.35)
 
@@ -44,8 +46,10 @@ offset_left = -360.0
 offset_top = -380.0
 offset_right = 360.0
 offset_bottom = 360.0
-alignment = 1
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 24
+alignment = 1
 
 [node name="Header" type="Label" parent="Content"]
 layout_mode = 2
@@ -58,34 +62,33 @@ vertical_alignment = 1
 [node name="MusicLabel" type="Label" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Volumen de la música"
 theme = ExtResource("7_j8rvh")
 theme_override_font_sizes/font_size = 40
+text = "Volumen de la música"
 horizontal_alignment = 1
 
 [node name="MusicControl" type="HSlider" parent="Content"]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-min_value = 0.0
+theme_override_styles/slider = SubResource("StyleBoxLine_slider")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
 max_value = 1.0
 step = 0.05
 value = 1.0
 script = ExtResource("5_vycbt")
-theme_override_styles/slider = SubResource("StyleBoxLine_slider")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_grabber")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_grabber")
 
 [node name="ClearDataButton" type="Button" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Borrar datos guardados"
 theme = ExtResource("7_j8rvh")
 theme_override_font_sizes/font_size = 36
+text = "Borrar datos guardados"
 
 [node name="ClearStatus" type="Label" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = ""
 theme = ExtResource("7_j8rvh")
 horizontal_alignment = 1
 
@@ -104,7 +107,4 @@ position = Vector2(160, 992)
 scale = Vector2(0.265625, 0.210937)
 texture = ExtResource("2_vw167")
 
-[connection signal="pressed" from="ClearDataButton" to="." method="_on_clear_data_button_pressed"]
 [connection signal="pressed" from="Volver2" to="." method="_on_volver_2_pressed"]
-[connection signal="value_changed" from="MusicControl" to="." method="_on_music_control_value_changed"]
-[connection signal="value_changed" from="MusicControl" to="MusicControl" method="_on_value_changed"]

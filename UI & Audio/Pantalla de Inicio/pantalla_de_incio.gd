@@ -20,7 +20,7 @@ func _ready():
 	if not MusicaDeFondo.playing:
 		MusicaDeFondo.play()
 
-	if background_video and not background_video.playing:
+	if background_video and not background_video.is_playing():
 		background_video.play()
 
 	if config_panel:

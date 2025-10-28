@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4qg96ytn3e7c"
-path="res://.godot/imported/guide_icon.svg-1c9f4d6a7a91a4e3a6a8e2d621f87f2a.ctex"
+uid="uid://c4qha6ytn3e7c"
+path="res://.godot/imported/guide_icon.svg-f8ac5eba4fd35c909c9b3fddf025505b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://Assets/Icons/guide_icon.svg"
-dest_files=["res://.godot/imported/guide_icon.svg-1c9f4d6a7a91a4e3a6a8e2d621f87f2a.ctex"]
+dest_files=["res://.godot/imported/guide_icon.svg-f8ac5eba4fd35c909c9b3fddf025505b.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

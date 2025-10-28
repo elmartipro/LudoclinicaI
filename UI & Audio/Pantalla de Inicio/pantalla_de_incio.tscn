@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=5 format=3 uid="uid://cp1qd8tqy1w7l"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="1_muksq"]
-[ext_resource type="VideoStream" path="res://Assets/title_screen_ogv.ogv" id="2_2g6ex"]
+[ext_resource type="VideoStream" uid="uid://bdk0pligbf6u2" path="res://Assets/title_screen.ogv" id="2_2g6ex"]
 [ext_resource type="PackedScene" uid="uid://bbv6n8qvqb3hj" path="res://UI & Audio/Pantalla de Inicio/configuracion.tscn" id="3_7l020"]
 
 [node name="PantallaDeIncio" type="Control"]
@@ -23,18 +23,21 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stream = ExtResource("2_2g6ex")
+volume_db = -5.999999
 autoplay = true
-loop = true
 expand = true
-stretch_mode = 3
-volume_db = -6.0
+loop = true
 
 [node name="Tint" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.25)
 
@@ -51,8 +54,8 @@ offset_right = 326.0
 offset_bottom = 327.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 theme_override_constants/separation = 48
+alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu"]
 layout_mode = 2
@@ -104,6 +107,7 @@ theme_type_variation = &"FlatButton"
 text = "Salir"
 
 [node name="Configuracion" parent="." instance=ExtResource("3_7l020")]
+layout_mode = 1
 
 [connection signal="pressed" from="MainMenu/Buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/Buttons/Configuracion" to="." method="_on_configuracion_pressed"]
