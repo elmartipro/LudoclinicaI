@@ -21,30 +21,30 @@ var jump_end: Vector3
 var current_jump_target_index: int = -1	# <-- NEW: the spot we are jumping to
 
 func _ready() -> void:
-        place_number = game_spaces.size()
-        if dice and dice.has_signal("roll_finished"):
-                dice.roll_finished.connect(_on_dice_roll_finished)
-        self.pawn_finished_moving.connect(_on_pawn_finished_moving) # connect locally
+	place_number = game_spaces.size()
+	if dice and dice.has_signal("roll_finished"):
+		dice.roll_finished.connect(_on_dice_roll_finished)
+	self.pawn_finished_moving.connect(_on_pawn_finished_moving) # connect locally
 
 func _on_dice_roll_finished(rolled_value: int) -> void:
-        _queue_step_movement(rolled_value)
+	_queue_step_movement(rolled_value)
 
 func advance_steps(steps: int) -> void:
-        _queue_step_movement(steps)
+	_queue_step_movement(steps)
 
 func _queue_step_movement(step_count: int) -> void:
-        if step_count <= 0:
-                return
-        if place_number == 0:
-                return
-        if place >= place_number:
-                place = 0
-        # block mid-jump
-        if is_jumping or remaining_steps > 0:
-                return
-        remaining_steps = step_count
-        pawn_landed = false
-        _start_next_jump()
+	if step_count <= 0:
+		return
+	if place_number == 0:
+		return
+	if place >= place_number:
+		place = 0
+	# block mid-jump
+	if is_jumping or remaining_steps > 0:
+		return
+	remaining_steps = step_count
+	pawn_landed = false
+	_start_next_jump()
 
 func _start_next_jump() -> void:
 	current_jump_target_index = place					# remember where we’re going
