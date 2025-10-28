@@ -15,20 +15,25 @@ grow_vertical = 2
 script = ExtResource("1_cqabt")
 
 [node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 4.0
+offset_right = 1924.0
+offset_bottom = 1090.0
+mouse_filter = 2
+texture = ExtResource("2_qrji3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dimmer" type="ColorRect" parent="Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_qrji3")
-expand_mode = 1
-stretch_mode = 3
-mouse_filter = 2
+mouse_filter = 1
+color = Color(0.11764706, 0.19215687, 0.16078432, 0.4862745)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -50,7 +55,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("3_qrji3")
 theme_override_font_sizes/font_size = 46
-text = "Modo Fácil"
+text = "Modo Juego"
 
 [node name="Juego2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -68,6 +73,8 @@ offset_right = 200.0
 offset_bottom = 1032.44
 
 [node name="Arrow" type="Sprite2D" parent="."]
+modulate = Color(0, 0.764052, 0, 1)
+self_modulate = Color(1, 0.21960784, 1, 1)
 position = Vector2(128, 1000)
 scale = Vector2(0.234375, 0.203125)
 texture = ExtResource("3_nh7f4")

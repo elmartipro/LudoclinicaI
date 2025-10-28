@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="1_muksq"]
 [ext_resource type="Texture2D" uid="uid://b7cnp8cd1dmjf" path="res://Assets/backgroundimaged.png" id="2_6m0mc"]
+[ext_resource type="FontFile" uid="uid://danw3x5216ldp" path="res://Assets/House of cards W03 Regular.ttf" id="4_4uw2f"]
+[ext_resource type="StyleBox" uid="uid://c4p046705uewg" path="res://UI & Audio/Themes/stylebox1.tres" id="5_j7hxy"]
 
 [node name="PantallaDeIncio" type="Control"]
 layout_mode = 3
@@ -19,15 +21,24 @@ script = ExtResource("1_5je2x")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
+offset_left = -964.0
+offset_top = -547.0
+offset_right = 967.0
+offset_bottom = 539.0
+mouse_filter = 2
+texture = ExtResource("2_6m0mc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dimmer" type="ColorRect" parent="Background"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_6m0mc")
-expand_mode = 1
-stretch_mode = 3
+mouse_filter = 1
+color = Color(0.11764706, 0.19215687, 0.16078432, 0.4862745)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -37,7 +48,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -326.0
-offset_top = -13.0
+offset_top = 13.0
 offset_right = 326.0
 offset_bottom = 327.0
 grow_horizontal = 2
@@ -62,34 +73,38 @@ theme = ExtResource("1_muksq")
 theme_type_variation = &"FlatButton"
 text = "Salir"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -326.0
-offset_top = -392.5
-offset_right = 326.0
-offset_bottom = -52.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 35
-
-[node name="Label" type="Label" parent="VBoxContainer2"]
-layout_mode = 2
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -368.28503
+offset_top = -314.5
+offset_right = 369.71497
+offset_bottom = -158.5
 size_flags_horizontal = 4
 theme = ExtResource("1_muksq")
+theme_override_colors/font_color = Color(0.052287564, 0.20443705, 0.18787903, 1)
+theme_override_colors/font_shadow_color = Color(0.31749076, 0.76872027, 0.71925116, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("4_4uw2f")
+theme_override_font_sizes/font_size = 150
 text = "LUDOCLÍNICIA"
 horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 35
 
-[node name="Label2" type="Label" parent="VBoxContainer2"]
-layout_mode = 2
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = -349.0
+offset_top = -160.0
+offset_right = 359.0
+offset_bottom = -52.0
 size_flags_horizontal = 4
 theme = ExtResource("1_muksq")
+theme_override_colors/font_color = Color(0.31764707, 0.76862746, 0.7176471, 1)
+theme_override_fonts/font = ExtResource("4_4uw2f")
+theme_override_styles/normal = ExtResource("5_j7hxy")
 text = "Hipertermia Maligna"
 horizontal_alignment = 1
 vertical_alignment = 1
