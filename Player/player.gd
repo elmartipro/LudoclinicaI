@@ -21,11 +21,11 @@ var jump_end: Vector3
 var current_jump_target_index: int = -1	# <-- NEW: the spot we are jumping to
 
 func _ready() -> void:
-        place_number = game_spaces.size()
-        dice = get_node_or_null("../Dice")
-        if dice != null and dice.has_signal("roll_finished"):
-                dice.roll_finished.connect(_on_dice_roll_finished)
-        self.pawn_finished_moving.connect(_on_pawn_finished_moving) # connect locally
+	place_number = game_spaces.size()
+	dice = get_node_or_null("../Dice")
+	if dice != null and dice.has_signal("roll_finished"):
+		dice.roll_finished.connect(_on_dice_roll_finished)
+	self.pawn_finished_moving.connect(_on_pawn_finished_moving) # connect locally
 
 func _on_dice_roll_finished(rolled_value: int) -> void:
 	if place >= place_number:
