@@ -434,7 +434,7 @@ func _create_map_entry(entry: Dictionary, is_child: bool) -> Control:
 		box.add_child(tag_label)
 	var button := Button.new()
 	button.text = entry.get("title", "")
-	button.alignment = HorizontalAlignment.LEFT
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.focus_mode = Control.FOCUS_ALL
 	button.flat = true
 	button.add_theme_color_override("font_color", Color(0.94, 0.96, 1.0))
@@ -593,7 +593,7 @@ func _add_info_grid(parent: VBoxContainer, entries: Array) -> void:
 		title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		title_label.add_theme_font_size_override("font_size", 22)
 		title_label.add_theme_color_override("font_color", ACCENT_COLOR)
-		title_label.horizontal_alignment = HorizontalAlignment.LEFT
+		title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		cell.add_child(title_label)
 		var text_label := RichTextLabel.new()
 		text_label.bbcode_enabled = true
@@ -617,7 +617,7 @@ func _add_table(parent: VBoxContainer, headers: Array, rows: Array) -> void:
 		header_label.text = header
 		header_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		header_label.horizontal_alignment = HorizontalAlignment.LEFT
+		header_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		header_label.add_theme_font_size_override("font_size", 22)
 		header_label.add_theme_color_override("font_color", ACCENT_COLOR)
 		grid.add_child(header_label)

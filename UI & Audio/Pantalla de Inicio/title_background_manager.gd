@@ -9,7 +9,7 @@ func ensure_visible() -> void:
 	if not is_instance_valid(_background_instance):
 		_background_instance = BACKGROUND_SCENE.instantiate() as CanvasLayer
 		_background_instance.hide()
-		get_tree().root.add_child(_background_instance)
+		get_tree().root.add_child.call_deferred(_background_instance)
 	_show_internal()
 
 func hide_background() -> void:

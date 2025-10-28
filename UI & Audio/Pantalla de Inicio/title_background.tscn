@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="VideoStream" path="res://Assets/title_screen_ogv.ogv" id="1_u4mpq"]
+[ext_resource type="VideoStream" uid="uid://d2xs2q8bnxv2e" path="res://Assets/title_screen.ogv" id="1_u4mpq"]
 
 [node name="TitleBackground" type="CanvasLayer"]
 layer = -100

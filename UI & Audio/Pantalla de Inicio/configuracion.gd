@@ -1,5 +1,6 @@
 extends Control
 
+@onready var TitleBackground: VideoStreamPlayer = $VideoStreamPlayer
 
 func _ready() -> void:
 	TitleBackground.ensure_visible()

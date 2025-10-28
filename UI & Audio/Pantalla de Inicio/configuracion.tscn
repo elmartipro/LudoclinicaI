@@ -43,7 +43,6 @@ theme_override_constants/separation = 30
 [node name="Label" type="Label" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
 theme = ExtResource("3_1361w")
 text = "Configuración"
 horizontal_alignment = 1
@@ -74,7 +73,6 @@ script = ExtResource("5_vycbt")
 [node name="BorrarDatos" type="Button" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 1
 theme = ExtResource("7_j8rvh")
 theme_type_variation = &"FlatButton"
 text = "Borrar datos guardados"
@@ -87,6 +85,7 @@ offset_left = 64.0
 offset_top = -152.0
 offset_right = 224.0
 offset_bottom = -88.0
+grow_vertical = 2
 script = ExtResource("3_vycbt")
 
 [node name="E531a6d28931f7c224Be0c595c5f5Cf1-flecha-izquierda-de-graffiti" type="Sprite2D" parent="."]
@@ -94,7 +93,7 @@ position = Vector2(160, 960)
 scale = Vector2(0.265625, 0.210937)
 texture = ExtResource("2_vw167")
 
-[connection signal="pressed" from="Volver2" to="." method="_on_volver_2_pressed"]
 [connection signal="value_changed" from="Content/MusicControl" to="." method="_on_music_control_value_changed"]
 [connection signal="value_changed" from="Content/MusicControl" to="Content/MusicControl" method="_on_value_changed"]
 [connection signal="pressed" from="Content/BorrarDatos" to="." method="_on_borrar_datos_pressed"]
+[connection signal="pressed" from="Volver2" to="." method="_on_volver_2_pressed"]
