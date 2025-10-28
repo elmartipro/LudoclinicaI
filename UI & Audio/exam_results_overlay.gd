@@ -43,7 +43,9 @@ func mostrar_resumen(resumen: Dictionary, historial_detallado: Array, intentos_p
 		var mejor: String = _categoria_mejor(categoria_stats)
 		var peor: String = _categoria_peor(categoria_stats)
 		var texto: String = "[b]Desempeño por categoría[/b]\n"
-		for categoria in categoria_stats.keys().sorted():
+		var categorias: Array = categoria_stats.keys()
+		categorias.sort()
+		for categoria in categorias:
 			var datos: Dictionary = categoria_stats[categoria]
 			var cor: int = datos.get("correctas", 0)
 			var tot: int = max(datos.get("total", 0), 1)
@@ -55,7 +57,10 @@ func mostrar_resumen(resumen: Dictionary, historial_detallado: Array, intentos_p
 	_historial_formatear(historial_detallado)
 	_mostrar_intentos_previos(intentos_previos)
 	historial_container.visible = historial_visible
-	historial_button.text = "Ver historial detallado" if not historial_visible else "Ocultar historial"
+	if historial_visible:
+		historial_button.text = "Ocultar historial"
+	else:
+		historial_button.text = "Ver historial detallado"
 	show()
 	panel.grab_focus()
 
@@ -74,7 +79,9 @@ func _historial_formatear(historial: Array) -> void:
 		var resp_jugador: String = entrada.get("respuesta_jugador", "Sin respuesta")
 		var resp_correcta: String = entrada.get("respuesta_correcta", "")
 		var tiempo: float = entrada.get("tiempo", 0.0)
-		var estado: String = "✅" if correcta else "❌"
+		var estado: String = "❌"
+		if correcta:
+			estado = "✅"
 		texto += "%s [%s] %s\n" % [estado, categoria, pregunta]
 		texto += "    Tu respuesta: %s\n" % resp_jugador
 		texto += "    Correcta: %s\n" % resp_correcta
@@ -101,7 +108,10 @@ func _mostrar_intentos_previos(intentos: Array) -> void:
 func _on_historial_button_pressed() -> void:
 	historial_visible = not historial_visible
 	historial_container.visible = historial_visible
-	historial_button.text = "Ver historial detallado" if not historial_visible else "Ocultar historial"
+	if historial_visible:
+		historial_button.text = "Ocultar historial"
+	else:
+		historial_button.text = "Ver historial detallado"
 
 func _on_cerrar_button_pressed() -> void:
 	hide()
