@@ -34,6 +34,8 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var config_overlay: CanvasLayer = $ConfigOverlay
 @onready var intro_overlay: CanvasLayer = $ModeIntroOverlay
 @onready var config_button: BaseButton = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
+@onready var guide_overlay: CanvasLayer = $GuideOverlay
+@onready var guide_button: BaseButton = $"GuideButtonLayer/GuideButtonRoot/GuideButton"
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -73,6 +75,10 @@ func _ready() -> void:
 		restart_button.pressed.connect(_on_restart_button_pressed)
 	if menu_button:
 		menu_button.pressed.connect(_on_menu_button_pressed)
+	if guide_button:
+		guide_button.pressed.connect(_on_guide_button_pressed)
+	if guide_overlay:
+		guide_overlay.overlay_closed.connect(_on_guide_overlay_closed)
 	if exit_confirm_dialog:
 		exit_confirm_dialog.dialog_text = "¿Está seguro que quiere ir al menu principal?\nSu progreso no se guardará"
 		var ok_button: Button = exit_confirm_dialog.get_ok_button()
@@ -98,7 +104,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if config_overlay and config_overlay.is_open:
+		if guide_overlay and guide_overlay.is_open:
+			guide_overlay.close()
+		elif config_overlay and config_overlay.is_open:
 			config_overlay.close()
 		else:
 			_show_exit_dialog()
@@ -147,6 +155,14 @@ func _set_extra_life_label_visible(visible: bool) -> void:
 		extra_life_label.visible = visible
 		if not visible:
 			extra_life_label.modulate.a = 0.0
+
+func _on_guide_button_pressed() -> void:
+	if guide_overlay:
+		guide_overlay.open()
+
+func _on_guide_overlay_closed() -> void:
+	if guide_button:
+		guide_button.grab_focus()
 
 func _on_victory_reached(total_points: int) -> void:
 	_show_end_overlay(true, total_points)
