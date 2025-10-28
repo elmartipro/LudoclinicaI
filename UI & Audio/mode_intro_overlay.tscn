@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://UI & Audio/mode_intro_overlay.gd" id="1_hf2bp"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Main.tres" id="2_k8nyv"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="3_dgfa5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxfjc"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+bg_color = Color(0.133333, 0.211765, 0.211765, 0.94902)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="ModeIntroOverlay" type="CanvasLayer"]
+layer = 55
+script = ExtResource("1_hf2bp")
+pause_mode = 2
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.0156863, 0.027451, 0.0313726, 0.756863)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(720, 420)
+theme = ExtResource("2_k8nyv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxfjc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_k8nyv")
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_dgfa5")
+theme_override_font_sizes/font_size = 60
+text = "Modo"
+horizontal_alignment = 1
+
+[node name="Body" type="RichTextLabel" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme = ExtResource("2_k8nyv")
+fit_content = true
+bbcode_enabled = true
+text = ""
+scroll_active = false
+scroll_following = true
+autowrap_mode = 1
+
+[node name="StartButton" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("2_k8nyv")
+text = "Comenzar"
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

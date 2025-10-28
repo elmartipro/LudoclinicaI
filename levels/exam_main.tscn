@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 ]
+[gd_scene load_steps=18 format=3 ]
 
 [ext_resource type="PackedScene" path="res://Player/player_exam.tscn" id="1_2262g"]
 [ext_resource type="Script" path="res://levels/exam_main.gd" id="1_wdj6m"]
@@ -9,6 +9,8 @@
 [ext_resource type="StyleBox" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
 [ext_resource type="PackedScene" path="res://UI & Audio/exam_results_overlay.tscn" id="9_lm4r7"]
 [ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="10_l41yk"]
+[ext_resource type="PackedScene" path="res://UI & Audio/mode_intro_overlay.tscn" id="11_lga8d"]
+[ext_resource type="Texture2D" path="res://Assets/Icons/config_icon.svg" id="12_lpc9y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -225,23 +227,44 @@ color = Color(0.117647, 0.156863, 0.188235, 0)
 
 [node name="ConfigOverlay" parent="." instance=ExtResource("10_l41yk")]
 
+[node name="ModeIntroOverlay" parent="." instance=ExtResource("11_lga8d")]
+
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40
 
 [node name="ConfigButtonRoot" type="Control" parent="ConfigButtonLayer"]
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -180.0
+offset_top = -180.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
 
-[node name="ConfigButton" type="Button" parent="ConfigButtonLayer/ConfigButtonRoot"]
-offset_left = -156.0
+[node name="ConfigButton" type="TextureButton" parent="ConfigButtonLayer/ConfigButtonRoot"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
 offset_top = -108.0
 offset_right = -36.0
-offset_bottom = -28.0
-text = "⚙"
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("12_lpc9y")
+texture_pressed = ExtResource("12_lpc9y")
+texture_hover = ExtResource("12_lpc9y")
+expand = true
+stretch_mode = 3
 tooltip_text = "Configuración"
+focus_mode = 2
 
 [node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Confirmar salida"

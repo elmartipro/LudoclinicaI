@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=17 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -9,6 +9,8 @@
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
 [ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
 [ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
+[ext_resource type="PackedScene" path="res://UI & Audio/mode_intro_overlay.tscn" id="10_mk5p0"]
+[ext_resource type="Texture2D" path="res://Assets/Icons/config_icon.svg" id="11_x8r5m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -310,23 +312,44 @@ text = "Menú principal"
 
 [node name="ConfigOverlay" parent="." instance=ExtResource("9_vps1v")]
 
+[node name="ModeIntroOverlay" parent="." instance=ExtResource("10_mk5p0")]
+
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40
 
 [node name="ConfigButtonRoot" type="Control" parent="ConfigButtonLayer"]
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -180.0
+offset_top = -180.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
 
-[node name="ConfigButton" type="Button" parent="ConfigButtonLayer/ConfigButtonRoot"]
-offset_left = -156.0
+[node name="ConfigButton" type="TextureButton" parent="ConfigButtonLayer/ConfigButtonRoot"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
 offset_top = -108.0
 offset_right = -36.0
-offset_bottom = -28.0
-text = "⚙"
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("11_x8r5m")
+texture_pressed = ExtResource("11_x8r5m")
+texture_hover = ExtResource("11_x8r5m")
+expand = true
+stretch_mode = 3
 tooltip_text = "Configuración"
+focus_mode = 2
 
 [node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Confirmar salida"
