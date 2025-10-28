@@ -1,6 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bbv6n8qvqb3hj"]
 
 [ext_resource type="Script" uid="uid://x3ine3l4blbm" path="res://UI & Audio/Pantalla de Inicio/configuracion.gd" id="1_jtylf"]
+[ext_resource type="Texture2D" uid="uid://b7cnp8cd1dmjf" path="res://Assets/backgroundimaged.png" id="1_yjhui"]
 [ext_resource type="Texture2D" uid="uid://3k62o1bugww5" path="res://UI & Audio/Icons & Backgrounds/e531a6d28931f7c224be0c595c5f5cf1-flecha-izquierda-de-graffiti.webp" id="2_vw167"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="3_1361w"]
 [ext_resource type="Script" uid="uid://cccl5se7was1s" path="res://UI & Audio/volver_1.gd" id="3_vycbt"]
@@ -23,6 +24,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jtylf")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yjhui")
+expand_mode = 1
+stretch_mode = 3
+mouse_filter = 2
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1

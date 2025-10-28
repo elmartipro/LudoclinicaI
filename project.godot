@@ -22,7 +22,6 @@ buses/default_bus_layout="res://Audios/default_bus_layout (2).tres"
 
 MusicaDeFondo="*res://UI & Audio/Musica y Audios/musica_de_fondo.tscn"
 Global="*res://levels/global.gd"
-TitleBackground="*res://UI & Audio/Pantalla de Inicio/title_background_manager.gd"
 
 [display]
 
