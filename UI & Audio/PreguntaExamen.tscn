@@ -1,0 +1,227 @@
+[gd_scene load_steps=6 format=3 uid="uid://exammodo1"]
+
+[ext_resource type="Script" uid="uid://cfs2oeifo5adt" path="res://UI & Audio/preguntas_panel_examen.gd" id="1_jnd4e"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="2_6g7ey"]
+[ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="3_gcd7y"]
+[ext_resource type="FontFile" uid="uid://b5u7jrsdj5unx" path="res://UI & Audio/Fonts/Arena-Uno-Font-Family/ArenaUno-Heavy.ttf" id="3_oba8u"]
+[ext_resource type="Theme" uid="uid://cqcfr2tjiuihx" path="res://UI & Audio/Themes/Main.tres" id="5_seqsk"]
+
+[node name="PreguntasPanel" type="CanvasLayer"]
+script = ExtResource("1_jnd4e")
+metadata/_edit_vertical_guides_ = [534.0, 1361.0]
+metadata/_edit_horizontal_guides_ = [697.0, 345.0]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1924.0
+offset_bottom = 1075.0
+mouse_filter = 2
+color = Color(0.211765, 0.211765, 0.211765, 0.913725)
+metadata/_edit_use_anchors_ = true
+
+[node name="Cronometro" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.776
+anchor_top = 0.321
+anchor_right = 0.964
+anchor_bottom = 0.651
+offset_left = -0.920044
+offset_top = 0.319977
+offset_right = 0.119873
+offset_bottom = -6.08002
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.164706, 0.470588, 0.439216, 1)
+theme_override_fonts/font = ExtResource("3_oba8u")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = ExtResource("3_gcd7y")
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 58.0
+offset_top = 345.0
+offset_right = 422.0
+offset_bottom = 696.0
+theme = ExtResource("5_seqsk")
+
+[node name="CategoriaIcon" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06
+anchor_top = 0.04
+anchor_right = 0.931
+anchor_bottom = 0.938
+offset_left = 0.16
+offset_top = 0.119999
+offset_right = 0.115967
+offset_bottom = -0.0360107
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(181, 170)
+theme = ExtResource("5_seqsk")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Categoria" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -357.5
+offset_top = 95.0
+offset_right = 338.5
+offset_bottom = 149.0
+grow_horizontal = 2
+theme = ExtResource("5_seqsk")
+theme_override_colors/font_color = Color(0.764706, 0.764706, 0.764706, 1)
+text = "Categoría"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pregunta" type="RichTextLabel" parent="."]
+anchors_preset = -1
+anchor_left = 0.051
+anchor_top = 0.11
+anchor_right = 0.851
+anchor_bottom = 0.285
+offset_left = 436.08
+offset_top = 107.2
+offset_right = -272.92
+offset_bottom = -13.8
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("5_seqsk")
+theme_override_fonts/bold_font = ExtResource("3_oba8u")
+bbcode_enabled = true
+text = "
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Feedback" type="RichTextLabel" parent="."]
+anchors_preset = -1
+anchor_right = 0.695
+anchor_bottom = 0.767
+offset_left = 534.0
+offset_top = 753.0
+offset_right = 29.5999
+offset_bottom = -0.360046
+theme = ExtResource("5_seqsk")
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 131
+
+[node name="ContinueHint" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = 490.0
+offset_right = 280.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_seqsk")
+theme_override_colors/font_color = Color(0.764706, 0.764706, 0.764706, 1)
+theme_override_font_sizes/font_size = 28
+text = "Haz clic o presiona Enter para continuar"
+horizontal_alignment = 1
+
+[node name="Card" type="Panel" parent="."]
+anchors_preset = -1
+anchor_left = 0.248
+anchor_top = 0.081
+anchor_right = 0.742
+anchor_bottom = 0.894
+offset_left = 0.839996
+offset_top = 257.52
+offset_right = -0.640015
+offset_bottom = -268.52
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(435, 424)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme = ExtResource("2_6g7ey")
+
+[node name="Opciones" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.114
+anchor_top = 0.074
+anchor_right = 0.889
+anchor_bottom = 0.915
+offset_left = 0.0419922
+offset_top = -0.0480003
+offset_right = 0.116943
+offset_bottom = -0.0800171
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Boton0" type="Button" parent="Card/Opciones"]
+layout_mode = 2
+theme = ExtResource("5_seqsk")
+text = "Option A
+"
+autowrap_mode = 3
+
+[node name="Boton1" type="Button" parent="Card/Opciones"]
+layout_mode = 2
+theme = ExtResource("5_seqsk")
+text = ")"
+autowrap_mode = 3
+
+[node name="Boton2" type="Button" parent="Card/Opciones"]
+layout_mode = 2
+theme = ExtResource("5_seqsk")
+text = ")"
+autowrap_mode = 3
+
+[node name="Boton3" type="Button" parent="Card/Opciones"]
+layout_mode = 2
+theme = ExtResource("5_seqsk")
+text = ")"
+autowrap_mode = 3
+
+[node name="Timer" type="Timer" parent="Card"]
+
+[node name="TiempoFueraOverlay" type="ColorRect" parent="."]
+visible = false
+offset_right = 1924.0
+offset_bottom = 1075.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="TiempoFueraLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -50.0
+offset_right = 254.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_seqsk")
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 72
+text = "¡Tiempo fuera!"
+horizontal_alignment = 1
+vertical_alignment = 1

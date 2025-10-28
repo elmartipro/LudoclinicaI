@@ -22,6 +22,7 @@ buses/default_bus_layout="res://Audios/default_bus_layout (2).tres"
 
 MusicaDeFondo="*res://UI & Audio/Musica y Audios/musica_de_fondo.tscn"
 Global="*res://levels/global.gd"
+GameModeManager="*res://levels/game_mode_manager.gd"
 
 [display]
 
