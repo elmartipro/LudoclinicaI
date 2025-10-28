@@ -33,6 +33,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
 @onready var config_overlay: CanvasLayer = $ConfigOverlay
 @onready var config_button: Button = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
+@onready var tutorial_overlay: CanvasLayer = $TutorialOverlay
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -44,7 +45,7 @@ var extra_life_tween: Tween
 var defeat_forces_menu: bool = false
 
 func _ready() -> void:
-	RenderingServer.force_draw(true)
+        RenderingServer.force_draw(true)
 
 	if omni_light:
 		default_light_color = omni_light.light_color
@@ -83,21 +84,30 @@ func _ready() -> void:
 		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
 	if config_button:
 		config_button.pressed.connect(_on_config_button_pressed)
-	if config_overlay:
-		config_overlay.overlay_closed.connect(_on_config_overlay_closed)
-		config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
-		config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
-	defeat_forces_menu = false
+        if config_overlay:
+                config_overlay.overlay_closed.connect(_on_config_overlay_closed)
+                config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
+                config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+        defeat_forces_menu = false
 
-	_apply_scene_color("default", 0.0)
-	_set_extra_life_label_visible(false)
+        _apply_scene_color("default", 0.0)
+        _set_extra_life_label_visible(false)
+
+        if tutorial_overlay:
+                tutorial_overlay.tutorial_closed.connect(_on_tutorial_overlay_closed)
+                tutorial_overlay.show_tutorial(
+                        "Modo fácil",
+                        "[center]Explora el tablero a tu ritmo.[/center]\n\nLanza el dado para avanzar, responde la pregunta de la categoría en la que caigas y acumula puntos antes de agotar tus vidas."
+                )
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if config_overlay and config_overlay.is_open:
-			config_overlay.close()
-		else:
-			_show_exit_dialog()
+        if tutorial_overlay and tutorial_overlay.has_method("is_showing") and tutorial_overlay.is_showing():
+                return
+        if event.is_action_pressed("ui_cancel"):
+                if config_overlay and config_overlay.is_open:
+                        config_overlay.close()
+                else:
+                        _show_exit_dialog()
 	elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
 		_restart_game()
 
@@ -241,8 +251,12 @@ func _on_config_overlay_menu_requested() -> void:
 	_show_exit_dialog()
 
 func _on_config_overlay_restart_requested() -> void:
-	defeat_forces_menu = false
-	get_tree().reload_current_scene()
+        defeat_forces_menu = false
+        get_tree().reload_current_scene()
+
+func _on_tutorial_overlay_closed() -> void:
+        if config_button:
+                config_button.grab_focus()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])

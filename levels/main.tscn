@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://7xvnykktgq8y"]
+[gd_scene load_steps=17 format=3 uid="uid://7xvnykktgq8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq0kl3xg7kong" path="res://Player/player.tscn" id="1_2262g"]
 [ext_resource type="Script" uid="uid://c41pv23lv6grf" path="res://levels/main.gd" id="1_wdj6m"]
@@ -9,6 +9,8 @@
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
 [ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
 [ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
+[ext_resource type="Script" path="res://UI & Audio/config_icon_button.gd" id="10_u8v0t"]
+[ext_resource type="PackedScene" path="res://UI & Audio/tutorial_overlay.tscn" id="11_wes4q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -319,15 +321,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ConfigButton" type="Button" parent="ConfigButtonLayer/ConfigButtonRoot"]
+custom_minimum_size = Vector2(96, 96)
 offset_left = -156.0
 offset_top = -108.0
 offset_right = -36.0
 offset_bottom = -28.0
-text = "⚙"
-tooltip_text = "Configuración"
+script = ExtResource("10_u8v0t")
+tooltip_text = "Abrir configuración"
 
 [node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Confirmar salida"
 visible = false
+
+[node name="TutorialOverlay" parent="." instance=ExtResource("11_wes4q")]

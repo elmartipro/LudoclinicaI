@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://UI & Audio/tutorial_overlay.gd" id="1_yuv1x"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Main.tres" id="2_xji2m"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="3_8n6e2"]
+
+[node name="TutorialOverlay" type="CanvasLayer"]
+layer = 55
+visible = false
+script = ExtResource("1_yuv1x")
+pause_mode = 2
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0352941, 0.0588235, 0.0901961, 0.745098)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(640, 420)
+theme = ExtResource("2_xji2m")
+theme_override_font_sizes/font_size = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_xji2m")
+theme_override_constants/separation = 28
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = ""
+theme = ExtResource("3_8n6e2")
+theme_override_font_sizes/font_size = 52
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+text = ""
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Comenzar"
+
+[node name="Hint" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Presiona \"Comenzar\" para entrar al juego."
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

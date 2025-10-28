@@ -25,6 +25,7 @@ const PANEL_IDLE_ALPHA: float = 0.18
 @onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
 @onready var config_overlay: CanvasLayer = $ConfigOverlay
 @onready var config_button: Button = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
+@onready var tutorial_overlay: CanvasLayer = $TutorialOverlay
 
 var category_sequence: Array[String] = []
 var floor_material: BaseMaterial3D
@@ -94,30 +95,46 @@ func _ready() -> void:
 		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
 	if config_button:
 		config_button.pressed.connect(_on_config_button_pressed)
-	if config_overlay:
-		config_overlay.overlay_closed.connect(_on_config_overlay_closed)
-		config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
-		config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
-	awaiting_menu_after_results = false
-	_apply_scene_color("default", 0.0)
-	set_process(true)
-	set_process_input(true)
-	_advance_to_next_question()
+        if config_overlay:
+                config_overlay.overlay_closed.connect(_on_config_overlay_closed)
+                config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
+                config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+        awaiting_menu_after_results = false
+        _apply_scene_color("default", 0.0)
+        set_process(true)
+        set_process_input(true)
+        if tutorial_overlay:
+                tutorial_overlay.tutorial_closed.connect(_on_tutorial_overlay_closed)
+                tutorial_overlay.show_tutorial(
+                        "Modo examen",
+                        "[center]Pon a prueba tus conocimientos.[/center]\n\nResponde una secuencia fija de preguntas contra el reloj. Cada acierto suma a tu puntaje final y podrás revisar tus resultados al terminar."
+                )
+        else:
+                _begin_exam()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if config_overlay and config_overlay.is_open:
-			config_overlay.close()
-		else:
-			_show_exit_dialog()
+        if tutorial_overlay and tutorial_overlay.has_method("is_showing") and tutorial_overlay.is_showing():
+                return
+        if event.is_action_pressed("ui_cancel"):
+                if config_overlay and config_overlay.is_open:
+                        config_overlay.close()
+                else:
+                        _show_exit_dialog()
 
 func _process(_delta: float) -> void:
-	if exam_started and not exam_finished:
-		_update_time_label()
+        if exam_started and not exam_finished:
+                _update_time_label()
+
+func _begin_exam() -> void:
+        if exam_started or exam_finished:
+                return
+        if movement_in_progress:
+                return
+        _advance_to_next_question()
 
 func _advance_to_next_question() -> void:
-	if exam_finished:
-		return
+        if exam_finished:
+                return
 	if movement_in_progress:
 		return
 	if current_index >= total_questions:
@@ -248,8 +265,11 @@ func _on_config_overlay_menu_requested() -> void:
 	_show_exit_dialog()
 
 func _on_config_overlay_restart_requested() -> void:
-	awaiting_menu_after_results = false
-	get_tree().reload_current_scene()
+        awaiting_menu_after_results = false
+        get_tree().reload_current_scene()
+
+func _on_tutorial_overlay_closed() -> void:
+        _begin_exam()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = _resolve_category_color(category)
