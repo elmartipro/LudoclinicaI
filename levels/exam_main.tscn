@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 ]
+[gd_scene load_steps=20 format=3 ]
 
 [ext_resource type="PackedScene" path="res://Player/player_exam.tscn" id="1_2262g"]
 [ext_resource type="Script" path="res://levels/exam_main.gd" id="1_wdj6m"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="10_l41yk"]
 [ext_resource type="PackedScene" path="res://UI & Audio/mode_intro_overlay.tscn" id="11_lga8d"]
 [ext_resource type="Texture2D" path="res://Assets/Icons/config_icon.svg" id="12_lpc9y"]
+[ext_resource type="PackedScene" path="res://UI & Audio/guide_overlay.tscn" id="13_f5u7y"]
+[ext_resource type="Texture2D" path="res://Assets/Icons/guide_icon.svg" id="14_y1m4q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -225,9 +227,48 @@ color = Color(0.117647, 0.156863, 0.188235, 0)
 
 [node name="ExamResultsOverlay" parent="." instance=ExtResource("9_lm4r7")]
 
+[node name="GuideOverlay" parent="." instance=ExtResource("13_f5u7y")]
+
 [node name="ConfigOverlay" parent="." instance=ExtResource("10_l41yk")]
 
 [node name="ModeIntroOverlay" parent="." instance=ExtResource("11_lga8d")]
+
+[node name="GuideButtonLayer" type="CanvasLayer" parent="."]
+layer = 35
+
+[node name="GuideButtonRoot" type="Control" parent="GuideButtonLayer"]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -108.0
+offset_right = 88.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="GuideButton" type="TextureButton" parent="GuideButtonLayer/GuideButtonRoot"]
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 72.0
+offset_bottom = 72.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("14_y1m4q")
+texture_pressed = ExtResource("14_y1m4q")
+texture_hover = ExtResource("14_y1m4q")
+expand = true
+stretch_mode = 3
+tooltip_text = "Guía de hipertermia maligna"
+focus_mode = 2
 
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40

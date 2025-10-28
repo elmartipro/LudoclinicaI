@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv2s4t6rclgui"]
+
+[ext_resource type="Script" path="res://UI & Audio/guide_overlay.gd" id="1_d50ru"]
+[ext_resource type="Theme" path="res://UI & Audio/Themes/Main.tres" id="2_e45n4"]
+
+[node name="GuideOverlay" type="CanvasLayer"]
+layer = 45
+script = ExtResource("1_d50ru")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.0313726, 0.0431373, 0.0823529, 0.866667)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(1380, 820)
+layout_mode = 2
+theme = ExtResource("2_e45n4")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_e45n4")
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_e45n4")
+theme_override_constants/separation = 24
+
+[node name="Header" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 24
+alignment = 0
+
+[node name="TitleBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox/Header/TitleBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sueños que arden: Hipertermia Maligna"
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 42
+
+[node name="Subtitle" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox/Header/TitleBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Guía interactiva, resumen de diagrama de flujo y contenido académico"
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.643137, 0.705882, 0.780392, 1)
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "Cerrar"
+theme_override_font_sizes/font_size = 24
+
+[node name="Body" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="MapPanel" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body"]
+layout_mode = 2
+custom_minimum_size = Vector2(340, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 3
+
+[node name="MapVBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="MapTitle" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel/MapVBox"]
+layout_mode = 2
+text = "Mapa del contenido"
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.207843, 0.564706, 0.52549, 1)
+
+[node name="MapScroll" type="ScrollContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel/MapVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical_scroll_mode = 1
+horizontal_scroll_mode = 0
+
+[node name="MapVBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel/MapVBox/MapScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 12
+
+[node name="MapFoot" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox/Body/MapPanel/MapVBox"]
+layout_mode = 2
+text = "Haz clic en cualquier nodo para saltar a la sección."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.611765, 0.67451, 0.745098, 1)
+
+[node name="ContentScroll" type="ScrollContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical_scroll_mode = 1
+horizontal_scroll_mode = 0
+scroll_horizontal = false
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox/Body/ContentScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 24
+
