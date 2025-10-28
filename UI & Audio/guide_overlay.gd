@@ -13,7 +13,7 @@ var is_open: bool = false
 var pause_applied: bool = false
 var section_lookup: Dictionary = {}
 
-const ACCENT_COLOR: Color = Color(0.22, 0.83, 0.94)
+const ACCENT_COLOR: Color = Color(0.207843, 0.564706, 0.52549)
 const MUTED_COLOR: Color = Color(0.62, 0.7, 0.78)
 const FLOW_NODES: Array = [
 	{
@@ -579,21 +579,26 @@ func _add_small_text(parent: VBoxContainer, text: String) -> void:
 
 func _add_info_grid(parent: VBoxContainer, entries: Array) -> void:
 	var grid := GridContainer.new()
-	grid.columns = 2
+	grid.columns = max(1, min(entries.size(), 2))
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	grid.add_theme_constant_override("h_separation", 12)
-	grid.add_theme_constant_override("v_separation", 12)
+	grid.add_theme_constant_override("h_separation", 16)
+	grid.add_theme_constant_override("v_separation", 16)
 	for entry in entries:
 		var cell := VBoxContainer.new()
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_constant_override("separation", 6)
 		var title_label := Label.new()
 		title_label.text = entry.get("title", "")
+		title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		title_label.add_theme_font_size_override("font_size", 22)
 		title_label.add_theme_color_override("font_color", ACCENT_COLOR)
+		title_label.horizontal_alignment = HorizontalAlignment.LEFT
 		cell.add_child(title_label)
 		var text_label := RichTextLabel.new()
 		text_label.bbcode_enabled = true
-		text_label.fit_content = true
+		text_label.fit_content = false
+		text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		text_label.text = entry.get("text", "")
 		cell.add_child(text_label)
@@ -604,11 +609,14 @@ func _add_table(parent: VBoxContainer, headers: Array, rows: Array) -> void:
 	var grid := GridContainer.new()
 	grid.columns = headers.size()
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	grid.add_theme_constant_override("h_separation", 8)
-	grid.add_theme_constant_override("v_separation", 6)
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 10)
 	for header in headers:
 		var header_label := Label.new()
 		header_label.text = header
+		header_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		header_label.horizontal_alignment = HorizontalAlignment.LEFT
 		header_label.add_theme_font_size_override("font_size", 22)
 		header_label.add_theme_color_override("font_color", ACCENT_COLOR)
 		grid.add_child(header_label)
@@ -616,7 +624,8 @@ func _add_table(parent: VBoxContainer, headers: Array, rows: Array) -> void:
 		for cell_text in row:
 			var cell := RichTextLabel.new()
 			cell.bbcode_enabled = true
-			cell.fit_content = true
+			cell.fit_content = false
+			cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			cell.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			cell.text = cell_text
 			grid.add_child(cell)
