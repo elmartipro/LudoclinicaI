@@ -1,0 +1,18 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="guideCover" x1="16" y1="24" x2="112" y2="104" gradientUnits="userSpaceOnUse">
+<stop offset="0%" stop-color="#9ad7d1" />
+<stop offset="100%" stop-color="#4b857f" />
+</linearGradient>
+<linearGradient id="guideSpine" x1="48" y1="24" x2="80" y2="104" gradientUnits="userSpaceOnUse">
+<stop offset="0%" stop-color="#74c5b8" />
+<stop offset="100%" stop-color="#316b62" />
+</linearGradient>
+</defs>
+<rect x="12" y="20" width="104" height="88" rx="18" fill="#0f1f22" opacity="0.35" />
+<path fill="url(#guideCover)" d="M24 28h36c8.836 0 16 7.164 16 16v56c0-8.836-7.164-16-16-16H24V28z" />
+<path fill="url(#guideCover)" d="M104 28H68c-8.836 0-16 7.164-16 16v56c0-8.836 7.164-16 16-16h36V28z" transform="matrix(-1 0 0 1 176 0)" />
+<path fill="url(#guideSpine)" d="M60 28h8c8.836 0 16 7.164 16 16v56c0 2.21-1.79 4-4 4h-32c-2.21 0-4-1.79-4-4V44c0-8.836 7.164-16 16-16z" />
+<path fill="#f6fbf7" d="M36 48h24c1.105 0 2 .895 2 2s-.895 2-2 2H36c-1.105 0-2-.895-2-2s.895-2 2-2zm0 16h24c1.105 0 2 .895 2 2s-.895 2-2 2H36c-1.105 0-2-.895-2-2s.895-2 2-2zm32-16h24c1.105 0 2 .895 2 2s-.895 2-2 2H68c-1.105 0-2-.895-2-2s.895-2 2-2zm0 16h24c1.105 0 2 .895 2 2s-.895 2-2 2H68c-1.105 0-2-.895-2-2s.895-2 2-2z" />
+<path fill="#e0f2ef" d="M64 24c3.866 0 7 3.134 7 7s-3.134 7-7 7-7-3.134-7-7 3.134-7 7-7z" opacity="0.4" />
+</svg>

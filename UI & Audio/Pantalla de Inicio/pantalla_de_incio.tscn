@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=3 format=3 uid="uid://cp1qd8tqy1w7l"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="1_muksq"]
-[ext_resource type="Texture2D" uid="uid://dli5ysy00e12y" path="res://UI & Audio/Icons & Backgrounds/Background.png" id="1_toc2r"]
 
 [node name="PantallaDeIncio" type="Control"]
 layout_mode = 3
@@ -16,21 +15,6 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 script = ExtResource("1_5je2x")
-
-[node name="TextureRect3" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1384.0
-offset_top = -828.0
-offset_right = 1472.0
-offset_bottom = 1044.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_toc2r")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
