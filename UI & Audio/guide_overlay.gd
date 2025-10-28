@@ -597,7 +597,9 @@ func _add_info_grid(parent: VBoxContainer, entries: Array) -> void:
 		cell.add_child(title_label)
 		var text_label := RichTextLabel.new()
 		text_label.bbcode_enabled = true
-		text_label.fit_content = false
+		text_label.fit_content = true
+		text_label.scroll_active = false
+		text_label.scroll_visible = false
 		text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		text_label.text = entry.get("text", "")
@@ -624,7 +626,9 @@ func _add_table(parent: VBoxContainer, headers: Array, rows: Array) -> void:
 		for cell_text in row:
 			var cell := RichTextLabel.new()
 			cell.bbcode_enabled = true
-			cell.fit_content = false
+			cell.fit_content = true
+			cell.scroll_active = false
+			cell.scroll_visible = false
 			cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			cell.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			cell.text = cell_text
