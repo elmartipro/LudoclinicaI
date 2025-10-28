@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 ]
+[gd_scene load_steps=6 format=3 uid="uid://de2be8vnfbpv5"]
 
-[ext_resource type="Script" path="res://UI & Audio/preguntas_panel_examen.gd" id="1_jnd4e"]
-[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="2_6g7ey"]
-[ext_resource type="StyleBox" path="res://UI & Audio/Themes/Cardstylebox.tres" id="3_gcd7y"]
-[ext_resource type="FontFile" path="res://UI & Audio/Fonts/Arena-Uno-Font-Family/ArenaUno-Heavy.ttf" id="3_oba8u"]
-[ext_resource type="Theme" path="res://UI & Audio/Themes/Main.tres" id="5_seqsk"]
+[ext_resource type="Script" uid="uid://crdkk4uyyaqg6" path="res://UI & Audio/preguntas_panel_examen.gd" id="1_jnd4e"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="2_6g7ey"]
+[ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="3_gcd7y"]
+[ext_resource type="FontFile" uid="uid://b5u7jrsdj5unx" path="res://UI & Audio/Fonts/Arena-Uno-Font-Family/ArenaUno-Heavy.ttf" id="3_oba8u"]
+[ext_resource type="Theme" uid="uid://cqcfr2tjiuihx" path="res://UI & Audio/Themes/Main.tres" id="5_seqsk"]
 
 [node name="PreguntasPanel" type="CanvasLayer"]
 script = ExtResource("1_jnd4e")
@@ -105,10 +105,10 @@ vertical_alignment = 1
 anchors_preset = -1
 anchor_right = 0.695
 anchor_bottom = 0.767
-offset_left = 534.0
-offset_top = 753.0
-offset_right = 29.5999
-offset_bottom = -0.360046
+offset_left = 531.0
+offset_top = 724.0
+offset_right = 26.599854
+offset_bottom = -29.360046
 theme = ExtResource("5_seqsk")
 bbcode_enabled = true
 fit_content = true

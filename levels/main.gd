@@ -82,19 +82,19 @@ func _ready() -> void:
 		if cancel_button:
 			cancel_button.text = "No"
 		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
-        if config_button:
-                config_button.pressed.connect(_on_config_button_pressed)
-        if config_overlay:
-                config_overlay.overlay_closed.connect(_on_config_overlay_closed)
-                config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
-                config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
-        if intro_overlay:
-                intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
-                intro_overlay.call_deferred("show_intro", "Modo fácil", "[center]Un recorrido relajado para practicar las categorías del juego sin presión.\nLanza el dado, aprende a tu ritmo y experimenta cada tema con calma.[/center]")
-        defeat_forces_menu = false
+		if config_button:
+				config_button.pressed.connect(_on_config_button_pressed)
+		if config_overlay:
+				config_overlay.overlay_closed.connect(_on_config_overlay_closed)
+				config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
+				config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+		if intro_overlay:
+				intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
+				intro_overlay.call_deferred("show_intro", "Modo fácil", "[center]Un recorrido relajado para practicar las categorías del juego sin presión.\nLanza el dado, aprende a tu ritmo y experimenta cada tema con calma.[/center]")
+		defeat_forces_menu = false
 
-        _apply_scene_color("default", 0.0)
-        _set_extra_life_label_visible(false)
+		_apply_scene_color("default", 0.0)
+		_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -245,15 +245,15 @@ func _on_config_overlay_menu_requested() -> void:
 	_show_exit_dialog()
 
 func _on_config_overlay_restart_requested() -> void:
-        defeat_forces_menu = false
-        get_tree().reload_current_scene()
+		defeat_forces_menu = false
+		get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-        if config_button:
-                config_button.grab_focus()
+		if config_button:
+				config_button.grab_focus()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
-        var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
+	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
 	var podium_color = _update_floor_color(base_color)
 	_tween_overlay_color(podium_color, 0.0 if alpha < 0.4 else alpha)
 	_tween_light_color(base_color)

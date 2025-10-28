@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://b2kao7spfudhs"]
 
-[ext_resource type="Script" path="res://UI & Audio/exam_results_overlay.gd" id="1_f7m6u"]
-[ext_resource type="Theme" path="res://UI & Audio/Themes/Title.tres" id="2_8s1n3"]
-[ext_resource type="StyleBox" path="res://UI & Audio/Themes/Cardstylebox.tres" id="3_z3p9c"]
+[ext_resource type="Script" uid="uid://btemqth2m1sol" path="res://UI & Audio/exam_results_overlay.gd" id="1_f7m6u"]
+[ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="2_8s1n3"]
+[ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="3_z3p9c"]
 
 [node name="ExamResultsOverlay" type="CanvasLayer"]
-visible = false
 layer = 50
 script = ExtResource("1_f7m6u")
 
@@ -39,28 +38,25 @@ alignment = 1
 
 [node name="TituloLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
-text = "Resultados del modo examen"
-horizontal_alignment = 1
 theme = ExtResource("2_8s1n3")
 theme_override_font_sizes/font_size = 46
+text = "Resultados del modo examen"
+horizontal_alignment = 1
 
 [node name="ResumenLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-text = ""
 
 [node name="CategoriasLabel" type="RichTextLabel" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = ""
 fit_content = true
 scroll_active = false
 
 [node name="IntentosPreviosLabel" type="RichTextLabel" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = ""
 fit_content = true
 scroll_active = false
 
@@ -70,7 +66,6 @@ size_flags_horizontal = 4
 text = "Ver historial detallado"
 
 [node name="HistorialContainer" type="ScrollContainer" parent="CenterContainer/Panel/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

@@ -93,22 +93,22 @@ func _ready() -> void:
 		if cancel_button_ready:
 			cancel_button_ready.text = "No"
 		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
-        if config_button:
-                config_button.pressed.connect(_on_config_button_pressed)
-        if config_overlay:
-                config_overlay.overlay_closed.connect(_on_config_overlay_closed)
-                config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
-                config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
-        if intro_overlay:
-                intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
-        awaiting_menu_after_results = false
-        _apply_scene_color("default", 0.0)
-        set_process(true)
-        set_process_input(true)
-        if intro_overlay:
-                intro_overlay.call_deferred("show_intro", "Modo examen", "[center]Pon a prueba tus conocimientos con una serie fija de preguntas.\nAvanza automáticamente por el tablero y consigue la mejor puntuación posible.[/center]")
-        else:
-                _advance_to_next_question()
+		if config_button:
+			config_button.pressed.connect(_on_config_button_pressed)
+		if config_overlay:
+			config_overlay.overlay_closed.connect(_on_config_overlay_closed)
+			config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
+			config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
+		if intro_overlay:
+			intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
+		awaiting_menu_after_results = false
+		_apply_scene_color("default", 0.0)
+		set_process(true)
+		set_process_input(true)
+		if intro_overlay:
+			intro_overlay.call_deferred("show_intro", "Modo examen", "[center]Pon a prueba tus conocimientos con una serie fija de preguntas.\nAvanza automáticamente por el tablero y consigue la mejor puntuación posible.[/center]")
+		else:
+			_advance_to_next_question()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -254,19 +254,19 @@ func _on_config_overlay_menu_requested() -> void:
 	_show_exit_dialog()
 
 func _on_config_overlay_restart_requested() -> void:
-        awaiting_menu_after_results = false
-        get_tree().reload_current_scene()
+	awaiting_menu_after_results = false
+	get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-        if exam_finished:
-                return
-        if not exam_started and not movement_in_progress:
-                _advance_to_next_question()
-        if config_button:
-                config_button.grab_focus()
+	if exam_finished:
+		return
+	if not exam_started and not movement_in_progress:
+		_advance_to_next_question()
+	if config_button:
+		config_button.grab_focus()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
-        var base_color = _resolve_category_color(category)
+	var base_color = _resolve_category_color(category)
 	var podium_color = _update_floor_color(base_color)
 	_tween_overlay_color(podium_color, alpha)
 	_tween_light_color(base_color)
