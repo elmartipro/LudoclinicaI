@@ -221,3 +221,7 @@ mouse_filter = 2
 color = Color(0.117647, 0.156863, 0.188235, 0)
 
 [node name="ExamResultsOverlay" parent="." instance=ExtResource("9_lm4r7")]
+
+[node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
+title = "Confirmar salida"
+visible = false

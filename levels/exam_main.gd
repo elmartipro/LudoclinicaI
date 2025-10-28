@@ -1,20 +1,6 @@
 extends Node
 
-const CATEGORY_COLORS: Dictionary = {
-	"Epidemiología": Color.html("#7159C4"),
-	"Fisiopatología": Color.html("#C0429D"),
-	"Manifestaciones clínicas y paraclínicas": Color.html("#108072"),
-	"Diagnóstico diferencial": Color.html("#2A6E96"),
-	"Tratamiento": Color.html("#BC3232"),
-	"Seguimiento": Color.html("#446F47"),
-	"Cultura": Color.html("#E7CB8B"),
-	"default": Color.html("#5F9A88")
-}
-
-const PANEL_ACTIVE_ALPHA: float = 0.38
-const PANEL_IDLE_ALPHA: float = 0.18
-
-var category_sequence: Array[String] = [
+const BASE_CATEGORY_SEQUENCE: Array[String] = [
 	"Epidemiología",
 	"Fisiopatología",
 	"Manifestaciones clínicas y paraclínicas",
@@ -23,6 +9,9 @@ var category_sequence: Array[String] = [
 	"Seguimiento",
 	"Cultura"
 ]
+
+const PANEL_ACTIVE_ALPHA: float = 0.38
+const PANEL_IDLE_ALPHA: float = 0.18
 
 @onready var omni_light: OmniLight3D = $OmniLight3D
 @onready var color_rect: ColorRect = $ColorOverlay/ColorRect
@@ -33,7 +22,9 @@ var category_sequence: Array[String] = [
 @onready var time_label: Label = $Health
 @onready var exam_overlay: CanvasLayer = $ExamResultsOverlay
 @onready var player: CharacterBody3D = $Player
+@onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
 
+var category_sequence: Array[String] = []
 var floor_material: BaseMaterial3D
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -55,6 +46,8 @@ var exam_end_time: float = 0.0
 var category_stats: Dictionary = {}
 var question_history: Array = []
 var previous_attempts: Array = []
+var finish_spot_index: int = -1
+var steps_per_exam: int = 0
 
 func _ready() -> void:
 	if omni_light:
@@ -63,10 +56,17 @@ func _ready() -> void:
 		_floor_prepare_material()
 	if spots:
 		total_spots = spots.get_child_count()
+		finish_spot_index = _find_finish_spot_index()
+		steps_per_exam = _compute_exam_length()
+		category_sequence = _build_exam_sequence(steps_per_exam)
+		if spots.has_method("populate_podiums"):
+			spots.populate_podiums(category_sequence)
 		if spots.has_signal("category_reached"):
 			spots.category_reached.connect(_on_category_reached)
+	if category_sequence.is_empty():
+		category_sequence = BASE_CATEGORY_SEQUENCE.duplicate()
 	total_questions = category_sequence.size()
-	for categoria in category_sequence:
+	for categoria in BASE_CATEGORY_SEQUENCE:
 		category_stats[categoria] = {"total": 0, "correctas": 0}
 	_update_score_label()
 	_update_time_label(0.0)
@@ -80,13 +80,27 @@ func _ready() -> void:
 		player.reset_path(0)
 	if exam_overlay and exam_overlay.has_signal("overlay_cerrado"):
 		exam_overlay.overlay_cerrado.connect(_on_overlay_closed)
+	if exit_confirm_dialog:
+		exit_confirm_dialog.dialog_text = "¿Está seguro que quiere ir al menu principal?\nSu progreso no se guardará"
+		var ok_button: Button = exit_confirm_dialog.get_ok_button()
+		if ok_button:
+			ok_button.text = "Sí"
+		var cancel_button_ready: Button = exit_confirm_dialog.get_cancel_button()
+		if cancel_button_ready:
+			cancel_button_ready.text = "No"
+		exit_confirm_dialog.confirmed.connect(_on_exit_confirmed)
 	_apply_scene_color("default", 0.0)
 	set_process(true)
+	set_process_input(true)
 	_advance_to_next_question()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_show_exit_dialog()
 
 func _process(_delta: float) -> void:
 	if exam_started and not exam_finished:
-	_update_time_label()
+		_update_time_label()
 
 func _advance_to_next_question() -> void:
 	if exam_finished:
@@ -96,12 +110,10 @@ func _advance_to_next_question() -> void:
 	if current_index >= total_questions:
 		_finalize_exam()
 		return
-	if total_spots == 0:
+	if total_spots == 0 or category_sequence.is_empty():
 		return
 	current_spot_index = current_index % total_spots
 	current_category = category_sequence[current_index]
-	if spots and spots.has_method("assign_category_to_spot"):
-		spots.assign_category_to_spot(current_spot_index, current_category)
 	movement_in_progress = true
 	if player:
 		player.advance_to_next_spot(1)
@@ -202,35 +214,47 @@ func _persist_attempt(resumen: Dictionary) -> Array:
 	attempts.append(attempt)
 	var save_file = FileAccess.open(path, FileAccess.WRITE)
 	if save_file:
-		save_file.store_string(JSON.stringify(attempts, "	"))
+		save_file.store_string(JSON.stringify(attempts, "						"))
 	return previous
 
 func _on_overlay_closed() -> void:
-	# Permanece en la escena; no se reinicia automáticamente.
 	pass
 
 func _apply_scene_color(category: String, alpha: float) -> void:
-	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
+	var base_color = _resolve_category_color(category)
 	var podium_color = _update_floor_color(base_color)
 	_tween_overlay_color(podium_color, alpha)
 	_tween_light_color(base_color)
 	_update_ui_colors(podium_color)
 	if preguntas_panel and preguntas_panel.has_method("actualizar_colores_de_ui"):
-	preguntas_panel.actualizar_colores_de_ui(podium_color)
+		preguntas_panel.actualizar_colores_de_ui(podium_color)
+
+func _resolve_category_color(category: String) -> Color:
+	var palette: Dictionary = {
+		"Epidemiología": Color.html("#7159C4"),
+		"Fisiopatología": Color.html("#C0429D"),
+		"Manifestaciones clínicas y paraclínicas": Color.html("#108072"),
+		"Diagnóstico diferencial": Color.html("#2A6E96"),
+		"Tratamiento": Color.html("#BC3232"),
+		"Seguimiento": Color.html("#446F47"),
+		"Cultura": Color.html("#E7CB8B"),
+		"default": Color.html("#5F9A88")
+	}
+	return palette.get(category, palette["default"])
 
 func _floor_prepare_material() -> void:
 	var active_material: Material = floor_mesh.get_active_material(0)
 	if active_material:
-	floor_material = active_material.duplicate()
-	floor_mesh.set_surface_override_material(0, floor_material)
-	if floor_material is BaseMaterial3D:
-	default_floor_color = (floor_material as BaseMaterial3D).albedo_color
+		floor_material = active_material.duplicate()
+		floor_mesh.set_surface_override_material(0, floor_material)
+		if floor_material is BaseMaterial3D:
+			default_floor_color = (floor_material as BaseMaterial3D).albedo_color
 	else:
-	default_floor_color = Color.WHITE
+		default_floor_color = Color.WHITE
 
 func _update_floor_color(base_color: Color) -> Color:
 	if not floor_material:
-	return base_color
+		return base_color
 	var target_color = base_color.lerp(default_floor_color, 0.35)
 	(floor_material as BaseMaterial3D).albedo_color = target_color
 	return target_color
@@ -239,45 +263,89 @@ func _update_ui_colors(podium_color: Color) -> void:
 	var accent = podium_color.lerp(Color.WHITE, 0.6)
 	var secondary = podium_color.lerp(Color.BLACK, 0.35)
 	if score_label:
-	score_label.add_theme_color_override("font_color", accent)
-	score_label.add_theme_color_override("font_outline_color", secondary)
+		score_label.add_theme_color_override("font_color", accent)
+		score_label.add_theme_color_override("font_outline_color", secondary)
 	if time_label:
-	time_label.add_theme_color_override("font_color", accent)
-	time_label.add_theme_color_override("font_outline_color", secondary)
+		time_label.add_theme_color_override("font_color", accent)
+		time_label.add_theme_color_override("font_outline_color", secondary)
 
 func _tween_overlay_color(base_color: Color, alpha: float) -> void:
 	if not color_rect:
-	return
+		return
 	var target_color: Color = Color(base_color.r, base_color.g, base_color.b, alpha)
 	if overlay_tween and overlay_tween.is_running():
-	overlay_tween.kill()
+		overlay_tween.kill()
 	overlay_tween = create_tween()
 	overlay_tween.tween_property(color_rect, "color", target_color, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _tween_light_color(base_color: Color) -> void:
 	if not omni_light:
-	return
+		return
 	if light_tween and light_tween.is_running():
-	light_tween.kill()
+		light_tween.kill()
 	var target: Color = base_color.lerp(default_light_color, 0.4)
 	light_tween = create_tween()
 	light_tween.tween_property(omni_light, "light_color", target, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _update_score_label() -> void:
 	if score_label:
-	score_label.text = "Aciertos: %d / %d" % [correct_answers, total_questions]
+		score_label.text = "Aciertos: %d / %d" % [correct_answers, total_questions]
 
 func _update_time_label(force_seconds: float = -1.0) -> void:
 	var elapsed: float = 0.0
 	if force_seconds >= 0.0:
-	elapsed = force_seconds
+		elapsed = force_seconds
 	elif exam_started:
-	elapsed = max(Time.get_ticks_msec() / 1000.0 - exam_start_time, 0.0)
+		elapsed = max(Time.get_ticks_msec() / 1000.0 - exam_start_time, 0.0)
 	if time_label:
-	time_label.text = "Tiempo total: %s" % _format_time(elapsed)
+		time_label.text = "Tiempo total: %s" % _format_time(elapsed)
 
 func _format_time(segundos: float) -> String:
 	var total_segundos: float = max(segundos, 0.0)
 	var minutos: int = int(total_segundos) / 60
 	var resto_segundos: float = total_segundos - float(minutos * 60)
 	return "%02d:%05.2f" % [minutos, resto_segundos]
+
+func _build_exam_sequence(length: int) -> Array[String]:
+	var sequence: Array[String] = []
+	if length <= 0:
+		return sequence
+	var base_count: int = BASE_CATEGORY_SEQUENCE.size()
+	if base_count == 0:
+		return sequence
+	for i in range(length):
+		var categoria: String = BASE_CATEGORY_SEQUENCE[i % base_count]
+		sequence.append(categoria)
+	return sequence
+
+func _find_finish_spot_index() -> int:
+	if not spots:
+		return -1
+	var children: Array = spots.get_children()
+	for i in range(children.size()):
+		if str(children[i].name) == "Spot19":
+			return i
+	if children.is_empty():
+		return -1
+	return children.size() - 1
+
+func _compute_exam_length() -> int:
+	if total_spots <= 0:
+		return BASE_CATEGORY_SEQUENCE.size()
+	if finish_spot_index >= 0:
+		return clamp(finish_spot_index + 1, 1, total_spots)
+	return total_spots
+
+func _show_exit_dialog() -> void:
+	if exit_confirm_dialog == null:
+		return
+	if exit_confirm_dialog.visible:
+		return
+	exit_confirm_dialog.popup_centered()
+	exit_confirm_dialog.grab_focus()
+	var cancel_button: Button = exit_confirm_dialog.get_cancel_button()
+	if cancel_button:
+		cancel_button.grab_focus()
+
+func _on_exit_confirmed() -> void:
+	get_tree().change_scene_to_file("res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.tscn")
