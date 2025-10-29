@@ -52,6 +52,7 @@ func _process(delta: float) -> void:
 			jump_t = 1.0
 			is_jumping = false
 			pawn.global_position = jump_end
+			SFX.play_pawn_land()
 
 			# advance place for the NEXT step/turn
 			place = (place + 1) % place_number

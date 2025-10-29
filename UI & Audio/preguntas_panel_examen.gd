@@ -51,10 +51,22 @@ func _mostrar_pregunta_examen(p: Dictionary, cat: String) -> void:
 	label_pregunta.text = p.get("texto", "")
 	_hide_timeout_effect()
 	var opciones: Array = []
+	var correct_index: int = p.get("respuesta_correcta", 0)
+	var correct_text: String = ""
 	if p.has("opciones"):
 		opciones = p["opciones"].duplicate(true)
+		if correct_index >= 0 and correct_index < opciones.size():
+			correct_text = opciones[correct_index]
+		else:
+			correct_index = clamp(correct_index, 0, max(opciones.size() - 1, 0))
+		if opciones.size() > 1:
+			opciones.shuffle()
+		if correct_text != "":
+			correct_index = opciones.find(correct_text)
+		else:
+			correct_index = clamp(correct_index, 0, max(opciones.size() - 1, 0))
 	pregunta_actual["opciones"] = opciones
-	pregunta_actual["respuesta_correcta"] = p.get("respuesta_correcta", 0)
+	pregunta_actual["respuesta_correcta"] = correct_index
 	for i in range(botones.size()):
 		var texto_opcion: String = ""
 		if i < opciones.size():

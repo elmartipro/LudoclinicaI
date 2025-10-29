@@ -37,10 +37,10 @@ func _ready() -> void:
 
 func _input(event):
 	if event.is_action_released("LeftClick") \
-	&& global_position.distance_to(start_pos) < 4 \
-	&& !is_rolling \
-	&& pawn.pawn_landed == true \
-	&& can_roll:   # <-- only roll if allowed
+		&& global_position.distance_to(start_pos) < 4 \
+		&& !is_rolling \
+		&& pawn.pawn_landed == true \
+		&& can_roll:   # <-- only roll if allowed
 		rolled_value = 0
 		_roll()
 
@@ -53,6 +53,7 @@ func _roll():
 	centering = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
+	SFX.play_dice_throw()
 
 	# Random initial rotation
 	var axis = Vector3(randf(), randf(), randf()).normalized()

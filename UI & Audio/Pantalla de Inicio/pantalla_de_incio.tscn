@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp1qd8tqy1w7l"]
+[gd_scene load_steps=7 format=3 uid="uid://cp1qd8tqy1w7l"]
 
 [ext_resource type="Script" uid="uid://ccj15wq3hm0pw" path="res://UI & Audio/Pantalla de Inicio/pantalla_de_incio.gd" id="1_5je2x"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="1_muksq"]
 [ext_resource type="Texture2D" uid="uid://b7cnp8cd1dmjf" path="res://Assets/backgroundimaged.png" id="2_6m0mc"]
 [ext_resource type="FontFile" uid="uid://danw3x5216ldp" path="res://Assets/House of cards W03 Regular.ttf" id="4_4uw2f"]
 [ext_resource type="StyleBox" uid="uid://c4p046705uewg" path="res://UI & Audio/Themes/stylebox1.tres" id="5_j7hxy"]
+[ext_resource type="PackedScene" uid="uid://cv2s4t6rclgui" path="res://UI & Audio/guide_overlay.tscn" id="6_p9k6t"]
 
 [node name="PantallaDeIncio" type="Control"]
 layout_mode = 3
@@ -67,6 +68,12 @@ theme = ExtResource("1_muksq")
 theme_type_variation = &"FlatButton"
 text = "Configuración"
 
+[node name="Enciclopedia" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_muksq")
+theme_type_variation = &"FlatButton"
+text = "Enciclopedia Hipertermia Maligna"
+
 [node name="Salir" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_muksq")
@@ -110,6 +117,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 35
 
+[node name="GuideOverlay" parent="." instance=ExtResource("6_p9k6t")]
+
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Configuracion" to="." method="_on_configuracion_pressed"]
+[connection signal="pressed" from="VBoxContainer/Enciclopedia" to="." method="_on_enciclopedia_pressed"]
 [connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]

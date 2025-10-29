@@ -70,6 +70,7 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 script = ExtResource("3_v9n24")
+audio_bus_name = "MusicaDeFondo"
 
 [node name="ButtonGrid" type="GridContainer" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2

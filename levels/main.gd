@@ -36,6 +36,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var config_button: BaseButton = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
 @onready var guide_overlay: CanvasLayer = $GuideOverlay
 @onready var guide_button: BaseButton = $"GuideButtonLayer/GuideButtonRoot/GuideButton"
+@onready var click_hint_label: Label = $ClickHintLabel
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -45,6 +46,7 @@ var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
 var defeat_forces_menu: bool = false
+var click_hint_active: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -103,6 +105,8 @@ func _ready() -> void:
 		_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
+	if click_hint_active and event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
+		_hide_click_hint()
 	if event.is_action_pressed("ui_cancel"):
 		if guide_overlay and guide_overlay.is_open:
 			guide_overlay.close()
@@ -261,12 +265,25 @@ func _on_config_overlay_menu_requested() -> void:
 	_show_exit_dialog()
 
 func _on_config_overlay_restart_requested() -> void:
-		defeat_forces_menu = false
-		get_tree().reload_current_scene()
+	defeat_forces_menu = false
+	get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-		if config_button:
-				config_button.grab_focus()
+	_show_click_hint()
+	if config_button:
+		config_button.grab_focus()
+
+func _show_click_hint() -> void:
+	if not click_hint_label:
+		return
+	click_hint_label.visible = true
+	click_hint_active = true
+
+func _hide_click_hint() -> void:
+	if not click_hint_label:
+		return
+	click_hint_label.visible = false
+	click_hint_active = false
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])

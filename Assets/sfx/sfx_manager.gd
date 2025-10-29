@@ -4,6 +4,8 @@ const CORRECT_STREAM: AudioStream = preload("res://Assets/sfx/correct_answer.mp3
 const WRONG_STREAM: AudioStream = preload("res://Assets/sfx/wrong_answer.mp3")
 const FAILURE_STREAM: AudioStream = preload("res://Assets/sfx/failure.mp3")
 const SUCCESS_STREAM: AudioStream = preload("res://Assets/sfx/success.mp3")
+const DICE_THROW_STREAM: AudioStream = preload("res://Assets/sfx/dice_throw.mp3")
+const PAWN_LAND_STREAM: AudioStream = preload("res://Assets/sfx/pawn_land.mp3")
 const SELECT_STREAMS: Array[AudioStream] = [
 	preload("res://Assets/sfx/select_button1.mp3"),
 	preload("res://Assets/sfx/select_button2.mp3")
@@ -15,6 +17,8 @@ var wrong_player: AudioStreamPlayer
 var failure_player: AudioStreamPlayer
 var success_player: AudioStreamPlayer
 var select_player: AudioStreamPlayer
+var dice_player: AudioStreamPlayer
+var pawn_player: AudioStreamPlayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,6 +27,8 @@ func _ready() -> void:
 	wrong_player = _create_player("WrongPlayer", WRONG_STREAM, 4)
 	failure_player = _create_player("FailurePlayer", FAILURE_STREAM, 2)
 	success_player = _create_player("SuccessPlayer", SUCCESS_STREAM, 2)
+	dice_player = _create_player("DicePlayer", DICE_THROW_STREAM, 2)
+	pawn_player = _create_player("PawnPlayer", PAWN_LAND_STREAM, 4)
 	var initial_select_stream: AudioStream = SELECT_STREAMS[0] if not SELECT_STREAMS.is_empty() else null
 	select_player = _create_player("SelectPlayer", initial_select_stream, 12)
 	var tree := get_tree()
@@ -42,6 +48,12 @@ func play_failure() -> void:
 func play_success() -> void:
 	_play_stream(success_player, SUCCESS_STREAM)
 
+func play_dice_throw() -> void:
+	_play_stream(dice_player, DICE_THROW_STREAM)
+
+func play_pawn_land() -> void:
+	_play_stream(pawn_player, PAWN_LAND_STREAM, 0.3)
+
 func play_select() -> void:
 	if SELECT_STREAMS.is_empty():
 		return
@@ -58,11 +70,11 @@ func _create_player(player_name: String, stream: AudioStream, polyphony: int) ->
 	add_child(player)
 	return player
 
-func _play_stream(player: AudioStreamPlayer, stream: AudioStream) -> void:
+func _play_stream(player: AudioStreamPlayer, stream: AudioStream, start_position: float = 0.0) -> void:
 	if player == null or stream == null:
 		return
 	player.stream = stream
-	player.play()
+	player.play(start_position)
 
 func _on_node_added(node: Node) -> void:
 	if node == null:

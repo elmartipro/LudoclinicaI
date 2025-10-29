@@ -14,6 +14,7 @@ func _ready():
 	var volumen = cargar_volumen()
 	value = volumen
 	AudioServer.set_bus_volume_db(audio_bus_id, linear_to_db(volumen))
+	value_changed.connect(_on_value_changed)
 
 func _on_value_changed(value: float) -> void:
 	if audio_bus_id == -1:

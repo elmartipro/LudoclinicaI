@@ -23,6 +23,7 @@ func _ready() -> void:
 		stored_volume = max(volume_slider.value, 0.05)
 		_update_slider_info(volume_slider.value)
 		volume_slider.value_changed.connect(_on_volume_value_changed)
+		_apply_music_volume(volume_slider.value)
 	if mute_toggle:
 		mute_toggle.button_pressed = volume_slider.value <= 0.001
 	if dimmer:
@@ -94,6 +95,7 @@ func _on_mute_toggle_toggled(button_pressed: bool) -> void:
 
 func _on_volume_value_changed(value: float) -> void:
 	_update_slider_info(value)
+	_apply_music_volume(value)
 	if value > 0.001:
 		stored_volume = value
 	if mute_toggle and not ignore_toggle_update:
@@ -116,3 +118,14 @@ func _on_dimmer_gui_input(event: InputEvent) -> void:
 		_on_close_button_pressed()
 		if get_viewport():
 			get_viewport().set_input_as_handled()
+
+func _apply_music_volume(value: float) -> void:
+	var clamped_value: float = clamp(value, 0.0, 1.0)
+	var db: float = -80.0
+	if clamped_value > 0.0:
+		db = linear_to_db(clamped_value)
+	var bus_index: int = AudioServer.get_bus_index("MusicaDeFondo")
+	if bus_index >= 0:
+		AudioServer.set_bus_volume_db(bus_index, db)
+	if MusicaDeFondo:
+		MusicaDeFondo.volume_db = db

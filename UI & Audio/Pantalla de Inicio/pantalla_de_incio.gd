@@ -3,6 +3,9 @@ extends Control
 # Musica De el juego
 var sonido_fondo := preload("res://UI & Audio/Musica y Audios/main_music.mp3")
 
+@onready var guide_overlay: CanvasLayer = $GuideOverlay
+@onready var enciclopedia_button: Button = $"VBoxContainer/Enciclopedia"
+
 func _ready():
 	# Make sure we assign the right stream
 	if MusicaDeFondo.stream != sonido_fondo:
@@ -16,6 +19,9 @@ func _ready():
 	if not MusicaDeFondo.playing:
 		MusicaDeFondo.play()
 
+	if guide_overlay:
+		guide_overlay.overlay_closed.connect(_on_guide_overlay_closed)
+
 
 # Jugar redirecciona a la escena de escoger modos
 func _on_play_pressed():
@@ -28,3 +34,13 @@ func _on_configuracion_pressed():
 
 func _on_salir_pressed():
 	get_tree().quit()
+
+
+func _on_enciclopedia_pressed():
+	if guide_overlay:
+		guide_overlay.open()
+
+
+func _on_guide_overlay_closed() -> void:
+	if enciclopedia_button:
+		enciclopedia_button.grab_focus()
