@@ -22,6 +22,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var spots: Node = $Spots
 @onready var preguntas_panel: Node = $PreguntasPanel
 @onready var extra_life_label: Label = $HUDMessages/ExtraLifeLabel
+@onready var click_instruction_label: Label = $"HUDMessages/ClickInstructionLabel"
 @onready var score_label: Label = $Score
 @onready var health_label: Label = $Health
 @onready var dice: Node = $Dice
@@ -45,6 +46,7 @@ var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
 var defeat_forces_menu: bool = false
+var has_shown_click_instruction: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -103,6 +105,9 @@ func _ready() -> void:
 		_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("LeftClick"):
+		if click_instruction_label and click_instruction_label.visible:
+			click_instruction_label.visible = false
 	if event.is_action_pressed("ui_cancel"):
 		if guide_overlay and guide_overlay.is_open:
 			guide_overlay.close()
@@ -265,8 +270,11 @@ func _on_config_overlay_restart_requested() -> void:
 		get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-		if config_button:
-				config_button.grab_focus()
+	if config_button:
+		config_button.grab_focus()
+	if not has_shown_click_instruction and click_instruction_label:
+		click_instruction_label.visible = true
+		has_shown_click_instruction = true
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])

@@ -5,6 +5,7 @@ signal pawn_finished_moving(spot: Marker3D)
 @onready var pawn: CharacterBody3D = self
 @onready var dice := $"../Dice"
 @export var game_spaces: Array[Marker3D]
+@onready var landing_sound: AudioStreamPlayer3D = $LandingSound
 
 var pawn_landed: bool = true
 
@@ -45,6 +46,9 @@ func _start_next_jump() -> void:
 	jump_t = 0.0
 	is_jumping = true
 
+	if landing_sound:
+		landing_sound.stop()
+
 func _process(delta: float) -> void:
 	if is_jumping:
 		jump_t += delta / jump_duration
@@ -61,6 +65,8 @@ func _process(delta: float) -> void:
 				_start_next_jump()
 			else:
 				pawn_landed = true
+				if landing_sound:
+					landing_sound.play()
 				# emit the spot we actually landed on this turn
 				var landed_spot: Marker3D = game_spaces[current_jump_target_index]
 				emit_signal("pawn_finished_moving", landed_spot)
