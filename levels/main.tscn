@@ -212,7 +212,7 @@ theme = ExtResource("7_6et1j")
 theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
 bbcode_enabled = true
-bbcode_text = "[center]Vidas: —[/center]"
+bbcode_text = "[center][font_size=40]Vidas: —[/font_size][/center]"
 horizontal_alignment = 1
 vertical_alignment = 1
 fit_content = true

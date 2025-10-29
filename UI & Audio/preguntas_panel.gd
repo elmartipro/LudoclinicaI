@@ -8,7 +8,8 @@ signal derrota_alcanzada
 
 const WIN_THRESHOLD = 15
 const HEART_ICON_PATH = "res://Assets/life.png"
-const HEART_ICON_SIZE = 36
+const HEART_ICON_SIZE = 48
+const HEALTH_FONT_SIZE = 40
 
 var pregunta_actual: Dictionary = {}
 var preguntas_por_categoria: Dictionary = {}
@@ -250,7 +251,7 @@ func _update_health_label() -> void:
 		content += heart_tag
 	if content.is_empty():
 		content = "—"
-	health_label.bbcode_text = "[center]Vidas: %s[/center]" % content
+	health_label.bbcode_text = "[center][font_size=%d]Vidas: %s[/font_size][/center]" % [HEALTH_FONT_SIZE, content]
 
 func _perder_vida() -> void:
 	vidas -= 1
