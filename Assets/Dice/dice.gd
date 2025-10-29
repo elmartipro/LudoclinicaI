@@ -45,22 +45,22 @@ func _input(event):
 		_roll()
 
 func _roll():
-        # Reset state
-        is_rolling = true
-        set_sleeping(false)
-        freeze = false
-        can_emit = true
-        centering = true
-        linear_velocity = Vector3.ZERO
-        angular_velocity = Vector3.ZERO
+		# Reset state
+		is_rolling = true
+		set_sleeping(false)
+		freeze = false
+		can_emit = true
+		centering = true
+		linear_velocity = Vector3.ZERO
+		angular_velocity = Vector3.ZERO
 
-        if Engine.has_singleton("SFX") and SFX.has_method("play_dice_throw"):
-                SFX.play_dice_throw()
+		if Engine.has_singleton("SFX") and SFX.has_method("play_dice_throw"):
+				SFX.play_dice_throw()
 
-        # Random initial rotation
-        var axis = Vector3(randf(), randf(), randf()).normalized()
-        var angle = randf_range(0, TAU)
-        self.set_transform(Transform3D(Basis(axis, angle), global_position))
+		# Random initial rotation
+		var axis = Vector3(randf(), randf(), randf()).normalized()
+		var angle = randf_range(0, TAU)
+		self.set_transform(Transform3D(Basis(axis, angle), global_position))
 	set_sleeping(false)  # Force wake AFTER changing transform
 
 	# Random throw
