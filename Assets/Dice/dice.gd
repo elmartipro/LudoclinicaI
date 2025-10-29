@@ -3,6 +3,7 @@ extends RigidBody3D
 @onready var raycasts = $Raycasts.get_children()
 @onready var pawn := $"../Player"
 @onready var collision_sound: AudioStreamPlayer = $"Dice sound"
+@onready var throw_sound: AudioStreamPlayer = $"ThrowSound"
 @onready var preguntas_panel = $"../PreguntasPanel" # reference to the question panel
 
 var start_pos
@@ -45,17 +46,21 @@ func _input(event):
 		_roll()
 
 func _roll():
-	# Reset state
-	is_rolling = true
-	set_sleeping(false)
-	freeze = false
-	can_emit = true
-	centering = true
-	linear_velocity = Vector3.ZERO
-	angular_velocity = Vector3.ZERO
+        # Reset state
+        is_rolling = true
+        set_sleeping(false)
+        freeze = false
+        can_emit = true
+        centering = true
+        linear_velocity = Vector3.ZERO
+        angular_velocity = Vector3.ZERO
 
-	# Random initial rotation
-	var axis = Vector3(randf(), randf(), randf()).normalized()
+        if throw_sound:
+                throw_sound.stop()
+                throw_sound.play()
+
+        # Random initial rotation
+        var axis = Vector3(randf(), randf(), randf()).normalized()
 	var angle = randf_range(0, TAU)
 	self.set_transform(Transform3D(Basis(axis, angle), global_position))
 	set_sleeping(false)  # Force wake AFTER changing transform

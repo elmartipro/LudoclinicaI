@@ -36,6 +36,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var config_button: BaseButton = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
 @onready var guide_overlay: CanvasLayer = $GuideOverlay
 @onready var guide_button: BaseButton = $"GuideButtonLayer/GuideButtonRoot/GuideButton"
+@onready var dice_hint_label: Label = $"DiceHintLayer/DiceHintRoot/DiceInstructionLabel"
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -45,6 +46,9 @@ var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
 var defeat_forces_menu: bool = false
+var intro_sequence_completed: bool = false
+var tutorial_overlay_closed: bool = false
+var dice_hint_shown: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -71,15 +75,16 @@ func _ready() -> void:
 		if preguntas_panel.has_signal("derrota_alcanzada"):
 			preguntas_panel.derrota_alcanzada.connect(_on_defeat_reached)
 
-	if restart_button:
-		restart_button.pressed.connect(_on_restart_button_pressed)
-	if menu_button:
-		menu_button.pressed.connect(_on_menu_button_pressed)
-	if guide_button:
-		guide_button.pressed.connect(_on_guide_button_pressed)
-	if guide_overlay:
-		guide_overlay.overlay_closed.connect(_on_guide_overlay_closed)
-	if exit_confirm_dialog:
+        if restart_button:
+                restart_button.pressed.connect(_on_restart_button_pressed)
+        if menu_button:
+                menu_button.pressed.connect(_on_menu_button_pressed)
+        if guide_button:
+                guide_button.pressed.connect(_on_guide_button_pressed)
+        if guide_overlay:
+                guide_overlay.overlay_closed.connect(_on_guide_overlay_closed)
+        tutorial_overlay_closed = guide_overlay == null or not guide_overlay.is_open
+        if exit_confirm_dialog:
 		exit_confirm_dialog.dialog_text = "¿Está seguro que quiere ir al menu principal?\nSu progreso no se guardará"
 		var ok_button: Button = exit_confirm_dialog.get_ok_button()
 		if ok_button:
@@ -94,18 +99,21 @@ func _ready() -> void:
 				config_overlay.overlay_closed.connect(_on_config_overlay_closed)
 				config_overlay.menu_requested.connect(_on_config_overlay_menu_requested)
 				config_overlay.restart_requested.connect(_on_config_overlay_restart_requested)
-		if intro_overlay:
-				intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
-				intro_overlay.call_deferred("show_intro", "Modo fácil", "[center]Un recorrido relajado para practicar las categorías del juego sin presión.\nLanza el dado, aprende a tu ritmo y experimenta cada tema con calma.[/center]")
-		defeat_forces_menu = false
+                if intro_overlay:
+                                intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
+                                intro_overlay.call_deferred("show_intro", "Modo fácil", "[center]Un recorrido relajado para practicar las categorías del juego sin presión.\nLanza el dado, aprende a tu ritmo y experimenta cada tema con calma.[/center]")
+        defeat_forces_menu = false
 
-		_apply_scene_color("default", 0.0)
-		_set_extra_life_label_visible(false)
+        _apply_scene_color("default", 0.0)
+        _set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if guide_overlay and guide_overlay.is_open:
-			guide_overlay.close()
+        if dice_hint_label and dice_hint_label.visible:
+                if event is InputEventMouseButton and event.pressed and event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
+                        _hide_dice_hint()
+        if event.is_action_pressed("ui_cancel"):
+                if guide_overlay and guide_overlay.is_open:
+                        guide_overlay.close()
 		elif config_overlay and config_overlay.is_open:
 			config_overlay.close()
 		else:
@@ -151,18 +159,42 @@ func _show_extra_life_toast(total_lives: int) -> void:
 	extra_life_tween.finished.connect(func(): _set_extra_life_label_visible(false))
 
 func _set_extra_life_label_visible(visible: bool) -> void:
-	if extra_life_label:
-		extra_life_label.visible = visible
-		if not visible:
-			extra_life_label.modulate.a = 0.0
+        if extra_life_label:
+                extra_life_label.visible = visible
+                if not visible:
+                        extra_life_label.modulate.a = 0.0
+
+func _try_show_dice_hint() -> void:
+        if dice_hint_shown:
+                return
+        if not intro_sequence_completed:
+                return
+        if not tutorial_overlay_closed:
+                return
+        _set_dice_hint_visible(true)
+
+func _set_dice_hint_visible(visible: bool) -> void:
+        if dice_hint_label == null:
+                return
+        dice_hint_label.visible = visible
+
+func _hide_dice_hint() -> void:
+        if dice_hint_label == null:
+                return
+        if not dice_hint_label.visible:
+                return
+        dice_hint_label.visible = false
+        dice_hint_shown = true
 
 func _on_guide_button_pressed() -> void:
-	if guide_overlay:
-		guide_overlay.open()
+        if guide_overlay:
+                guide_overlay.open()
 
 func _on_guide_overlay_closed() -> void:
-	if guide_button:
-		guide_button.grab_focus()
+        tutorial_overlay_closed = true
+        _try_show_dice_hint()
+        if guide_button:
+                guide_button.grab_focus()
 
 func _on_victory_reached(total_points: int) -> void:
 	_show_end_overlay(true, total_points)
@@ -265,8 +297,12 @@ func _on_config_overlay_restart_requested() -> void:
 		get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-		if config_button:
-				config_button.grab_focus()
+        intro_sequence_completed = true
+        if guide_overlay == null or not guide_overlay.is_open:
+                tutorial_overlay_closed = true
+        _try_show_dice_hint()
+        if config_button:
+                config_button.grab_focus()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
