@@ -7,7 +7,8 @@ signal victoria_alcanzada(total_puntos: int)
 signal derrota_alcanzada
 
 const WIN_THRESHOLD = 15
-const HEALTH_ICON = "✚"
+const HEALTH_ICON_PATH: String = "res://Assets/life.png"
+const HEALTH_ICON_WIDTH: int = 40
 
 var pregunta_actual: Dictionary = {}
 var preguntas_por_categoria: Dictionary = {}
@@ -43,7 +44,7 @@ var timeout_tween: Tween = null
 @onready var categoria_icon: TextureRect = $Panel/CategoriaIcon
 @onready var continue_hint: Label = $ContinueHint
 @onready var score_label: Label = $"../Score"
-@onready var health_label: Label = $"../Health"
+@onready var health_label: RichTextLabel = $"../Health"
 @onready var background_rect: ColorRect = $ColorRect
 @onready var card_panel: Panel = $Card
 @onready var info_panel: Panel = $Panel
@@ -68,6 +69,10 @@ func _ready() -> void:
 	actualizar_colores_de_ui(Color.html("#1e272e"))
 	_cargar_preguntas()
 	_update_score_label()
+	if health_label:
+		health_label.bbcode_enabled = true
+		health_label.scroll_active = false
+		health_label.fit_content = true
 	_update_health_label()
 	if continue_hint:
 		continue_hint.visible = false
@@ -234,11 +239,18 @@ func _update_score_label() -> void:
 		score_label.text = "Puntos: %d / %d" % [puntos, WIN_THRESHOLD]
 
 func _update_health_label() -> void:
-	if health_label:
-		var icons = HEALTH_ICON.repeat(max(vidas, 0))
-		if icons.is_empty():
-			icons = "—"
-		health_label.text = "Vidas: %s" % icons
+	if not health_label:
+		return
+	var lives_count := max(vidas, 0)
+	health_label.bbcode_enabled = true
+	var icons_text := " —"
+	if lives_count > 0:
+		var icon_tags: Array[String] = []
+		for _i in range(lives_count):
+			icon_tags.append("[img width=%d]%s[/img]" % [HEALTH_ICON_WIDTH, HEALTH_ICON_PATH])
+		icons_text = " " + " ".join(icon_tags)
+	health_label.bbcode_text = "[center]Vidas:%s[/center]" % icons_text
+	health_label.tooltip_text = "Vidas restantes: %d" % lives_count
 
 func _perder_vida() -> void:
 	vidas -= 1
