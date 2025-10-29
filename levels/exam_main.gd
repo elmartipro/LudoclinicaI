@@ -19,7 +19,7 @@ const PANEL_IDLE_ALPHA: float = 0.18
 @onready var spots: Node = $Spots
 @onready var preguntas_panel: Node = $PreguntasPanel
 @onready var score_label: Label = $Score
-@onready var time_label: Label = $Health
+@onready var time_label: RichTextLabel = $Health
 @onready var exam_overlay: CanvasLayer = $ExamResultsOverlay
 @onready var player: CharacterBody3D = $Player
 @onready var exit_confirm_dialog: ConfirmationDialog = $ExitConfirmDialog
@@ -75,6 +75,10 @@ func _ready() -> void:
 	for categoria in BASE_CATEGORY_SEQUENCE:
 		category_stats[categoria] = {"total": 0, "correctas": 0}
 	_update_score_label()
+	if time_label:
+		time_label.bbcode_enabled = true
+		time_label.scroll_active = false
+		time_label.fit_content = true
 	_update_time_label(0.0)
 	if preguntas_panel:
 		preguntas_panel.configurar_total_preguntas(total_questions)
@@ -364,7 +368,9 @@ func _update_time_label(force_seconds: float = -1.0) -> void:
 	elif exam_started:
 		elapsed = max(Time.get_ticks_msec() / 1000.0 - exam_start_time, 0.0)
 	if time_label:
-		time_label.text = "Tiempo total: %s" % _format_time(elapsed)
+		var formatted := _format_time(elapsed)
+		time_label.bbcode_text = "[center]Tiempo total: %s[/center]" % formatted
+		time_label.tooltip_text = "Tiempo transcurrido: %s" % formatted
 
 func _format_time(segundos: float) -> String:
 	var total_segundos: float = max(segundos, 0.0)
