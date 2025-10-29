@@ -10,9 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Ludoclinica_HipertermiaMaligna"
+config/name="Ludoclinica: HipertermiaMaligna"
+config/version="1.0"
 run/main_scene="uid://cp1qd8tqy1w7l"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="uid://d3s0q0rsrba3j"
+config/windows_native_icon="res://Assets/icon.ico"
 
 [audio]
 
@@ -28,9 +31,9 @@ SFX="*res://Assets/sfx/sfx_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=4
+window/size/mode=3
 window/size/initial_position_type=4
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/canvas_textures/default_texture_filter=0
 
 [file_customization]
