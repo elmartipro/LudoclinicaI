@@ -22,6 +22,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var spots: Node = $Spots
 @onready var preguntas_panel: Node = $PreguntasPanel
 @onready var extra_life_label: Label = $HUDMessages/ExtraLifeLabel
+@onready var click_hint_label: Label = $"HUDMessages/ClickHintLabel"
 @onready var score_label: Label = $Score
 @onready var health_label: Label = $Health
 @onready var dice: Node = $Dice
@@ -45,6 +46,8 @@ var overlay_tween: Tween
 var light_tween: Tween
 var extra_life_tween: Tween
 var defeat_forces_menu: bool = false
+var click_hint_shown: bool = false
+var click_hint_active: bool = false
 
 func _ready() -> void:
 	RenderingServer.force_draw(true)
@@ -103,15 +106,18 @@ func _ready() -> void:
 		_set_extra_life_label_visible(false)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if guide_overlay and guide_overlay.is_open:
-			guide_overlay.close()
-		elif config_overlay and config_overlay.is_open:
-			config_overlay.close()
-		else:
-			_show_exit_dialog()
-	elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
-		_restart_game()
+        if event.is_action_pressed("ui_cancel"):
+                if guide_overlay and guide_overlay.is_open:
+                        guide_overlay.close()
+                elif config_overlay and config_overlay.is_open:
+                        config_overlay.close()
+                else:
+                        _show_exit_dialog()
+        elif event.is_action_pressed("LeftClick"):
+                if click_hint_active:
+                        _hide_click_hint()
+        elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
+                _restart_game()
 
 func _on_category_reached(category: String) -> void:
 	current_category = category
@@ -161,8 +167,10 @@ func _on_guide_button_pressed() -> void:
 		guide_overlay.open()
 
 func _on_guide_overlay_closed() -> void:
-	if guide_button:
-		guide_button.grab_focus()
+        if guide_button:
+                guide_button.grab_focus()
+        if not click_hint_shown:
+                _show_click_hint()
 
 func _on_victory_reached(total_points: int) -> void:
 	_show_end_overlay(true, total_points)
@@ -216,8 +224,19 @@ func _show_end_overlay(victory: bool, total_points: int) -> void:
 func _lock_gameplay() -> void:
 	if dice and dice.has_method("lock_roll"):
 		dice.lock_roll()
-	if preguntas_panel:
-		preguntas_panel.hide()
+        if preguntas_panel:
+                preguntas_panel.hide()
+
+func _show_click_hint() -> void:
+        click_hint_shown = true
+        click_hint_active = true
+        if click_hint_label:
+                click_hint_label.visible = true
+
+func _hide_click_hint() -> void:
+        click_hint_active = false
+        if click_hint_label:
+                click_hint_label.visible = false
 
 func _on_restart_button_pressed() -> void:
 	_restart_game()

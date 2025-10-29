@@ -80,12 +80,14 @@ func _on_pawn_finished_moving(landed_spot: Node) -> void:
 					podium = child
 					break
 
-		if podium:
-				var category: String = podium.get_meta("category")
+                if podium:
+                                if Engine.has_singleton("SFX") and SFX.has_method("play_pawn_land"):
+                                                SFX.play_pawn_land()
+                                var category: String = podium.get_meta("category")
 
-				# 🔥 Caso especial: Podio de vida extra
-				if category == "Health":
-						var preguntas_panel = $"../PreguntasPanel"
+                                # 🔥 Caso especial: Podio de vida extra
+                                if category == "Health":
+                                                var preguntas_panel = $"../PreguntasPanel"
 						if preguntas_panel:
 								preguntas_panel.vidas += 1
 								preguntas_panel._update_health_label()

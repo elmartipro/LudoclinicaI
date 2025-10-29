@@ -249,6 +249,25 @@ text = "+1 Vida extra!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ClickHintLabel" type="Label" parent="HUDMessages"]
+visible = false
+anchors_preset = 10
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -520.0
+offset_top = 180.0
+offset_right = -40.0
+offset_bottom = 260.0
+theme = ExtResource("7_6et1j")
+theme_override_colors/font_color = Color(0.901961, 0.960784, 0.945098, 1)
+theme_override_font_sizes/font_size = 30
+text = "Dé click en cualquier lugar de la pantalla para tirar el dado"
+autowrap_mode = 1
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="VictoryOverlay" type="CanvasLayer" parent="."]
 layer = 20
 visible = false

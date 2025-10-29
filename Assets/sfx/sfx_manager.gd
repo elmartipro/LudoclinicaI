@@ -4,6 +4,8 @@ const CORRECT_STREAM: AudioStream = preload("res://Assets/sfx/correct_answer.mp3
 const WRONG_STREAM: AudioStream = preload("res://Assets/sfx/wrong_answer.mp3")
 const FAILURE_STREAM: AudioStream = preload("res://Assets/sfx/failure.mp3")
 const SUCCESS_STREAM: AudioStream = preload("res://Assets/sfx/success.mp3")
+const DICE_THROW_STREAM: AudioStream = preload("res://Assets/sfx/dice throw.mp3")
+const PAWN_LAND_STREAM: AudioStream = preload("res://Assets/sfx/pawn land.mp3")
 const SELECT_STREAMS: Array[AudioStream] = [
 	preload("res://Assets/sfx/select_button1.mp3"),
 	preload("res://Assets/sfx/select_button2.mp3")
@@ -15,20 +17,24 @@ var wrong_player: AudioStreamPlayer
 var failure_player: AudioStreamPlayer
 var success_player: AudioStreamPlayer
 var select_player: AudioStreamPlayer
+var dice_throw_player: AudioStreamPlayer
+var pawn_land_player: AudioStreamPlayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	rng.randomize()
 	correct_player = _create_player("CorrectPlayer", CORRECT_STREAM, 4)
-	wrong_player = _create_player("WrongPlayer", WRONG_STREAM, 4)
-	failure_player = _create_player("FailurePlayer", FAILURE_STREAM, 2)
-	success_player = _create_player("SuccessPlayer", SUCCESS_STREAM, 2)
-	var initial_select_stream: AudioStream = SELECT_STREAMS[0] if not SELECT_STREAMS.is_empty() else null
-	select_player = _create_player("SelectPlayer", initial_select_stream, 12)
-	var tree := get_tree()
-	if tree:
-		tree.node_added.connect(_on_node_added)
-		_scan_tree(tree.root)
+        wrong_player = _create_player("WrongPlayer", WRONG_STREAM, 4)
+        failure_player = _create_player("FailurePlayer", FAILURE_STREAM, 2)
+        success_player = _create_player("SuccessPlayer", SUCCESS_STREAM, 2)
+        var initial_select_stream: AudioStream = SELECT_STREAMS[0] if not SELECT_STREAMS.is_empty() else null
+        select_player = _create_player("SelectPlayer", initial_select_stream, 12)
+        dice_throw_player = _create_player("DiceThrowPlayer", DICE_THROW_STREAM, 2)
+        pawn_land_player = _create_player("PawnLandPlayer", PAWN_LAND_STREAM, 4)
+        var tree := get_tree()
+        if tree:
+                tree.node_added.connect(_on_node_added)
+                _scan_tree(tree.root)
 
 func play_correct_answer() -> void:
 	_play_stream(correct_player, CORRECT_STREAM)
@@ -43,11 +49,17 @@ func play_success() -> void:
 	_play_stream(success_player, SUCCESS_STREAM)
 
 func play_select() -> void:
-	if SELECT_STREAMS.is_empty():
-		return
-	var index := rng.randi_range(0, SELECT_STREAMS.size() - 1)
-	var stream := SELECT_STREAMS[index]
-	_play_stream(select_player, stream)
+        if SELECT_STREAMS.is_empty():
+                return
+        var index := rng.randi_range(0, SELECT_STREAMS.size() - 1)
+        var stream := SELECT_STREAMS[index]
+        _play_stream(select_player, stream)
+
+func play_dice_throw() -> void:
+        _play_stream(dice_throw_player, DICE_THROW_STREAM)
+
+func play_pawn_land() -> void:
+        _play_stream(pawn_land_player, PAWN_LAND_STREAM)
 
 func _create_player(player_name: String, stream: AudioStream, polyphony: int) -> AudioStreamPlayer:
 	var player := AudioStreamPlayer.new()
