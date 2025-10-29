@@ -8,11 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://bkvc0yco3r8n2" path="res://UI & Audio/Pregunta.tscn" id="5_ifaiv"]
 [ext_resource type="Theme" uid="uid://cjifprtp6t2w7" path="res://UI & Audio/Themes/Title.tres" id="7_6et1j"]
 [ext_resource type="StyleBox" uid="uid://ct5qbd58je47h" path="res://UI & Audio/Themes/Cardstylebox.tres" id="8_etqu2"]
-[ext_resource type="PackedScene" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
-[ext_resource type="PackedScene" path="res://UI & Audio/mode_intro_overlay.tscn" id="10_mk5p0"]
-[ext_resource type="Texture2D" path="res://Assets/Icons/config_icon.svg" id="11_x8r5m"]
+[ext_resource type="PackedScene" uid="uid://byqk3ddxq1b4h" path="res://UI & Audio/config_overlay.tscn" id="9_vps1v"]
+[ext_resource type="PackedScene" uid="uid://f4souoqlx305" path="res://UI & Audio/mode_intro_overlay.tscn" id="10_mk5p0"]
+[ext_resource type="Texture2D" uid="uid://bqh45pkttveid" path="res://Assets/Icons/config_icon.svg" id="11_x8r5m"]
 [ext_resource type="PackedScene" path="res://UI & Audio/guide_overlay.tscn" id="12_n8m2v"]
-[ext_resource type="Texture2D" path="res://Assets/Icons/guide_icon.svg" id="13_k1a0b"]
+[ext_resource type="Texture2D" uid="uid://c4qha6ytn3e7c" path="res://Assets/Icons/guide_icon.svg" id="13_k1a0b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2262g"]
 sky_top_color = Color(0.775878, 0.888056, 0.963943, 1)
@@ -209,22 +209,19 @@ offset_top = 19.0
 offset_right = 1890.0
 offset_bottom = 117.0
 theme = ExtResource("7_6et1j")
-theme_override_colors/font_color = Color(0.731686, 0.913042, 0.792389, 1)
 theme_override_styles/normal = ExtResource("8_etqu2")
 bbcode_enabled = true
-bbcode_text = "[center][font_size=40]Vidas: —[/font_size][/center]"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "[center][font_size=40]Vidas: —[/font_size][/center]"
 fit_content = true
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ClickHintLabel" type="Label" parent="."]
 visible = false
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -460.0
 offset_top = 180.0
 offset_right = -40.0
@@ -345,10 +342,9 @@ text = "Menú principal"
 layer = 35
 
 [node name="GuideButtonRoot" type="Control" parent="GuideButtonLayer"]
-anchors_preset = -1
-anchor_left = 0.0
+layout_mode = 3
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
 offset_left = 64.0
 offset_top = -108.0
@@ -359,30 +355,23 @@ grow_vertical = 0
 mouse_filter = 1
 
 [node name="GuideButton" type="TextureButton" parent="GuideButtonLayer/GuideButtonRoot"]
-anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
+layout_mode = 0
 offset_right = 72.0
 offset_bottom = 72.0
 grow_horizontal = 0
 grow_vertical = 0
+tooltip_text = "Guía de hipertermia maligna"
 texture_normal = ExtResource("13_k1a0b")
 texture_pressed = ExtResource("13_k1a0b")
 texture_hover = ExtResource("13_k1a0b")
-expand = true
 stretch_mode = 3
-tooltip_text = "Guía de hipertermia maligna"
-focus_mode = 2
 
 [node name="ConfigButtonLayer" type="CanvasLayer" parent="."]
 layer = 40
 
 [node name="ConfigButtonRoot" type="Control" parent="ConfigButtonLayer"]
-anchors_preset = -1
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -396,7 +385,7 @@ grow_vertical = 0
 mouse_filter = 1
 
 [node name="ConfigButton" type="TextureButton" parent="ConfigButtonLayer/ConfigButtonRoot"]
-anchors_preset = -1
+layout_mode = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -407,14 +396,11 @@ offset_right = -36.0
 offset_bottom = -36.0
 grow_horizontal = 0
 grow_vertical = 0
+tooltip_text = "Configuración"
 texture_normal = ExtResource("11_x8r5m")
 texture_pressed = ExtResource("11_x8r5m")
 texture_hover = ExtResource("11_x8r5m")
-expand = true
 stretch_mode = 3
-tooltip_text = "Configuración"
-focus_mode = 2
 
 [node name="ExitConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Confirmar salida"
-visible = false

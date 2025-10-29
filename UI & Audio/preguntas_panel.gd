@@ -243,7 +243,7 @@ func _update_health_label() -> void:
 	if not health_label:
 		return
 	var heart_tag := "[img=%d]%s[/img]" % [HEART_ICON_SIZE, HEART_ICON_PATH]
-	var heart_count := max(vidas, 0)
+	var heart_count = max(vidas, 0)
 	var content := ""
 	for i in range(heart_count):
 		if i > 0:
