@@ -241,11 +241,13 @@ func _update_score_label() -> void:
 func _update_health_label() -> void:
 	if not health_label:
 		return
-	var icons := PackedStringArray()
 	var heart_tag := "[img=%d]%s[/img]" % [HEART_ICON_SIZE, HEART_ICON_PATH]
-	for i in range(max(vidas, 0)):
-		icons.append(heart_tag)
-	var content := icons.join(" ")
+	var heart_count := max(vidas, 0)
+	var content := ""
+	for i in range(heart_count):
+		if i > 0:
+			content += " "
+		content += heart_tag
 	if content.is_empty():
 		content = "—"
 	health_label.bbcode_text = "[center]Vidas: %s[/center]" % content
