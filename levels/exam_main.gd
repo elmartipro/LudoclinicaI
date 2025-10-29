@@ -212,6 +212,11 @@ func _finalize_exam() -> void:
 		"promedio": promedio,
 		"categorias": category_stats.duplicate(true)
 	}
+	var exam_success: bool = correct_answers > 10
+	if exam_success:
+		SFX.play_success()
+	else:
+		SFX.play_failure()
 	previous_attempts = _persist_attempt(resumen)
 	if exam_overlay and exam_overlay.has_method("mostrar_resumen"):
 		exam_overlay.mostrar_resumen(resumen, question_history, previous_attempts)
@@ -383,9 +388,19 @@ func _find_finish_spot_index() -> int:
 	if not spots:
 		return -1
 	var children: Array = spots.get_children()
+	var highest_value: int = -1
+	var highest_index: int = -1
 	for i in range(children.size()):
-		if str(children[i].name) == "Spot19":
-			return i
+		var node_name: String = str(children[i].name)
+		if node_name.begins_with("Spot"):
+			var numeric_part: String = node_name.substr(4)
+			if numeric_part.is_valid_int():
+				var spot_number: int = numeric_part.to_int()
+				if spot_number > highest_value:
+					highest_value = spot_number
+					highest_index = i
+	if highest_index >= 0:
+		return highest_index
 	if children.is_empty():
 		return -1
 	return children.size() - 1

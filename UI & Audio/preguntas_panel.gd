@@ -164,6 +164,7 @@ func _on_opcion_pressed(index: int) -> void:
 		puntos += 1
 		_update_score_label()
 		label_feedback.text = "[color=#66bb66]¡Correcto![/color]\n\n"
+		SFX.play_correct_answer()
 		if puntos >= WIN_THRESHOLD:
 			label_feedback.text += "[color=#f1c40f]¡Has alcanzado la meta de %d puntos![/color]" % WIN_THRESHOLD
 			respondida.emit(true)
@@ -173,6 +174,7 @@ func _on_opcion_pressed(index: int) -> void:
 		label_feedback.text = "[color=#cc6666]¡Incorrecto![/color]\n"
 		var letra_correcta = char(65 + pregunta_actual["respuesta_correcta"])
 		label_feedback.text += "La respuesta correcta era: [color=#66bb66]" + letra_correcta + "[/color]\n\n"
+		SFX.play_wrong_answer()
 	if retro != "":
 		label_feedback.text += "[color=white]" + retro + "[/color]"
 	respondida.emit(ultima_correcta)
@@ -194,6 +196,7 @@ func _on_timer_tick() -> void:
 		for b in botones:
 			b.disabled = true
 		ultima_correcta = false
+		SFX.play_wrong_answer()
 		var letra_correcta = char(65 + pregunta_actual["respuesta_correcta"])
 		label_feedback.clear()
 		label_feedback.bbcode_enabled = true
@@ -252,6 +255,7 @@ func _game_over() -> void:
 		_finalize_intro_visuals()
 	_hide_timeout_effect()
 	waiting_for_continue = false
+	SFX.play_failure()
 	hide()
 	panel_closed.emit()
 	derrota_alcanzada.emit()
@@ -273,6 +277,7 @@ func _trigger_victory() -> void:
 	_hide_timeout_effect()
 	waiting_for_continue = false
 	_set_continue_hint("", false)
+	SFX.play_success()
 	hide()
 	panel_closed.emit()
 	victoria_alcanzada.emit(puntos)

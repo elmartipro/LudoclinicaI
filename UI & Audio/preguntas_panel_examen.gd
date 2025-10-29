@@ -98,10 +98,12 @@ func _on_opcion_pressed(index: int) -> void:
 		puntos += 1
 		_update_score_label()
 		label_feedback.text = "[color=#66bb66]¡Correcto![/color]\n\n"
+		SFX.play_correct_answer()
 	else:
 		label_feedback.text = "[color=#cc6666]¡Incorrecto![/color]\n"
 		var letra_correcta: String = char(65 + pregunta_actual.get("respuesta_correcta", 0))
 		label_feedback.text += "La respuesta correcta era: [color=#66bb66]" + letra_correcta + "[/color]\n\n"
+		SFX.play_wrong_answer()
 	if retro != "":
 		label_feedback.text += "[color=white]" + retro + "[/color]"
 	respondida.emit(ultima_correcta)
@@ -125,6 +127,7 @@ func _on_timer_tick() -> void:
 	for b in botones:
 		b.disabled = true
 	ultima_correcta = false
+	SFX.play_wrong_answer()
 	indice_respuesta_seleccionada = -1
 	var letra_correcta: String = char(65 + pregunta_actual.get("respuesta_correcta", 0))
 	label_feedback.clear()
