@@ -46,23 +46,23 @@ func _input(event):
 		_roll()
 
 func _roll():
-        # Reset state
-        is_rolling = true
-        set_sleeping(false)
-        freeze = false
-        can_emit = true
-        centering = true
-        linear_velocity = Vector3.ZERO
-        angular_velocity = Vector3.ZERO
+	# Reset state
+	is_rolling = true
+	set_sleeping(false)
+	freeze = false
+	can_emit = true
+	centering = true
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
 
-        if throw_sound:
-                if throw_sound.playing:
-                        throw_sound.stop()
-                throw_sound.pitch_scale = randf_range(0.95, 1.05)
-                throw_sound.play()
+	if throw_sound:
+		if throw_sound.playing:
+			throw_sound.stop()
+	throw_sound.pitch_scale = randf_range(0.95, 1.05)
+	throw_sound.play()
 
-        # Random initial rotation
-        var axis = Vector3(randf(), randf(), randf()).normalized()
+		# Random initial rotation
+	var axis = Vector3(randf(), randf(), randf()).normalized()
 	var angle = randf_range(0, TAU)
 	self.set_transform(Transform3D(Basis(axis, angle), global_position))
 	set_sleeping(false)  # Force wake AFTER changing transform

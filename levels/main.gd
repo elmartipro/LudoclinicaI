@@ -100,18 +100,17 @@ func _ready() -> void:
 				intro_overlay.intro_closed.connect(_on_intro_overlay_closed)
 				intro_overlay.call_deferred("show_intro", "Modo fácil", "[center]Un recorrido relajado para practicar las categorías del juego sin presión.\nLanza el dado, aprende a tu ritmo y experimenta cada tema con calma.[/center]")
 		defeat_forces_menu = false
-
-                _apply_scene_color("default", 0.0)
-                _set_extra_life_label_visible(false)
-        if roll_prompt_label:
-                roll_prompt_label.visible = false
+		_apply_scene_color("default", 0.0)
+		_set_extra_life_label_visible(false)
+		if roll_prompt_label:
+				roll_prompt_label.visible = false
 
 func _input(event: InputEvent) -> void:
-        if roll_prompt_active and event.is_action_pressed("LeftClick"):
-                _hide_roll_prompt()
-        if event.is_action_pressed("ui_cancel"):
-                if guide_overlay and guide_overlay.is_open:
-                        guide_overlay.close()
+	if roll_prompt_active and event.is_action_pressed("LeftClick"):
+		_hide_roll_prompt()
+		if event.is_action_pressed("ui_cancel"):
+				if guide_overlay and guide_overlay.is_open:
+						guide_overlay.close()
 		elif config_overlay and config_overlay.is_open:
 			config_overlay.close()
 		else:
@@ -271,21 +270,21 @@ func _on_config_overlay_restart_requested() -> void:
 		get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-        if config_button:
-                config_button.grab_focus()
-        _show_roll_prompt()
+		if config_button:
+				config_button.grab_focus()
+		_show_roll_prompt()
 
 func _show_roll_prompt() -> void:
-        if not roll_prompt_label:
-                return
-        roll_prompt_label.visible = true
-        roll_prompt_active = true
+		if not roll_prompt_label:
+				return
+		roll_prompt_label.visible = true
+		roll_prompt_active = true
 
 func _hide_roll_prompt() -> void:
-        if not roll_prompt_label:
-                return
-        roll_prompt_label.visible = false
-        roll_prompt_active = false
+		if not roll_prompt_label:
+				return
+		roll_prompt_label.visible = false
+		roll_prompt_active = false
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])

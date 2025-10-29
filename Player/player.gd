@@ -75,12 +75,12 @@ func _process(delta: float) -> void:
 		pawn.global_position = pos
 
 func _on_pawn_finished_moving(_landed_spot: Node) -> void:
-        if landing_sound:
-                if landing_sound.playing:
-                        landing_sound.stop()
-                landing_sound.pitch_scale = 1.1
-                landing_sound.play()
-        var vfx = preload("res://Assets/Vfx/PawnLandingVfx.tscn").instantiate()
-        get_tree().current_scene.add_child(vfx)
-        vfx.global_position = global_position   # pawn position
-        print("vfx")
+		if landing_sound:
+				if landing_sound.playing:
+						landing_sound.stop()
+				landing_sound.pitch_scale = 1.1
+				landing_sound.play()
+		var vfx = preload("res://Assets/Vfx/PawnLandingVfx.tscn").instantiate()
+		get_tree().current_scene.add_child(vfx)
+		vfx.global_position = global_position   # pawn position
+		print("vfx")
