@@ -249,6 +249,23 @@ text = "+1 Vida extra!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DiceInstructionLabel" type="Label" parent="HUDMessages"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -380.0
+offset_top = 220.0
+offset_right = -40.0
+offset_bottom = 320.0
+grow_horizontal = 0
+theme = ExtResource("7_6et1j")
+theme_override_font_sizes/font_size = 32
+text = "Dé click en cualquier lugar de la pantalla para tirar el dado"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="VictoryOverlay" type="CanvasLayer" parent="."]
 layer = 20
 visible = false

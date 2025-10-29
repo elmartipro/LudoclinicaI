@@ -3,6 +3,7 @@ extends RigidBody3D
 @onready var raycasts = $Raycasts.get_children()
 @onready var pawn := $"../Player"
 @onready var collision_sound: AudioStreamPlayer = $"Dice sound"
+@onready var throw_sound: AudioStreamPlayer = $"ThrowSound"
 @onready var preguntas_panel = $"../PreguntasPanel" # reference to the question panel
 
 var start_pos
@@ -53,6 +54,10 @@ func _roll():
 	centering = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
+
+	if throw_sound:
+		throw_sound.stop()
+		throw_sound.play()
 
 	# Random initial rotation
 	var axis = Vector3(randf(), randf(), randf()).normalized()

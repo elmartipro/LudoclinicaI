@@ -36,6 +36,7 @@ const HEALTH_FLASH_ALPHA = 0.3
 @onready var config_button: BaseButton = $"ConfigButtonLayer/ConfigButtonRoot/ConfigButton"
 @onready var guide_overlay: CanvasLayer = $GuideOverlay
 @onready var guide_button: BaseButton = $"GuideButtonLayer/GuideButtonRoot/GuideButton"
+@onready var dice_instruction_label: Label = $"HUDMessages/DiceInstructionLabel"
 
 var default_light_color: Color = Color.WHITE
 var default_floor_color: Color = Color.WHITE
@@ -112,6 +113,9 @@ func _input(event: InputEvent) -> void:
 			_show_exit_dialog()
 	elif victory_overlay and victory_overlay.visible and event.is_action_pressed("ui_accept"):
 		_restart_game()
+	elif event.is_action_pressed("LeftClick"):
+		if dice_instruction_label and dice_instruction_label.visible:
+			dice_instruction_label.hide()
 
 func _on_category_reached(category: String) -> void:
 	current_category = category
@@ -265,8 +269,10 @@ func _on_config_overlay_restart_requested() -> void:
 		get_tree().reload_current_scene()
 
 func _on_intro_overlay_closed() -> void:
-		if config_button:
-				config_button.grab_focus()
+	if config_button:
+		config_button.grab_focus()
+	if dice_instruction_label:
+		dice_instruction_label.show()
 
 func _apply_scene_color(category: String, alpha: float) -> void:
 	var base_color = CATEGORY_COLORS.get(category, CATEGORY_COLORS["default"])
